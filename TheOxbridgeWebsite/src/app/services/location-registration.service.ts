@@ -9,9 +9,8 @@ import { map } from 'rxjs/operators';
 })
 export class LocationRegistrationService {
 
-  private locationRegUrl = "http://localhost:3000/locationRegistrations/";
+  private locationRegUrl = "https://oxbridgecloud.azurewebsites.net/locationRegistrations/";
 
-  //private locationRegUrl = "https://oxbridgecloud.azurewebsites.net/locationRegistrations/";
   constructor(private http: HttpClient) { }
 
   /**

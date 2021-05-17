@@ -11,9 +11,7 @@ import { Participant } from '../models/participant';
 })
 export class EventRegistrationService {
 
-  //  private eventRegistrationUrl = 'https://oxbridgecloud.azurewebsites.net/eventRegistrations/';
-
-  private eventRegistrationUrl = 'http://localhost:3000/eventRegistrations/';
+  private eventRegistrationUrl = 'https://oxbridgecloud.azurewebsites.net/eventRegistrations/';
 
   constructor(private cookieService: CookieService, private http: HttpClient) { }
 
