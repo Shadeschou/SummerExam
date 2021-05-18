@@ -11,8 +11,9 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class UserService {
 
-  private userUrl = 'https://oxbridgecloud.azurewebsites.net/users/'
+  //private userUrl = 'https://oxbridgecloud.azurewebsites.net/users/'
 
+  private userUrl = 'http://localhost:3000/users/';
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   /**
