@@ -1,7 +1,7 @@
 {
   "name": "smartrack-project",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "dist/server.js",
   "directories": {
     "test": "tests"
   },
@@ -9,6 +9,7 @@
     "node": "8.9.4"
   },
   "dependencies": {
+    "awesome-typescript-loader": "^5.2.1",
     "azure-iothub": "^1.12.0",
     "bcryptjs": "^2.4.3",
     "chai": "^4.2.0",
@@ -20,11 +21,19 @@
     "mocha": "^8.0.1",
     "mongoose": "^5.8.11",
     "node": "^8.9.4",
-    "node-datetime": "^2.1.2"
+    "node-datetime": "^2.1.2",
+    "source-map-loader": "^2.0.1",
+    "ts-node": "^9.1.1",
+    "tsc": "^2.0.3",
+    "tslint": "^6.1.3",
+    "typescript": "^4.2.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.1"
+  },
   "scripts": {
-    "start": "node server.js"
+    "start": "ts-node .",
+    "build": "tsc && copy package.json dist\\package.json"
   },
   "keywords": [],
   "author": "",
