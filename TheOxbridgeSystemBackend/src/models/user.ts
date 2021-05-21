@@ -16,7 +16,7 @@ const schema = new Schema<UserSchema>({
     lastname: {type: String},
     usernameMail: {type: String},
     password: {type: Number},
-    role: {type: String}
+    role: {type: String, required: true}
 });
 
 export const UserModel = model<UserSchema>('User', schema);
