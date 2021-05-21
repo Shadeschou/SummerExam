@@ -22,13 +22,21 @@ namespace TheOxbridgeApp.Droid
         private MainActivity instance;
         #endregion
 
+
+
+
         
         protected override void OnCreate(Bundle savedInstanceState)
         {
+
+           
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
+
+           // NativeMedia.Platform.Init(this, savedInstanceState);
+
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             Forms.Init(this, savedInstanceState);
@@ -41,6 +49,15 @@ namespace TheOxbridgeApp.Droid
 
             SetupMessagingCenter();
         }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+
+
+            base.OnActivityResult(requestCode, resultCode, data);
+        }
+
+
 
         /// <summary>
         /// Setting up MessagingCenter subscription to handle request to start and stop TrackingService

@@ -31,6 +31,7 @@ namespace TheOxbridgeApp
             ServiceContainer.Register(() => new MapViewModel());
             ServiceContainer.Register(() => new EventViewModel());
             ServiceContainer.Register(() => new TrackingEventViewModel());
+            ServiceContainer.Register(() => new TeamViewModel());
 
             var masterDetailViewModel = new MasterDetailViewModel();
             ServiceContainer.Register(() => masterDetailViewModel);

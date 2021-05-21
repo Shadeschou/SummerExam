@@ -3,8 +3,14 @@ public class MonoPackageManager_Resources {
 	public static String[] Assemblies = new String[]{
 		/* We need to ensure that "XUnitAndroid.dll" comes first in this list. */
 		"XUnitAndroid.dll",
+		"DnsClient.dll",
 		"FormsViewGroup.dll",
+		"MongoDB.Bson.dll",
+		"MongoDB.Driver.Core.dll",
+		"MongoDB.Driver.dll",
+		"NativeMedia.dll",
 		"Newtonsoft.Json.dll",
+		"Plugin.Media.dll",
 		"Rg.Plugins.Popup.dll",
 		"TheOxbridgeApp.dll",
 		"Xamarin.Android.Arch.Core.Common.dll",

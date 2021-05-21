@@ -129,7 +129,19 @@ namespace TheOxbridgeApp.ViewModels
                 });
                 IsLogOutVisible = false;
 
+
+
+                MenuItems.Add(new MasterMenuItems()
+                {
+                    Text = "Team Pictures",
+                    ImagePath = "TeamIcon.png",
+                    TargetViewModel = typeof(TeamViewModel)
+                });
+                IsLogOutVisible = false;
+
             }
+
+
 
             MenuItems.Add(new MasterMenuItems()
             {

@@ -1049,11 +1049,12 @@ int drawable pauseicon 0x7f07008f
 int drawable playicon 0x7f070090
 int drawable starticonr 0x7f070091
 int drawable swipearrow 0x7f070092
-int drawable tooltip_frame_dark 0x7f070093
-int drawable tooltip_frame_light 0x7f070094
-int drawable trackingboaticon 0x7f070095
-int drawable tregattaicon 0x7f070096
-int drawable usericon 0x7f070097
+int drawable teamicon 0x7f070093
+int drawable tooltip_frame_dark 0x7f070094
+int drawable tooltip_frame_light 0x7f070095
+int drawable trackingboaticon 0x7f070096
+int drawable tregattaicon 0x7f070097
+int drawable usericon 0x7f070098
 int id ALT 0x7f080000
 int id CTRL 0x7f080001
 int id FUNCTION 0x7f080002

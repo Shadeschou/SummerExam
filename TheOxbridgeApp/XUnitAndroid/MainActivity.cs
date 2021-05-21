@@ -19,6 +19,8 @@ namespace XUnitAndroid
             AddTestAssembly(Assembly.GetExecutingAssembly());
             AddExecutionAssembly(typeof(ExtensibilityPointFactory).Assembly);
             base.OnCreate(savedInstanceState);
+           
+
         }
    
 

@@ -25,6 +25,188 @@ namespace TheOxbridgeApp.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Plugin.Media.Resource.Attribute.alpha = global::TheOxbridgeApp.Droid.Resource.Attribute.alpha;
+			global::Plugin.Media.Resource.Attribute.coordinatorLayoutStyle = global::TheOxbridgeApp.Droid.Resource.Attribute.coordinatorLayoutStyle;
+			global::Plugin.Media.Resource.Attribute.font = global::TheOxbridgeApp.Droid.Resource.Attribute.font;
+			global::Plugin.Media.Resource.Attribute.fontProviderAuthority = global::TheOxbridgeApp.Droid.Resource.Attribute.fontProviderAuthority;
+			global::Plugin.Media.Resource.Attribute.fontProviderCerts = global::TheOxbridgeApp.Droid.Resource.Attribute.fontProviderCerts;
+			global::Plugin.Media.Resource.Attribute.fontProviderFetchStrategy = global::TheOxbridgeApp.Droid.Resource.Attribute.fontProviderFetchStrategy;
+			global::Plugin.Media.Resource.Attribute.fontProviderFetchTimeout = global::TheOxbridgeApp.Droid.Resource.Attribute.fontProviderFetchTimeout;
+			global::Plugin.Media.Resource.Attribute.fontProviderPackage = global::TheOxbridgeApp.Droid.Resource.Attribute.fontProviderPackage;
+			global::Plugin.Media.Resource.Attribute.fontProviderQuery = global::TheOxbridgeApp.Droid.Resource.Attribute.fontProviderQuery;
+			global::Plugin.Media.Resource.Attribute.fontStyle = global::TheOxbridgeApp.Droid.Resource.Attribute.fontStyle;
+			global::Plugin.Media.Resource.Attribute.fontVariationSettings = global::TheOxbridgeApp.Droid.Resource.Attribute.fontVariationSettings;
+			global::Plugin.Media.Resource.Attribute.fontWeight = global::TheOxbridgeApp.Droid.Resource.Attribute.fontWeight;
+			global::Plugin.Media.Resource.Attribute.keylines = global::TheOxbridgeApp.Droid.Resource.Attribute.keylines;
+			global::Plugin.Media.Resource.Attribute.layout_anchor = global::TheOxbridgeApp.Droid.Resource.Attribute.layout_anchor;
+			global::Plugin.Media.Resource.Attribute.layout_anchorGravity = global::TheOxbridgeApp.Droid.Resource.Attribute.layout_anchorGravity;
+			global::Plugin.Media.Resource.Attribute.layout_behavior = global::TheOxbridgeApp.Droid.Resource.Attribute.layout_behavior;
+			global::Plugin.Media.Resource.Attribute.layout_dodgeInsetEdges = global::TheOxbridgeApp.Droid.Resource.Attribute.layout_dodgeInsetEdges;
+			global::Plugin.Media.Resource.Attribute.layout_insetEdge = global::TheOxbridgeApp.Droid.Resource.Attribute.layout_insetEdge;
+			global::Plugin.Media.Resource.Attribute.layout_keyline = global::TheOxbridgeApp.Droid.Resource.Attribute.layout_keyline;
+			global::Plugin.Media.Resource.Attribute.statusBarBackground = global::TheOxbridgeApp.Droid.Resource.Attribute.statusBarBackground;
+			global::Plugin.Media.Resource.Attribute.ttcIndex = global::TheOxbridgeApp.Droid.Resource.Attribute.ttcIndex;
+			global::Plugin.Media.Resource.Color.browser_actions_bg_grey = global::TheOxbridgeApp.Droid.Resource.Color.browser_actions_bg_grey;
+			global::Plugin.Media.Resource.Color.browser_actions_divider_color = global::TheOxbridgeApp.Droid.Resource.Color.browser_actions_divider_color;
+			global::Plugin.Media.Resource.Color.browser_actions_text_color = global::TheOxbridgeApp.Droid.Resource.Color.browser_actions_text_color;
+			global::Plugin.Media.Resource.Color.browser_actions_title_color = global::TheOxbridgeApp.Droid.Resource.Color.browser_actions_title_color;
+			global::Plugin.Media.Resource.Color.notification_action_color_filter = global::TheOxbridgeApp.Droid.Resource.Color.notification_action_color_filter;
+			global::Plugin.Media.Resource.Color.notification_icon_bg_color = global::TheOxbridgeApp.Droid.Resource.Color.notification_icon_bg_color;
+			global::Plugin.Media.Resource.Color.ripple_material_light = global::TheOxbridgeApp.Droid.Resource.Color.ripple_material_light;
+			global::Plugin.Media.Resource.Color.secondary_text_default_material_light = global::TheOxbridgeApp.Droid.Resource.Color.secondary_text_default_material_light;
+			global::Plugin.Media.Resource.Dimension.browser_actions_context_menu_max_width = global::TheOxbridgeApp.Droid.Resource.Dimension.browser_actions_context_menu_max_width;
+			global::Plugin.Media.Resource.Dimension.browser_actions_context_menu_min_padding = global::TheOxbridgeApp.Droid.Resource.Dimension.browser_actions_context_menu_min_padding;
+			global::Plugin.Media.Resource.Dimension.compat_button_inset_horizontal_material = global::TheOxbridgeApp.Droid.Resource.Dimension.compat_button_inset_horizontal_material;
+			global::Plugin.Media.Resource.Dimension.compat_button_inset_vertical_material = global::TheOxbridgeApp.Droid.Resource.Dimension.compat_button_inset_vertical_material;
+			global::Plugin.Media.Resource.Dimension.compat_button_padding_horizontal_material = global::TheOxbridgeApp.Droid.Resource.Dimension.compat_button_padding_horizontal_material;
+			global::Plugin.Media.Resource.Dimension.compat_button_padding_vertical_material = global::TheOxbridgeApp.Droid.Resource.Dimension.compat_button_padding_vertical_material;
+			global::Plugin.Media.Resource.Dimension.compat_control_corner_material = global::TheOxbridgeApp.Droid.Resource.Dimension.compat_control_corner_material;
+			global::Plugin.Media.Resource.Dimension.compat_notification_large_icon_max_height = global::TheOxbridgeApp.Droid.Resource.Dimension.compat_notification_large_icon_max_height;
+			global::Plugin.Media.Resource.Dimension.compat_notification_large_icon_max_width = global::TheOxbridgeApp.Droid.Resource.Dimension.compat_notification_large_icon_max_width;
+			global::Plugin.Media.Resource.Dimension.notification_action_icon_size = global::TheOxbridgeApp.Droid.Resource.Dimension.notification_action_icon_size;
+			global::Plugin.Media.Resource.Dimension.notification_action_text_size = global::TheOxbridgeApp.Droid.Resource.Dimension.notification_action_text_size;
+			global::Plugin.Media.Resource.Dimension.notification_big_circle_margin = global::TheOxbridgeApp.Droid.Resource.Dimension.notification_big_circle_margin;
+			global::Plugin.Media.Resource.Dimension.notification_content_margin_start = global::TheOxbridgeApp.Droid.Resource.Dimension.notification_content_margin_start;
+			global::Plugin.Media.Resource.Dimension.notification_large_icon_height = global::TheOxbridgeApp.Droid.Resource.Dimension.notification_large_icon_height;
+			global::Plugin.Media.Resource.Dimension.notification_large_icon_width = global::TheOxbridgeApp.Droid.Resource.Dimension.notification_large_icon_width;
+			global::Plugin.Media.Resource.Dimension.notification_main_column_padding_top = global::TheOxbridgeApp.Droid.Resource.Dimension.notification_main_column_padding_top;
+			global::Plugin.Media.Resource.Dimension.notification_media_narrow_margin = global::TheOxbridgeApp.Droid.Resource.Dimension.notification_media_narrow_margin;
+			global::Plugin.Media.Resource.Dimension.notification_right_icon_size = global::TheOxbridgeApp.Droid.Resource.Dimension.notification_right_icon_size;
+			global::Plugin.Media.Resource.Dimension.notification_right_side_padding_top = global::TheOxbridgeApp.Droid.Resource.Dimension.notification_right_side_padding_top;
+			global::Plugin.Media.Resource.Dimension.notification_small_icon_background_padding = global::TheOxbridgeApp.Droid.Resource.Dimension.notification_small_icon_background_padding;
+			global::Plugin.Media.Resource.Dimension.notification_small_icon_size_as_large = global::TheOxbridgeApp.Droid.Resource.Dimension.notification_small_icon_size_as_large;
+			global::Plugin.Media.Resource.Dimension.notification_subtext_size = global::TheOxbridgeApp.Droid.Resource.Dimension.notification_subtext_size;
+			global::Plugin.Media.Resource.Dimension.notification_top_pad = global::TheOxbridgeApp.Droid.Resource.Dimension.notification_top_pad;
+			global::Plugin.Media.Resource.Dimension.notification_top_pad_large_text = global::TheOxbridgeApp.Droid.Resource.Dimension.notification_top_pad_large_text;
+			global::Plugin.Media.Resource.Drawable.notification_action_background = global::TheOxbridgeApp.Droid.Resource.Drawable.notification_action_background;
+			global::Plugin.Media.Resource.Drawable.notification_bg = global::TheOxbridgeApp.Droid.Resource.Drawable.notification_bg;
+			global::Plugin.Media.Resource.Drawable.notification_bg_low = global::TheOxbridgeApp.Droid.Resource.Drawable.notification_bg_low;
+			global::Plugin.Media.Resource.Drawable.notification_bg_low_normal = global::TheOxbridgeApp.Droid.Resource.Drawable.notification_bg_low_normal;
+			global::Plugin.Media.Resource.Drawable.notification_bg_low_pressed = global::TheOxbridgeApp.Droid.Resource.Drawable.notification_bg_low_pressed;
+			global::Plugin.Media.Resource.Drawable.notification_bg_normal = global::TheOxbridgeApp.Droid.Resource.Drawable.notification_bg_normal;
+			global::Plugin.Media.Resource.Drawable.notification_bg_normal_pressed = global::TheOxbridgeApp.Droid.Resource.Drawable.notification_bg_normal_pressed;
+			global::Plugin.Media.Resource.Drawable.notification_icon_background = global::TheOxbridgeApp.Droid.Resource.Drawable.notification_icon_background;
+			global::Plugin.Media.Resource.Drawable.notification_template_icon_bg = global::TheOxbridgeApp.Droid.Resource.Drawable.notification_template_icon_bg;
+			global::Plugin.Media.Resource.Drawable.notification_template_icon_low_bg = global::TheOxbridgeApp.Droid.Resource.Drawable.notification_template_icon_low_bg;
+			global::Plugin.Media.Resource.Drawable.notification_tile_bg = global::TheOxbridgeApp.Droid.Resource.Drawable.notification_tile_bg;
+			global::Plugin.Media.Resource.Drawable.notify_panel_notification_icon_bg = global::TheOxbridgeApp.Droid.Resource.Drawable.notify_panel_notification_icon_bg;
+			global::Plugin.Media.Resource.Id.actions = global::TheOxbridgeApp.Droid.Resource.Id.actions;
+			global::Plugin.Media.Resource.Id.action_container = global::TheOxbridgeApp.Droid.Resource.Id.action_container;
+			global::Plugin.Media.Resource.Id.action_divider = global::TheOxbridgeApp.Droid.Resource.Id.action_divider;
+			global::Plugin.Media.Resource.Id.action_image = global::TheOxbridgeApp.Droid.Resource.Id.action_image;
+			global::Plugin.Media.Resource.Id.action_text = global::TheOxbridgeApp.Droid.Resource.Id.action_text;
+			global::Plugin.Media.Resource.Id.all = global::TheOxbridgeApp.Droid.Resource.Id.all;
+			global::Plugin.Media.Resource.Id.async = global::TheOxbridgeApp.Droid.Resource.Id.async;
+			global::Plugin.Media.Resource.Id.blocking = global::TheOxbridgeApp.Droid.Resource.Id.blocking;
+			global::Plugin.Media.Resource.Id.bottom = global::TheOxbridgeApp.Droid.Resource.Id.bottom;
+			global::Plugin.Media.Resource.Id.browser_actions_header_text = global::TheOxbridgeApp.Droid.Resource.Id.browser_actions_header_text;
+			global::Plugin.Media.Resource.Id.browser_actions_menu_items = global::TheOxbridgeApp.Droid.Resource.Id.browser_actions_menu_items;
+			global::Plugin.Media.Resource.Id.browser_actions_menu_item_icon = global::TheOxbridgeApp.Droid.Resource.Id.browser_actions_menu_item_icon;
+			global::Plugin.Media.Resource.Id.browser_actions_menu_item_text = global::TheOxbridgeApp.Droid.Resource.Id.browser_actions_menu_item_text;
+			global::Plugin.Media.Resource.Id.browser_actions_menu_view = global::TheOxbridgeApp.Droid.Resource.Id.browser_actions_menu_view;
+			global::Plugin.Media.Resource.Id.center = global::TheOxbridgeApp.Droid.Resource.Id.center;
+			global::Plugin.Media.Resource.Id.center_horizontal = global::TheOxbridgeApp.Droid.Resource.Id.center_horizontal;
+			global::Plugin.Media.Resource.Id.center_vertical = global::TheOxbridgeApp.Droid.Resource.Id.center_vertical;
+			global::Plugin.Media.Resource.Id.chronometer = global::TheOxbridgeApp.Droid.Resource.Id.chronometer;
+			global::Plugin.Media.Resource.Id.clip_horizontal = global::TheOxbridgeApp.Droid.Resource.Id.clip_horizontal;
+			global::Plugin.Media.Resource.Id.clip_vertical = global::TheOxbridgeApp.Droid.Resource.Id.clip_vertical;
+			global::Plugin.Media.Resource.Id.end = global::TheOxbridgeApp.Droid.Resource.Id.end;
+			global::Plugin.Media.Resource.Id.fill = global::TheOxbridgeApp.Droid.Resource.Id.fill;
+			global::Plugin.Media.Resource.Id.fill_horizontal = global::TheOxbridgeApp.Droid.Resource.Id.fill_horizontal;
+			global::Plugin.Media.Resource.Id.fill_vertical = global::TheOxbridgeApp.Droid.Resource.Id.fill_vertical;
+			global::Plugin.Media.Resource.Id.forever = global::TheOxbridgeApp.Droid.Resource.Id.forever;
+			global::Plugin.Media.Resource.Id.icon = global::TheOxbridgeApp.Droid.Resource.Id.icon;
+			global::Plugin.Media.Resource.Id.icon_group = global::TheOxbridgeApp.Droid.Resource.Id.icon_group;
+			global::Plugin.Media.Resource.Id.info = global::TheOxbridgeApp.Droid.Resource.Id.info;
+			global::Plugin.Media.Resource.Id.italic = global::TheOxbridgeApp.Droid.Resource.Id.italic;
+			global::Plugin.Media.Resource.Id.left = global::TheOxbridgeApp.Droid.Resource.Id.left;
+			global::Plugin.Media.Resource.Id.line1 = global::TheOxbridgeApp.Droid.Resource.Id.line1;
+			global::Plugin.Media.Resource.Id.line3 = global::TheOxbridgeApp.Droid.Resource.Id.line3;
+			global::Plugin.Media.Resource.Id.none = global::TheOxbridgeApp.Droid.Resource.Id.none;
+			global::Plugin.Media.Resource.Id.normal = global::TheOxbridgeApp.Droid.Resource.Id.normal;
+			global::Plugin.Media.Resource.Id.notification_background = global::TheOxbridgeApp.Droid.Resource.Id.notification_background;
+			global::Plugin.Media.Resource.Id.notification_main_column = global::TheOxbridgeApp.Droid.Resource.Id.notification_main_column;
+			global::Plugin.Media.Resource.Id.notification_main_column_container = global::TheOxbridgeApp.Droid.Resource.Id.notification_main_column_container;
+			global::Plugin.Media.Resource.Id.right = global::TheOxbridgeApp.Droid.Resource.Id.right;
+			global::Plugin.Media.Resource.Id.right_icon = global::TheOxbridgeApp.Droid.Resource.Id.right_icon;
+			global::Plugin.Media.Resource.Id.right_side = global::TheOxbridgeApp.Droid.Resource.Id.right_side;
+			global::Plugin.Media.Resource.Id.start = global::TheOxbridgeApp.Droid.Resource.Id.start;
+			global::Plugin.Media.Resource.Id.tag_transition_group = global::TheOxbridgeApp.Droid.Resource.Id.tag_transition_group;
+			global::Plugin.Media.Resource.Id.tag_unhandled_key_event_manager = global::TheOxbridgeApp.Droid.Resource.Id.tag_unhandled_key_event_manager;
+			global::Plugin.Media.Resource.Id.tag_unhandled_key_listeners = global::TheOxbridgeApp.Droid.Resource.Id.tag_unhandled_key_listeners;
+			global::Plugin.Media.Resource.Id.text = global::TheOxbridgeApp.Droid.Resource.Id.text;
+			global::Plugin.Media.Resource.Id.text2 = global::TheOxbridgeApp.Droid.Resource.Id.text2;
+			global::Plugin.Media.Resource.Id.time = global::TheOxbridgeApp.Droid.Resource.Id.time;
+			global::Plugin.Media.Resource.Id.title = global::TheOxbridgeApp.Droid.Resource.Id.title;
+			global::Plugin.Media.Resource.Id.top = global::TheOxbridgeApp.Droid.Resource.Id.top;
+			global::Plugin.Media.Resource.Integer.status_bar_notification_info_maxnum = global::TheOxbridgeApp.Droid.Resource.Integer.status_bar_notification_info_maxnum;
+			global::Plugin.Media.Resource.Layout.browser_actions_context_menu_page = global::TheOxbridgeApp.Droid.Resource.Layout.browser_actions_context_menu_page;
+			global::Plugin.Media.Resource.Layout.browser_actions_context_menu_row = global::TheOxbridgeApp.Droid.Resource.Layout.browser_actions_context_menu_row;
+			global::Plugin.Media.Resource.Layout.notification_action = global::TheOxbridgeApp.Droid.Resource.Layout.notification_action;
+			global::Plugin.Media.Resource.Layout.notification_action_tombstone = global::TheOxbridgeApp.Droid.Resource.Layout.notification_action_tombstone;
+			global::Plugin.Media.Resource.Layout.notification_template_custom_big = global::TheOxbridgeApp.Droid.Resource.Layout.notification_template_custom_big;
+			global::Plugin.Media.Resource.Layout.notification_template_icon_group = global::TheOxbridgeApp.Droid.Resource.Layout.notification_template_icon_group;
+			global::Plugin.Media.Resource.Layout.notification_template_part_chronometer = global::TheOxbridgeApp.Droid.Resource.Layout.notification_template_part_chronometer;
+			global::Plugin.Media.Resource.Layout.notification_template_part_time = global::TheOxbridgeApp.Droid.Resource.Layout.notification_template_part_time;
+			global::Plugin.Media.Resource.String.status_bar_notification_info_overflow = global::TheOxbridgeApp.Droid.Resource.String.status_bar_notification_info_overflow;
+			global::Plugin.Media.Resource.Style.TextAppearance_Compat_Notification = global::TheOxbridgeApp.Droid.Resource.Style.TextAppearance_Compat_Notification;
+			global::Plugin.Media.Resource.Style.TextAppearance_Compat_Notification_Info = global::TheOxbridgeApp.Droid.Resource.Style.TextAppearance_Compat_Notification_Info;
+			global::Plugin.Media.Resource.Style.TextAppearance_Compat_Notification_Line2 = global::TheOxbridgeApp.Droid.Resource.Style.TextAppearance_Compat_Notification_Line2;
+			global::Plugin.Media.Resource.Style.TextAppearance_Compat_Notification_Time = global::TheOxbridgeApp.Droid.Resource.Style.TextAppearance_Compat_Notification_Time;
+			global::Plugin.Media.Resource.Style.TextAppearance_Compat_Notification_Title = global::TheOxbridgeApp.Droid.Resource.Style.TextAppearance_Compat_Notification_Title;
+			global::Plugin.Media.Resource.Style.Widget_Compat_NotificationActionContainer = global::TheOxbridgeApp.Droid.Resource.Style.Widget_Compat_NotificationActionContainer;
+			global::Plugin.Media.Resource.Style.Widget_Compat_NotificationActionText = global::TheOxbridgeApp.Droid.Resource.Style.Widget_Compat_NotificationActionText;
+			global::Plugin.Media.Resource.Style.Widget_Support_CoordinatorLayout = global::TheOxbridgeApp.Droid.Resource.Style.Widget_Support_CoordinatorLayout;
+			global::Plugin.Media.Resource.Styleable.ColorStateListItem = global::TheOxbridgeApp.Droid.Resource.Styleable.ColorStateListItem;
+			global::Plugin.Media.Resource.Styleable.ColorStateListItem_alpha = global::TheOxbridgeApp.Droid.Resource.Styleable.ColorStateListItem_alpha;
+			global::Plugin.Media.Resource.Styleable.ColorStateListItem_android_alpha = global::TheOxbridgeApp.Droid.Resource.Styleable.ColorStateListItem_android_alpha;
+			global::Plugin.Media.Resource.Styleable.ColorStateListItem_android_color = global::TheOxbridgeApp.Droid.Resource.Styleable.ColorStateListItem_android_color;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout = global::TheOxbridgeApp.Droid.Resource.Styleable.CoordinatorLayout;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout_keylines = global::TheOxbridgeApp.Droid.Resource.Styleable.CoordinatorLayout_keylines;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout_Layout = global::TheOxbridgeApp.Droid.Resource.Styleable.CoordinatorLayout_Layout;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity = global::TheOxbridgeApp.Droid.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor = global::TheOxbridgeApp.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity = global::TheOxbridgeApp.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior = global::TheOxbridgeApp.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges = global::TheOxbridgeApp.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge = global::TheOxbridgeApp.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline = global::TheOxbridgeApp.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout_statusBarBackground = global::TheOxbridgeApp.Droid.Resource.Styleable.CoordinatorLayout_statusBarBackground;
+			global::Plugin.Media.Resource.Styleable.FontFamily = global::TheOxbridgeApp.Droid.Resource.Styleable.FontFamily;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont = global::TheOxbridgeApp.Droid.Resource.Styleable.FontFamilyFont;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont_android_font = global::TheOxbridgeApp.Droid.Resource.Styleable.FontFamilyFont_android_font;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont_android_fontStyle = global::TheOxbridgeApp.Droid.Resource.Styleable.FontFamilyFont_android_fontStyle;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont_android_fontVariationSettings = global::TheOxbridgeApp.Droid.Resource.Styleable.FontFamilyFont_android_fontVariationSettings;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont_android_fontWeight = global::TheOxbridgeApp.Droid.Resource.Styleable.FontFamilyFont_android_fontWeight;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont_android_ttcIndex = global::TheOxbridgeApp.Droid.Resource.Styleable.FontFamilyFont_android_ttcIndex;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont_font = global::TheOxbridgeApp.Droid.Resource.Styleable.FontFamilyFont_font;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont_fontStyle = global::TheOxbridgeApp.Droid.Resource.Styleable.FontFamilyFont_fontStyle;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont_fontVariationSettings = global::TheOxbridgeApp.Droid.Resource.Styleable.FontFamilyFont_fontVariationSettings;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont_fontWeight = global::TheOxbridgeApp.Droid.Resource.Styleable.FontFamilyFont_fontWeight;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont_ttcIndex = global::TheOxbridgeApp.Droid.Resource.Styleable.FontFamilyFont_ttcIndex;
+			global::Plugin.Media.Resource.Styleable.FontFamily_fontProviderAuthority = global::TheOxbridgeApp.Droid.Resource.Styleable.FontFamily_fontProviderAuthority;
+			global::Plugin.Media.Resource.Styleable.FontFamily_fontProviderCerts = global::TheOxbridgeApp.Droid.Resource.Styleable.FontFamily_fontProviderCerts;
+			global::Plugin.Media.Resource.Styleable.FontFamily_fontProviderFetchStrategy = global::TheOxbridgeApp.Droid.Resource.Styleable.FontFamily_fontProviderFetchStrategy;
+			global::Plugin.Media.Resource.Styleable.FontFamily_fontProviderFetchTimeout = global::TheOxbridgeApp.Droid.Resource.Styleable.FontFamily_fontProviderFetchTimeout;
+			global::Plugin.Media.Resource.Styleable.FontFamily_fontProviderPackage = global::TheOxbridgeApp.Droid.Resource.Styleable.FontFamily_fontProviderPackage;
+			global::Plugin.Media.Resource.Styleable.FontFamily_fontProviderQuery = global::TheOxbridgeApp.Droid.Resource.Styleable.FontFamily_fontProviderQuery;
+			global::Plugin.Media.Resource.Styleable.GradientColor = global::TheOxbridgeApp.Droid.Resource.Styleable.GradientColor;
+			global::Plugin.Media.Resource.Styleable.GradientColorItem = global::TheOxbridgeApp.Droid.Resource.Styleable.GradientColorItem;
+			global::Plugin.Media.Resource.Styleable.GradientColorItem_android_color = global::TheOxbridgeApp.Droid.Resource.Styleable.GradientColorItem_android_color;
+			global::Plugin.Media.Resource.Styleable.GradientColorItem_android_offset = global::TheOxbridgeApp.Droid.Resource.Styleable.GradientColorItem_android_offset;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_centerColor = global::TheOxbridgeApp.Droid.Resource.Styleable.GradientColor_android_centerColor;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_centerX = global::TheOxbridgeApp.Droid.Resource.Styleable.GradientColor_android_centerX;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_centerY = global::TheOxbridgeApp.Droid.Resource.Styleable.GradientColor_android_centerY;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_endColor = global::TheOxbridgeApp.Droid.Resource.Styleable.GradientColor_android_endColor;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_endX = global::TheOxbridgeApp.Droid.Resource.Styleable.GradientColor_android_endX;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_endY = global::TheOxbridgeApp.Droid.Resource.Styleable.GradientColor_android_endY;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_gradientRadius = global::TheOxbridgeApp.Droid.Resource.Styleable.GradientColor_android_gradientRadius;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_startColor = global::TheOxbridgeApp.Droid.Resource.Styleable.GradientColor_android_startColor;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_startX = global::TheOxbridgeApp.Droid.Resource.Styleable.GradientColor_android_startX;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_startY = global::TheOxbridgeApp.Droid.Resource.Styleable.GradientColor_android_startY;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_tileMode = global::TheOxbridgeApp.Droid.Resource.Styleable.GradientColor_android_tileMode;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_type = global::TheOxbridgeApp.Droid.Resource.Styleable.GradientColor_android_type;
+			global::Plugin.Media.Resource.Xml.xamarin_essentials_fileprovider_file_paths = global::TheOxbridgeApp.Droid.Resource.Xml.xamarin_essentials_fileprovider_file_paths;
 			global::Rg.Plugins.Popup.Resource.Animation.abc_fade_in = global::TheOxbridgeApp.Droid.Resource.Animation.abc_fade_in;
 			global::Rg.Plugins.Popup.Resource.Animation.abc_fade_out = global::TheOxbridgeApp.Droid.Resource.Animation.abc_fade_out;
 			global::Rg.Plugins.Popup.Resource.Animation.abc_grow_fade_in_from_bottom = global::TheOxbridgeApp.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;
@@ -13425,260 +13607,257 @@ namespace TheOxbridgeApp.Droid
 		public partial class Drawable
 		{
 			
-			// aapt resource value: 0x7F070000
-			public const int abc_ab_share_pack_mtrl_alpha = 2131165184;
-			
 			// aapt resource value: 0x7F070001
-			public const int abc_action_bar_item_background_material = 2131165185;
+			public const int abc_ab_share_pack_mtrl_alpha = 2131165185;
 			
 			// aapt resource value: 0x7F070002
-			public const int abc_btn_borderless_material = 2131165186;
+			public const int abc_action_bar_item_background_material = 2131165186;
 			
 			// aapt resource value: 0x7F070003
-			public const int abc_btn_check_material = 2131165187;
+			public const int abc_btn_borderless_material = 2131165187;
 			
 			// aapt resource value: 0x7F070004
-			public const int abc_btn_check_to_on_mtrl_000 = 2131165188;
+			public const int abc_btn_check_material = 2131165188;
 			
 			// aapt resource value: 0x7F070005
-			public const int abc_btn_check_to_on_mtrl_015 = 2131165189;
+			public const int abc_btn_check_to_on_mtrl_000 = 2131165189;
 			
 			// aapt resource value: 0x7F070006
-			public const int abc_btn_colored_material = 2131165190;
+			public const int abc_btn_check_to_on_mtrl_015 = 2131165190;
 			
 			// aapt resource value: 0x7F070007
-			public const int abc_btn_default_mtrl_shape = 2131165191;
+			public const int abc_btn_colored_material = 2131165191;
 			
 			// aapt resource value: 0x7F070008
-			public const int abc_btn_radio_material = 2131165192;
+			public const int abc_btn_default_mtrl_shape = 2131165192;
 			
 			// aapt resource value: 0x7F070009
-			public const int abc_btn_radio_to_on_mtrl_000 = 2131165193;
+			public const int abc_btn_radio_material = 2131165193;
 			
 			// aapt resource value: 0x7F07000A
-			public const int abc_btn_radio_to_on_mtrl_015 = 2131165194;
+			public const int abc_btn_radio_to_on_mtrl_000 = 2131165194;
 			
 			// aapt resource value: 0x7F07000B
-			public const int abc_btn_switch_to_on_mtrl_00001 = 2131165195;
+			public const int abc_btn_radio_to_on_mtrl_015 = 2131165195;
 			
 			// aapt resource value: 0x7F07000C
-			public const int abc_btn_switch_to_on_mtrl_00012 = 2131165196;
+			public const int abc_btn_switch_to_on_mtrl_00001 = 2131165196;
 			
 			// aapt resource value: 0x7F07000D
-			public const int abc_cab_background_internal_bg = 2131165197;
+			public const int abc_btn_switch_to_on_mtrl_00012 = 2131165197;
 			
 			// aapt resource value: 0x7F07000E
-			public const int abc_cab_background_top_material = 2131165198;
+			public const int abc_cab_background_internal_bg = 2131165198;
 			
 			// aapt resource value: 0x7F07000F
-			public const int abc_cab_background_top_mtrl_alpha = 2131165199;
+			public const int abc_cab_background_top_material = 2131165199;
 			
 			// aapt resource value: 0x7F070010
-			public const int abc_control_background_material = 2131165200;
+			public const int abc_cab_background_top_mtrl_alpha = 2131165200;
 			
 			// aapt resource value: 0x7F070011
-			public const int abc_dialog_material_background = 2131165201;
+			public const int abc_control_background_material = 2131165201;
 			
 			// aapt resource value: 0x7F070012
-			public const int abc_edit_text_material = 2131165202;
+			public const int abc_dialog_material_background = 2131165202;
 			
 			// aapt resource value: 0x7F070013
-			public const int abc_ic_ab_back_material = 2131165203;
+			public const int abc_edit_text_material = 2131165203;
 			
 			// aapt resource value: 0x7F070014
-			public const int abc_ic_arrow_drop_right_black_24dp = 2131165204;
+			public const int abc_ic_ab_back_material = 2131165204;
 			
 			// aapt resource value: 0x7F070015
-			public const int abc_ic_clear_material = 2131165205;
+			public const int abc_ic_arrow_drop_right_black_24dp = 2131165205;
 			
 			// aapt resource value: 0x7F070016
-			public const int abc_ic_commit_search_api_mtrl_alpha = 2131165206;
+			public const int abc_ic_clear_material = 2131165206;
 			
 			// aapt resource value: 0x7F070017
-			public const int abc_ic_go_search_api_material = 2131165207;
+			public const int abc_ic_commit_search_api_mtrl_alpha = 2131165207;
 			
 			// aapt resource value: 0x7F070018
-			public const int abc_ic_menu_copy_mtrl_am_alpha = 2131165208;
+			public const int abc_ic_go_search_api_material = 2131165208;
 			
 			// aapt resource value: 0x7F070019
-			public const int abc_ic_menu_cut_mtrl_alpha = 2131165209;
+			public const int abc_ic_menu_copy_mtrl_am_alpha = 2131165209;
 			
 			// aapt resource value: 0x7F07001A
-			public const int abc_ic_menu_overflow_material = 2131165210;
+			public const int abc_ic_menu_cut_mtrl_alpha = 2131165210;
 			
 			// aapt resource value: 0x7F07001B
-			public const int abc_ic_menu_paste_mtrl_am_alpha = 2131165211;
+			public const int abc_ic_menu_overflow_material = 2131165211;
 			
 			// aapt resource value: 0x7F07001C
-			public const int abc_ic_menu_selectall_mtrl_alpha = 2131165212;
+			public const int abc_ic_menu_paste_mtrl_am_alpha = 2131165212;
 			
 			// aapt resource value: 0x7F07001D
-			public const int abc_ic_menu_share_mtrl_alpha = 2131165213;
+			public const int abc_ic_menu_selectall_mtrl_alpha = 2131165213;
 			
 			// aapt resource value: 0x7F07001E
-			public const int abc_ic_search_api_material = 2131165214;
+			public const int abc_ic_menu_share_mtrl_alpha = 2131165214;
 			
 			// aapt resource value: 0x7F07001F
-			public const int abc_ic_star_black_16dp = 2131165215;
+			public const int abc_ic_search_api_material = 2131165215;
 			
 			// aapt resource value: 0x7F070020
-			public const int abc_ic_star_black_36dp = 2131165216;
+			public const int abc_ic_star_black_16dp = 2131165216;
 			
 			// aapt resource value: 0x7F070021
-			public const int abc_ic_star_black_48dp = 2131165217;
+			public const int abc_ic_star_black_36dp = 2131165217;
 			
 			// aapt resource value: 0x7F070022
-			public const int abc_ic_star_half_black_16dp = 2131165218;
+			public const int abc_ic_star_black_48dp = 2131165218;
 			
 			// aapt resource value: 0x7F070023
-			public const int abc_ic_star_half_black_36dp = 2131165219;
+			public const int abc_ic_star_half_black_16dp = 2131165219;
 			
 			// aapt resource value: 0x7F070024
-			public const int abc_ic_star_half_black_48dp = 2131165220;
+			public const int abc_ic_star_half_black_36dp = 2131165220;
 			
 			// aapt resource value: 0x7F070025
-			public const int abc_ic_voice_search_api_material = 2131165221;
+			public const int abc_ic_star_half_black_48dp = 2131165221;
 			
 			// aapt resource value: 0x7F070026
-			public const int abc_item_background_holo_dark = 2131165222;
+			public const int abc_ic_voice_search_api_material = 2131165222;
 			
 			// aapt resource value: 0x7F070027
-			public const int abc_item_background_holo_light = 2131165223;
+			public const int abc_item_background_holo_dark = 2131165223;
 			
 			// aapt resource value: 0x7F070028
-			public const int abc_list_divider_material = 2131165224;
+			public const int abc_item_background_holo_light = 2131165224;
 			
 			// aapt resource value: 0x7F070029
-			public const int abc_list_divider_mtrl_alpha = 2131165225;
+			public const int abc_list_divider_material = 2131165225;
 			
 			// aapt resource value: 0x7F07002A
-			public const int abc_list_focused_holo = 2131165226;
+			public const int abc_list_divider_mtrl_alpha = 2131165226;
 			
 			// aapt resource value: 0x7F07002B
-			public const int abc_list_longpressed_holo = 2131165227;
+			public const int abc_list_focused_holo = 2131165227;
 			
 			// aapt resource value: 0x7F07002C
-			public const int abc_list_pressed_holo_dark = 2131165228;
+			public const int abc_list_longpressed_holo = 2131165228;
 			
 			// aapt resource value: 0x7F07002D
-			public const int abc_list_pressed_holo_light = 2131165229;
+			public const int abc_list_pressed_holo_dark = 2131165229;
 			
 			// aapt resource value: 0x7F07002E
-			public const int abc_list_selector_background_transition_holo_dark = 2131165230;
+			public const int abc_list_pressed_holo_light = 2131165230;
 			
 			// aapt resource value: 0x7F07002F
-			public const int abc_list_selector_background_transition_holo_light = 2131165231;
+			public const int abc_list_selector_background_transition_holo_dark = 2131165231;
 			
 			// aapt resource value: 0x7F070030
-			public const int abc_list_selector_disabled_holo_dark = 2131165232;
+			public const int abc_list_selector_background_transition_holo_light = 2131165232;
 			
 			// aapt resource value: 0x7F070031
-			public const int abc_list_selector_disabled_holo_light = 2131165233;
+			public const int abc_list_selector_disabled_holo_dark = 2131165233;
 			
 			// aapt resource value: 0x7F070032
-			public const int abc_list_selector_holo_dark = 2131165234;
+			public const int abc_list_selector_disabled_holo_light = 2131165234;
 			
 			// aapt resource value: 0x7F070033
-			public const int abc_list_selector_holo_light = 2131165235;
+			public const int abc_list_selector_holo_dark = 2131165235;
 			
 			// aapt resource value: 0x7F070034
-			public const int abc_menu_hardkey_panel_mtrl_mult = 2131165236;
+			public const int abc_list_selector_holo_light = 2131165236;
 			
 			// aapt resource value: 0x7F070035
-			public const int abc_popup_background_mtrl_mult = 2131165237;
+			public const int abc_menu_hardkey_panel_mtrl_mult = 2131165237;
 			
 			// aapt resource value: 0x7F070036
-			public const int abc_ratingbar_indicator_material = 2131165238;
+			public const int abc_popup_background_mtrl_mult = 2131165238;
 			
 			// aapt resource value: 0x7F070037
-			public const int abc_ratingbar_material = 2131165239;
+			public const int abc_ratingbar_indicator_material = 2131165239;
 			
 			// aapt resource value: 0x7F070038
-			public const int abc_ratingbar_small_material = 2131165240;
+			public const int abc_ratingbar_material = 2131165240;
 			
 			// aapt resource value: 0x7F070039
-			public const int abc_scrubber_control_off_mtrl_alpha = 2131165241;
+			public const int abc_ratingbar_small_material = 2131165241;
 			
 			// aapt resource value: 0x7F07003A
-			public const int abc_scrubber_control_to_pressed_mtrl_000 = 2131165242;
+			public const int abc_scrubber_control_off_mtrl_alpha = 2131165242;
 			
 			// aapt resource value: 0x7F07003B
-			public const int abc_scrubber_control_to_pressed_mtrl_005 = 2131165243;
+			public const int abc_scrubber_control_to_pressed_mtrl_000 = 2131165243;
 			
 			// aapt resource value: 0x7F07003C
-			public const int abc_scrubber_primary_mtrl_alpha = 2131165244;
+			public const int abc_scrubber_control_to_pressed_mtrl_005 = 2131165244;
 			
 			// aapt resource value: 0x7F07003D
-			public const int abc_scrubber_track_mtrl_alpha = 2131165245;
+			public const int abc_scrubber_primary_mtrl_alpha = 2131165245;
 			
 			// aapt resource value: 0x7F07003E
-			public const int abc_seekbar_thumb_material = 2131165246;
+			public const int abc_scrubber_track_mtrl_alpha = 2131165246;
 			
 			// aapt resource value: 0x7F07003F
-			public const int abc_seekbar_tick_mark_material = 2131165247;
+			public const int abc_seekbar_thumb_material = 2131165247;
 			
 			// aapt resource value: 0x7F070040
-			public const int abc_seekbar_track_material = 2131165248;
+			public const int abc_seekbar_tick_mark_material = 2131165248;
 			
 			// aapt resource value: 0x7F070041
-			public const int abc_spinner_mtrl_am_alpha = 2131165249;
+			public const int abc_seekbar_track_material = 2131165249;
 			
 			// aapt resource value: 0x7F070042
-			public const int abc_spinner_textfield_background_material = 2131165250;
+			public const int abc_spinner_mtrl_am_alpha = 2131165250;
 			
 			// aapt resource value: 0x7F070043
-			public const int abc_switch_thumb_material = 2131165251;
+			public const int abc_spinner_textfield_background_material = 2131165251;
 			
 			// aapt resource value: 0x7F070044
-			public const int abc_switch_track_mtrl_alpha = 2131165252;
+			public const int abc_switch_thumb_material = 2131165252;
 			
 			// aapt resource value: 0x7F070045
-			public const int abc_tab_indicator_material = 2131165253;
+			public const int abc_switch_track_mtrl_alpha = 2131165253;
 			
 			// aapt resource value: 0x7F070046
-			public const int abc_tab_indicator_mtrl_alpha = 2131165254;
-			
-			// aapt resource value: 0x7F07004E
-			public const int abc_textfield_activated_mtrl_alpha = 2131165262;
-			
-			// aapt resource value: 0x7F07004F
-			public const int abc_textfield_default_mtrl_alpha = 2131165263;
-			
-			// aapt resource value: 0x7F070050
-			public const int abc_textfield_search_activated_mtrl_alpha = 2131165264;
-			
-			// aapt resource value: 0x7F070051
-			public const int abc_textfield_search_default_mtrl_alpha = 2131165265;
-			
-			// aapt resource value: 0x7F070052
-			public const int abc_textfield_search_material = 2131165266;
+			public const int abc_tab_indicator_material = 2131165254;
 			
 			// aapt resource value: 0x7F070047
-			public const int abc_text_cursor_material = 2131165255;
+			public const int abc_tab_indicator_mtrl_alpha = 2131165255;
 			
-			// aapt resource value: 0x7F070048
-			public const int abc_text_select_handle_left_mtrl_dark = 2131165256;
+			// aapt resource value: 0x7F07004F
+			public const int abc_textfield_activated_mtrl_alpha = 2131165263;
 			
-			// aapt resource value: 0x7F070049
-			public const int abc_text_select_handle_left_mtrl_light = 2131165257;
+			// aapt resource value: 0x7F070050
+			public const int abc_textfield_default_mtrl_alpha = 2131165264;
 			
-			// aapt resource value: 0x7F07004A
-			public const int abc_text_select_handle_middle_mtrl_dark = 2131165258;
+			// aapt resource value: 0x7F070051
+			public const int abc_textfield_search_activated_mtrl_alpha = 2131165265;
 			
-			// aapt resource value: 0x7F07004B
-			public const int abc_text_select_handle_middle_mtrl_light = 2131165259;
-			
-			// aapt resource value: 0x7F07004C
-			public const int abc_text_select_handle_right_mtrl_dark = 2131165260;
-			
-			// aapt resource value: 0x7F07004D
-			public const int abc_text_select_handle_right_mtrl_light = 2131165261;
+			// aapt resource value: 0x7F070052
+			public const int abc_textfield_search_default_mtrl_alpha = 2131165266;
 			
 			// aapt resource value: 0x7F070053
-			public const int abc_vector_test = 2131165267;
+			public const int abc_textfield_search_material = 2131165267;
+			
+			// aapt resource value: 0x7F070048
+			public const int abc_text_cursor_material = 2131165256;
+			
+			// aapt resource value: 0x7F070049
+			public const int abc_text_select_handle_left_mtrl_dark = 2131165257;
+			
+			// aapt resource value: 0x7F07004A
+			public const int abc_text_select_handle_left_mtrl_light = 2131165258;
+			
+			// aapt resource value: 0x7F07004B
+			public const int abc_text_select_handle_middle_mtrl_dark = 2131165259;
+			
+			// aapt resource value: 0x7F07004C
+			public const int abc_text_select_handle_middle_mtrl_light = 2131165260;
+			
+			// aapt resource value: 0x7F07004D
+			public const int abc_text_select_handle_right_mtrl_dark = 2131165261;
+			
+			// aapt resource value: 0x7F07004E
+			public const int abc_text_select_handle_right_mtrl_light = 2131165262;
 			
 			// aapt resource value: 0x7F070054
-			public const int arrowIcon = 2131165268;
+			public const int abc_vector_test = 2131165268;
 			
 			// aapt resource value: 0x7F070055
 			public const int avd_hide_password = 2131165269;
@@ -13789,88 +13968,85 @@ namespace TheOxbridgeApp.Droid
 			public const int ic_mtrl_chip_close_circle = 2131165303;
 			
 			// aapt resource value: 0x7F070079
-			public const int info = 2131165305;
+			public const int markedBoatIcon = 2131165305;
 			
 			// aapt resource value: 0x7F07007A
-			public const int markedBoatIcon = 2131165306;
+			public const int mtrl_snackbar_background = 2131165306;
 			
 			// aapt resource value: 0x7F07007B
-			public const int mtrl_snackbar_background = 2131165307;
+			public const int mtrl_tabs_default_indicator = 2131165307;
 			
 			// aapt resource value: 0x7F07007C
-			public const int mtrl_tabs_default_indicator = 2131165308;
+			public const int navigation_empty_icon = 2131165308;
 			
 			// aapt resource value: 0x7F07007D
-			public const int navigation_empty_icon = 2131165309;
+			public const int notificationIcon = 2131165309;
 			
 			// aapt resource value: 0x7F07007E
-			public const int notificationIcon = 2131165310;
+			public const int notification_action_background = 2131165310;
 			
 			// aapt resource value: 0x7F07007F
-			public const int notification_action_background = 2131165311;
+			public const int notification_bg = 2131165311;
 			
 			// aapt resource value: 0x7F070080
-			public const int notification_bg = 2131165312;
+			public const int notification_bg_low = 2131165312;
 			
 			// aapt resource value: 0x7F070081
-			public const int notification_bg_low = 2131165313;
+			public const int notification_bg_low_normal = 2131165313;
 			
 			// aapt resource value: 0x7F070082
-			public const int notification_bg_low_normal = 2131165314;
+			public const int notification_bg_low_pressed = 2131165314;
 			
 			// aapt resource value: 0x7F070083
-			public const int notification_bg_low_pressed = 2131165315;
+			public const int notification_bg_normal = 2131165315;
 			
 			// aapt resource value: 0x7F070084
-			public const int notification_bg_normal = 2131165316;
+			public const int notification_bg_normal_pressed = 2131165316;
 			
 			// aapt resource value: 0x7F070085
-			public const int notification_bg_normal_pressed = 2131165317;
+			public const int notification_icon_background = 2131165317;
 			
 			// aapt resource value: 0x7F070086
-			public const int notification_icon_background = 2131165318;
+			public const int notification_template_icon_bg = 2131165318;
 			
 			// aapt resource value: 0x7F070087
-			public const int notification_template_icon_bg = 2131165319;
+			public const int notification_template_icon_low_bg = 2131165319;
 			
 			// aapt resource value: 0x7F070088
-			public const int notification_template_icon_low_bg = 2131165320;
+			public const int notification_tile_bg = 2131165320;
 			
 			// aapt resource value: 0x7F070089
-			public const int notification_tile_bg = 2131165321;
+			public const int notify_panel_notification_icon_bg = 2131165321;
 			
 			// aapt resource value: 0x7F07008A
-			public const int notify_panel_notification_icon_bg = 2131165322;
+			public const int pauseIcon = 2131165322;
 			
 			// aapt resource value: 0x7F07008B
-			public const int pauseIcon = 2131165323;
+			public const int playICon = 2131165323;
 			
 			// aapt resource value: 0x7F07008C
-			public const int playICon = 2131165324;
+			public const int startIconR = 2131165324;
 			
 			// aapt resource value: 0x7F07008D
-			public const int startIconR = 2131165325;
+			public const int swipeArrow = 2131165325;
+			
+			// aapt resource value: 0x7F070000
+			public const int TeamIcon = 2131165184;
 			
 			// aapt resource value: 0x7F07008E
-			public const int swipeArrow = 2131165326;
+			public const int tooltip_frame_dark = 2131165326;
 			
 			// aapt resource value: 0x7F07008F
-			public const int tooltip_frame_dark = 2131165327;
+			public const int tooltip_frame_light = 2131165327;
 			
 			// aapt resource value: 0x7F070090
-			public const int tooltip_frame_light = 2131165328;
+			public const int trackingBoatIcon = 2131165328;
 			
 			// aapt resource value: 0x7F070091
-			public const int trackingBoatIcon = 2131165329;
+			public const int tregattaIcon = 2131165329;
 			
 			// aapt resource value: 0x7F070092
-			public const int tregattaIcon = 2131165330;
-			
-			// aapt resource value: 0x7F070093
-			public const int userIcon = 2131165331;
-			
-			// aapt resource value: 0x7F070094
-			public const int xamarin = 2131165332;
+			public const int userIcon = 2131165330;
 			
 			static Drawable()
 			{

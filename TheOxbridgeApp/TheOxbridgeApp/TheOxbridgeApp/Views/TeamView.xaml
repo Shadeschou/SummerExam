@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:baseViewModel="clr-namespace:TheOxbridgeApp.ViewModels;assembly=TheOxbridgeApp"
+             xmlns:customBehaviors="clr-namespace:TheOxbridgeApp.CustomBehaviors;assembly=TheOxbridgeApp"
+             baseViewModel:ViewModelLocator.AutoWireViewModel="true"
+             mc:Ignorable="d"
+             x:Class="TheOxbridgeApp.Views.TeamView"
+             >
+
+    <StackLayout>
+        <Button Text="PickPhoto" Command="{Binding AddToDB}"></Button>
+        <Button Text="Save Picture" Command="{Binding SaveImage}"></Button>
+        <ListView ItemsSource="{Binding TeamsList}" 
+              HasUnevenRows="True"
+              BackgroundColor="#ecf0f1"
+              SeparatorVisibility="None"
+              HorizontalOptions="FillAndExpand"
+              VerticalOptions="FillAndExpand">
+
+        <ListView.ItemTemplate>
+
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Margin="6,4,6,4"
+                                 BackgroundColor="White">
+                            <Image Source="{Binding TeamFilePicker}" />
+                            <Label Text="{Binding Name}"
+                               Margin="8,2,8,4"
+                               FontSize="Small" />
+                        
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+
+        </ListView.ItemTemplate>
+    </ListView>
+    </StackLayout>
+</ContentPage>

@@ -4,13 +4,15 @@ namespace TheOxbridgeApp.Models
 {
     public static class Target
     {
-        private const String azure = "https://oxbridgecloud.azurewebsites.net/";
+        private const String azure = "http://192.168.87.150:3000/";
 
         private const String StandardAdress = azure;
 
 
         public const String Authenticate = StandardAdress + "users/login";
         public const String Events = StandardAdress + "events/";
+        public const String Teams = StandardAdress + "teampictures/";
+
         public const String EventsFromUsername = StandardAdress + "events/myevents/findfromusername";
         public const String EventRegistrations = StandardAdress + "eventRegistrations/findEventRegFromUsername/";
         public const String Locations = StandardAdress + "locationRegistrations/";
