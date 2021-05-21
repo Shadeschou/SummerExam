@@ -1,15 +1,27 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+export {};
+import {model, Schema} from 'mongoose';
 
-var LocationRegistrationSchema = new Schema({
+interface LocationRegistrationSchema {
     regId: Number,
     eventRegId: Number,
     locationTime: Date,
-    longtitude: Number,
-    latitude: Number,
-    racePointNumber : Number,
-    raceScore : Number,
-    finishTime : Date,
+    longtitude: Date,
+    latitude: String,
+    racePointNumber: Number,
+    raceScore: Date,
+    finishTime: Date
+}
+
+const schema = new Schema<LocationRegistrationSchema>({
+
+    regId: {type: Number},
+    eventRegId: {type: Number},
+    locationTime: {type: Date},
+    longtitude: {type: Date,},
+    latitude: {type: String},
+    racePointNumber: {type: Number},
+    raceScore: {type: Date},
+    finishTime: {type: Date}
 });
 
-module.exports = mongoose.model('LocationRegistration', LocationRegistrationSchema);
+export const LocationRegistrationModel = model<LocationRegistrationSchema>('LocationRegistration', schema);

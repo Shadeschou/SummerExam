@@ -1,12 +1,21 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+export {};
+import {model, Schema} from 'mongoose';
 
-var EventRegistrationSchema = new Schema({
+interface EventRegistrationSchema {
     eventRegId: Number,
-    shipId : Number,
-    eventId : Number,
-    trackColor : String,
-    teamName : String
+    shipId: Number,
+    eventId: number,
+    trackColor: Date,
+    teamName: String
+}
+
+const schema = new Schema<EventRegistrationSchema>({
+
+    eventRegId: {type: Number},
+    shipId: {type: Number},
+    eventId: {type: Number},
+    trackColor: {type: Date},
+    teamName: {type: String},
 });
 
-module.exports = mongoose.model('EventRegistration', EventRegistrationSchema);
+export const EventRegistrationModel = model<EventRegistrationSchema>('EventRegistration', schema);

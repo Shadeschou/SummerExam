@@ -1,35 +1,35 @@
+export {};
 const Auth = require('./authentication.controller.ts');
 const RacePoint = require('../models/racePoint.ts');
 
-//Create new racepoints
+// Create new racepoints
 exports.createRoute = (req, res) => {
-    
-    // Checking if authorized 
+
+    // Checking if authorized
     Auth.Authorize(req, res, "admin", function (err) {
         if (err)
             return err;
 
-        //Deleting all previous racePoints
-        RacePoint.deleteMany({ eventId: req.params.eventId }, function (err) {
+        // Deleting all previous racePoints
+        RacePoint.deleteMany({eventId: req.params.eventId}, function (err) {
             if (err)
-                return res.status(500).send({ message: err.message || "failed to delete route" })
+                return res.status(500).send({message: err.message || "failed to delete route"})
 
             else {
-                var racePoints = req.body;
-                if (Array.isArray(racePoints)) 
-                {
+                const racePoints = req.body;
+                if (Array.isArray(racePoints)) {
                     RacePoint.findOne({}).sort('-racePointId').exec(function (err, lastRacePoint) {
                         let racepointId;
 
                         if (err)
-                            return res.status(500).send({ message: err.message || "Some error occurred while retriving bikeRacks" });
+                            return res.status(500).send({message: err.message || "Some error occurred while retriving bikeRacks"});
                         if (lastRacePoint)
                             racepointId = lastRacePoint.racePointId;
                         else
                             racepointId = 1;
 
                         racePoints.forEach(racePoint => {
-                            let racepoint = new RacePoint(racePoint);
+                            const racepoint = new RacePoint(racePoint);
                             racepointId = racepointId + 1;
                             racepoint.racePointId = racepointId;
 
@@ -41,28 +41,33 @@ exports.createRoute = (req, res) => {
                         });
                     });
                     res.status(201).json(racePoints);
-                }
-                else
+                } else
                     return res.status(400).send();
             }
         });
     });
 }
 
-//Retrieves all racepoints from an given event
+// Retrieves all racepoints from an given event
 exports.findAllEventRacePoints = (req, res) => {
-    RacePoint.find({ eventId: req.params.eventId }, { _id: 0, __v: 0 }, { sort: { racePointNumber: 1 } }, function (err, racePoints) {
+    RacePoint.find({eventId: req.params.eventId}, {
+        _id: 0,
+        __v: 0
+    }, {sort: {racePointNumber: 1}}, function (err, racePoints) {
         if (err)
-            return res.status(500).send({ message: err.message || "Some error occurred while retriving racepoints" });
+            return res.status(500).send({message: err.message || "Some error occurred while retriving racepoints"});
         return res.status(200).send(racePoints);
     })
 }
 
-//Retrieves start and finish racepoints from an given event
+// Retrieves start and finish racepoints from an given event
 exports.findStartAndFinish = (req, res) => {
-    RacePoint.find({ eventId: req.params.eventId, $or: [{ type: 'startLine' }, { type: 'finishLine' }]}, { _id: 0, __v: 0 }, function (err, racePoints) {
+    RacePoint.find({eventId: req.params.eventId, $or: [{type: 'startLine'}, {type: 'finishLine'}]}, {
+        _id: 0,
+        __v: 0
+    }, function (err, racePoints) {
         if (err)
-            return res.status(500).send({ message: err.message || "Some error occurred while retriving racepoints" });
+            return res.status(500).send({message: err.message || "Some error occurred while retriving racepoints"});
         res.status(200).json(racePoints);
     });
 };

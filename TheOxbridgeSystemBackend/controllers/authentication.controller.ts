@@ -1,27 +1,27 @@
-var jwt = require('jsonwebtoken');
-var config = require('../config/config');
+export {};
+import * as jwt from "jsonwebtoken";
+import * as dotenv from 'dotenv';
+import {Request, Response} from "express"
+dotenv.config({ path: 'config/playground.env' }); // NEW
 
-exports.Authorize = (req, res, role, callback) => 
-{
+export const Authorize = (req: Request, res: Response, role: string) => {
     // Checks if a token is provided
-    var token = req.headers['x-access-token'];
-    if(!token) 
-        return callback(res.status(401).send({auth: false, message: 'No token provided'}));
-    
+    const token = req.headers['x-access-token'];
+    if (!token)
+        return res.status(401).send({auth: false, message: 'No token provided'});
+
     // Verifying the token
-    jwt.verify(token, config.secret, function(err, decoded){
-        if(err) 
-            return callback(res.status(500).send({auth:false, message: 'Failed to authenticate token'}));
+    jwt.verify(token, process.env.SECRET, (err, decoded) => {
+        if (err)
+            return res.status(500).send({auth: false, message: 'Failed to authenticate token'});
 
-        //Verifying that the request is allowed by the requesting role
-        if(role === "admin" && decoded.role !== "admin")
-            return callback(res.status(401).send({auth: false, message: 'Not authorized'}));
-            
-        return callback(null, decoded);
+        // Verifying that the request is allowed by the requesting role
+        if (role === "admin" && decoded.role !== "admin")
+            return res.status(401).send({auth: false, message: 'Not authorized'});
+
+        return res.status(201).json({auth:true, message:"success"})
+
     });
-    
+
 }
-    
-
-
 

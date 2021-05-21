@@ -1,15 +1,27 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+export {};
+import {model, Schema} from 'mongoose';
 
-var racePointSchema = new Schema({
+interface racePointSchema {
     racePointId: Number,
-    type: String, 
-    firstLongtitude : Number,
-    firstLatitude : Number, 
-    secondLongtitude : Number,
-    secondLatitude : Number,
+    type: String,
+    firstsecondeventId: Number,
+    firsteventId: Number,
+    secondsecondeventId: Number,
+    secondeventId: Number,
     eventId: Number,
-    racePointNumber : Number 
-    
+    racePointNumber: Number
+}
+
+const schema = new Schema<racePointSchema>({
+
+    racePointId: {type: Number},
+    type: {type: String},
+    firstsecondeventId: {type: Number},
+    firsteventId: {type: Number},
+    secondsecondeventId: {type: Number},
+    secondeventId: {type: Number},
+    eventId: {type: Number},
+    racePointNumber: {type: Number}
 });
-module.exports = mongoose.model('racePoint', racePointSchema);
+
+export const RacePointModel = model<racePointSchema>('racePoint', schema);

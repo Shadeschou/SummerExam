@@ -1,14 +1,27 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+export {};
+import {model, Schema} from 'mongoose';
 
-var EventSchema = new Schema({
-    eventId: Number,
-    name: String, 
+interface EventSchema {
+    eventId: number,
+    name: String,
     eventStart: Date,
     eventEnd: Date,
     city: String,
     eventCode: String,
-    actualEventStart : Date,
-    isLive : Boolean
+    actualEventStart: Date,
+    isLive: Boolean
+}
+
+const schema = new Schema<EventSchema>({
+
+    eventId: {type: Number},
+    name: {type: String},
+    eventStart: {type: Date},
+    eventEnd: {type: Date},
+    city: {type: String},
+    eventCode: {type: String},
+    actualEventStart: {type: Date},
+    isLive: {type: Boolean}
 });
-module.exports = mongoose.model('Event', EventSchema);
+
+export const EventModel = model<EventSchema>('Event', schema);

@@ -1,9 +1,19 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+export {};
+import {model, Schema} from 'mongoose';
 
-var ShipSchema = new Schema({
+export interface ShipSchema {
     shipId: Number,
     emailUsername: String,
-    name: String
+    name: String,
+
+}
+
+const schema = new Schema<ShipSchema>({
+
+    shipId: {type: Number, required: false},
+    emailUsername: {type: String, required: false},
+    name: {type: String, required: false},
+
 });
-module.exports = mongoose.model('Ship', ShipSchema);
+
+export const ShipModel = model<ShipSchema>('Ship', schema);
