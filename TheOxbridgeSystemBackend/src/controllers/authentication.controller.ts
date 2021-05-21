@@ -2,7 +2,9 @@ export {};
 import * as jwt from "jsonwebtoken";
 import * as dotenv from 'dotenv';
 import {Request, Response} from "express"
-dotenv.config({ path: 'config/playground.env' }); // NEW
+import decoded from 'jwt-decode';
+
+dotenv.config({path: 'config/playground.env'}); // NEW
 
 export const Authorize = (req: Request, res: Response, role: string) => {
     // Checks if a token is provided
@@ -19,7 +21,7 @@ export const Authorize = (req: Request, res: Response, role: string) => {
         if (role === "admin" && decoded.role !== "admin")
             return res.status(401).send({auth: false, message: 'Not authorized'});
 
-        return res.status(201).json({auth:true, message:"success"})
+        return res.status(201).json({auth: true, message: "success"})
 
     });
 

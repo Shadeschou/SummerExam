@@ -179,8 +179,8 @@
 
 // UserController.ts
 
-import {Controller} from './user.controller';
-import {Get} from '../src';
+import {Controller} from 'Decorator/Controller';
+import {Get} from 'Decorator/Get';
 import {Request, Response} from 'express';
 
 @Controller('/user')

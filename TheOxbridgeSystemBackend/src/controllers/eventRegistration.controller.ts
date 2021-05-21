@@ -81,7 +81,7 @@ exports.findEventRegFromUsername = (req, res) => {
             return err;
 
         // Finding ship by emailUsername in the token
-        ShipModel.find({emailUsername: decodedUser.id}, {_id: 0, __v: 0},null, (err, ships) => {
+        ShipModel.find({emailUsername: decodedUser.id}, {_id: 0, __v: 0}, null, (err, ships) => {
             if (err)
                 return res.status(500).send({message: "Error retrieving ships"});
 
@@ -111,7 +111,7 @@ exports.signUp = (req, res) => {
             return err;
 
         // Checks that the eventCode is correct
-        EventModel.findOne({eventCode: req.body.eventCode}, {_id: 0, __v: 0}, null,(err, event) => {
+        EventModel.findOne({eventCode: req.body.eventCode}, {_id: 0, __v: 0}, null, (err, event) => {
             if (err)
                 return res.status(500).send({message: "error retrieving events"});
             if (!event)
@@ -152,7 +152,7 @@ let pending = 0;
 exports.getParticipants = (req, res) => {
 
     const participants = [];
-    EventRegistrationModel.find({eventId: req.params.eventId}, {_id: 0, __v: 0},null, (err, eventRegs) => {
+    EventRegistrationModel.find({eventId: req.params.eventId}, {_id: 0, __v: 0}, null, (err, eventRegs) => {
         if (err)
             return res.status(500).send({message: "Error retrieving participants"});
         if (!eventRegs || eventRegs.length === 0)
