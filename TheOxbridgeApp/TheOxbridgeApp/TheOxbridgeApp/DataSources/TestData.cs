@@ -23,7 +23,7 @@ namespace TheOxbridgeApp.Data
 
                 TeamID = "1",
                 Name = "John",
-                // TeamImage = "TeamIcon.png",
+                 TeamImage = "TeamIcon.png",
 
 
             });
@@ -35,7 +35,7 @@ namespace TheOxbridgeApp.Data
 
                 TeamID = "2",
                 Name = "Sven",
-                //TeamImage = "TeamIcon.png",
+                TeamImage = "TeamIcon.png",
 
 
             });
@@ -47,7 +47,7 @@ namespace TheOxbridgeApp.Data
 
                 TeamID = "3",
                 Name = "Bob",
-                //TeamImage = "TeamIcon.png",
+                TeamImage = "TeamIcon.png",
 
 
             });

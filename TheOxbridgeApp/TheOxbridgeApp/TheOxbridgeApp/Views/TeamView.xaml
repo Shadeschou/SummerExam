@@ -30,6 +30,7 @@
                             <Label Text="{Binding Name}"
                                Margin="8,2,8,4"
                                FontSize="Small" />
+                            <Image Source="{Binding TeamImage}"></Image>
                         
                     </StackLayout>
                 </ViewCell>

@@ -18,6 +18,11 @@ namespace TheOxbridgeApp.ViewModels
    public class TeamViewModel : BaseViewModel
     {
 
+       // public Event ships = new Event();
+
+        //public ObservableCollection<Event> Events;
+
+
 
         public string PhotoPath { get; set; }
 
@@ -154,21 +159,26 @@ namespace TheOxbridgeApp.ViewModels
 
 
 
+           // var service = new TeamService();
+
 
             newTeam.TeamImageBytes = Encoding.ASCII.GetBytes(PhotoPath);
 
             var result = newTeam.TeamImageBytes;
+           // byte[] binaryContent = File.ReadAllBytes(PhotoPath);
             var teams = new Teams
             {
 
                 TeamID = "1",
-                Name = "Sven",
+                Name = "Karl",
                 TeamFilePicker = PhotoPath,
                 TeamImageBytes = result,
 
             };
-
+            //Events.Add(ships);
             TeamsList.Add(teams);
+
+           // service.Create(teams);
         }
 
 
@@ -198,7 +208,7 @@ namespace TheOxbridgeApp.ViewModels
             {
                 TeamID = "1",
                 Name = "Torben",
-               // TeamImageBytes = binaryContent,
+                TeamImageBytes = binaryContent,
                 
 
             };
@@ -229,7 +239,7 @@ namespace TheOxbridgeApp.ViewModels
             AddToDB = new Command(TakePhotoAsync);
             SaveImage = new Command(savepicture);
 
-
+          //  Events = new ObservableCollection<Event>();
             TeamsList = new ObservableCollection<Teams>();
 
 
