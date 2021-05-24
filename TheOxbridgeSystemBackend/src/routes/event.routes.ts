@@ -3,7 +3,7 @@ module.exports = (app) => {
     const events = require('../controllers/event.controller.ts');
 
     // Create an new event
-    app.post('/events', events.create);
+    // app.post('/events', events.create); //TODO Get help from Tommy to find the last even and increment.
 
     // Retrieve all events
     app.get('/events', events.findAll);

@@ -1,7 +1,7 @@
 export {};
-import {model, Schema} from 'mongoose';
+import {Model, model, Schema} from 'mongoose';
 
-interface EventSchema {
+interface IEvent {
     eventId: number,
     name: String,
     eventStart: Date,
@@ -12,7 +12,7 @@ interface EventSchema {
     isLive: Boolean
 }
 
-const schema = new Schema<EventSchema>({
+const EventSchema = new Schema<IEvent>({
 
     eventId: {type: Number},
     name: {type: String},
@@ -24,4 +24,6 @@ const schema = new Schema<EventSchema>({
     isLive: {type: Boolean}
 });
 
-export const EventModel = model<EventSchema>('Event', schema);
+const Event : Model<IEvent> = model('Event', EventSchema);
+
+export {Event, IEvent}

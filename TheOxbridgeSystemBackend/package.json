@@ -7,7 +7,7 @@
     "prebuild": "tslint -c tslint.json -p    tsconfig.json --fix",
     "build": "tsc && copy package.json dist\\package.json",
     "prestart": "npm run build",
-    "start": "set NODE_ENV=dev&&ts-node server.ts",
+    "start": "set NODE_ENV=dev&&ts-node launch.ts",
     "engines": {
       "node": "8.9.4"
     },

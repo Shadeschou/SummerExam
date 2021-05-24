@@ -1,244 +1,243 @@
-import {EnforceDocument} from "mongoose";
-import {EventRegistrationModel} from "../models/eventRegistration";
-import {EventModel} from "../models/event";
-import {ShipModel, ShipSchema} from "../models/ship";
-import {RacePointModel} from "../models/racePoint";
-import {Authorize} from "../controllers/authentication.controller"
-import {Request, Response} from "express"
-import {VerifyErrors} from "jsonwebtoken";
-
-
-export {};
-
-// Create and Save a new Event
-exports.create = (req: Request, res: Response ,err : VerifyErrors) => {
-
-
-    // Checking if authorized
-    Authorize(req, res, "admin" => {
-        if (err)
-            return err;
-
-
-        const event = new EventModel(req.body);
-        // Finding next eventId
-        EventModel.findOne({}).sort('-eventId').exec((err, lastEvent) => {
-            if (err)
-                return res.status(500).send({message: err.message || "Some error occurred while retriving events"});
-            if (lastEvent)
-                event.eventId = lastEvent.eventId + 1;
-            else
-                event.eventId = 1;
-
-            // Saving the new Event in the DB
-            event.save(err => {
-                if (err)
-                    return res.send(err);
-                res.status(201).json(event);
-            });
-        });
-    });
-};
-
-// Checking if event has a route
-exports.hasRoute = (req, res) => {
-
-    RacePointModel.find({eventId: req.params.eventId}, {_id: 0, __v: 0}, null, (err, racePoint) => {
-        if (err)
-            return res.status(500).send({message: "false"});
-        if (racePoint && racePoint.length !== 0)
-            return res.status(200).send(true);
-        else
-            return res.status(200).send(false);
-    })
-}
-
-// Retrieve and return all events from the database.
-exports.findAll = (req, res) => {
-    EventModel.find({}, {_id: 0, __v: 0}, null, (err, events): any => {
-        if (err)
-            return res.status(500).send({message: err.message || "Some error occurred while retriving events"});
-
-        res.status(200).json(events);
-    });
-};
-
-// Get all events that the user is a participant of
-let pending = 0;
-exports.findFromUsername = (req, res) => {
-
-    // Checking if authorized
-    Authorize(req, res, "all", (err, decodedUser) => {
-        if (err)
-            return err;
-
-        // Finding all the ships the user owns
-        const events = [];
-        ShipModel.find({emailUsername: decodedUser.id}, {_id: 0, __v: 0}, null, (err, ships) => {
-            if (err)
-                return res.status(500).send({message: err.message || "Some error occurred while retriving ships"});
-
-            if (ships.length > 0) {
-                // Finding all eventRegistrations with a ship that the user owns
-                ships.forEach(ship => {
-                    EventRegistrationModel.find({shipId: ship.shipId}, {
-                            _id: 0,
-                            __v: 0
-                        },
-
-                        null, (err, eventRegistrations) => {
-                            if (err)
-                                return res.status(500).send({message: err.message || "Some error occurred while retriving eventRegistrations"});
-
-                            if (eventRegistrations) {
-                                eventRegistrations.forEach(eventRegistration => {
-                                    pending++;
-                                    ShipModel.findOne({shipId: eventRegistration.shipId}, {
-                                        _id: 0,
-                                        __v: 0
-                                    }, null, (err, ship: EnforceDocument<ShipSchema, {}> | null) => {
-                                        if (err)
-                                            return res.status(500).send({message: err.message || "Some error occurred while retriving the ship"});
-
-                                        if (ship) {
-                                            EventModel.findOne({eventId: eventRegistration.eventId}, {
-                                                _id: 0,
-                                                __v: 0
-                                            }, null, (err, event) => {
-                                                pending--;
-                                                if (event) {
-                                                    event.push({
-                                                        "eventId": event.eventId,
-                                                        "name": event.name,
-                                                        "eventStart": event.eventStart,
-                                                        "eventEnd": event.eventEnd,
-                                                        "city": event.city,
-                                                        "eventRegId": eventRegistration.eventRegId,
-                                                        "shipName": ship.name,
-                                                        "teamName": eventRegistration.teamName,
-                                                        "isLive": event.isLive,
-                                                        "actualEventStart": event.actualEventStart
-                                                    });
-                                                }
-                                                if (pending === 0) {
-                                                    res.status(200).send(events);
-                                                }
-                                            });
-                                        }
-                                    });
-                                });
-                            }
-                        });
-                });
-            } else {
-                res.status(200).send(events);
-            }
-        });
-    });
-};
-
-// Find a single event with the given eventId
-exports.findOne = (req, res) => {
-    EventModel.findOne({eventId: req.params.eventId}, {_id: 0, __v: 0}, null, (err, event) => {
-        if (err)
-            return res.status(500).send({message: "Error retrieving event with eventId " + req.params.eventId});
-        if (!event)
-            return res.status(404).send({message: "Event not found with eventId " + req.params.eventId});
-
-        res.status(200).send(event);
-    });
-};
-
-// Finding and updating event with the given eventId
-exports.update = (req, res) => {
-
-    // Checking if authorized
-    Authorize(req, res, "admin", err => {
-        if (err)
-            return err;
-
-        const newEvent = req.body;
-        newEvent.eventId = req.params.eventId;
-        EventModel.updateOne({eventId: req.params.eventId}, newEvent, err, event => {
-            if (err)
-                return res.status(500).send({message: err.message || "Error updating bikeRackStation with stationId " + req.params.eventId});
-            if (!event)
-                return res.status(404).send({message: "BikeRackStation not found with stationId " + req.params.eventId});
-            res.status(202).json(newEvent);
-        });
-    });
-};
-
-// Changes event property "isLive" to true
-exports.StartEvent = (req, res) => {
-
-    // Checking if authorized
-    Authorize(req, res, "admin", err => {
-        if (err)
-            return err;
-
-        const updatedEvent = {isLive: true, actualEventStart: req.body.actualEventStart};
-        EventModel.findOneAndUpdate({eventId: req.params.eventId}, updatedEvent, {new: true}, (err, event) => {
-            if (err)
-                return res.status(500).send({message: "Error updating event with eventId " + req.params.eventId});
-            if (!event)
-                return res.status(404).send({message: "Event not found with eventId " + req.params.eventId});
-
-            res.status(202).json(event);
-        });
-    });
-};
-
-// Changes event property "isLive" to false
-exports.StopEvent = (req, res) => {
-
-    // Checking if authorized
-    Authorize(req, res, "admin", err => {
-        if (err)
-            return err;
-
-        EventModel.findOneAndUpdate({eventId: req.params.eventId}, {isLive: false}, {new: true}, (err, event) => {
-            if (err)
-                return res.status(500).send({message: "Error updating event with eventId " + req.params.eventId});
-            if (!event)
-                return res.status(404).send({message: "Event not found with eventId " + req.params.eventId});
-            else
-                res.status(202).json(event);
-        })
-    })
-}
-
-// Delete an event with the specified eventId in the request
-exports.delete = (req, res) => {
-
-    // Checking if authorized
-    Authorize(req, res, "admin", err => {
-        if (err)
-            return err;
-
-        // Finding and the deleting the event with the given eventId
-        EventModel.findOneAndDelete({eventId: req.params.eventId}, (err, event) => {
-            if (err)
-                return res.status(500).send({message: "Error deleting event with eventId " + req.params.eventId});
-            if (!event)
-                return res.status(404).send({message: "Event not found with eventId " + req.params.eventId});
-
-            // Finding and deleting every EventRegistration with the given eventId
-            EventRegistrationModel.deleteMany({eventId: req.params.eventId}, {
-                id: 0,
-                __v: 0
-            }, (err, eventRegs) => {
-                if (err)
-                    return res.status(500).send({message: "Error deleting eventRegistration with eventId " + req.params.eventId});
-
-                // Finding and deleting every RacePoint with the given eventId
-                RacePointModel.deleteMany({eventId: req.params.eventId}, {_id: 0, __v: 0}, (err, racepoints) => {
-                    if (err)
-                        return res.status(500).send({message: "Error deleting RacePoints with eventId " + req.params.eventId});
-
-                    res.status(202).json(event);
-                })
-            })
-        });
-    });
-};
+// import { connect } from "mongoose";
+// import express from 'express';
+// import cors from 'cors';
+// import * as mongoose from 'mongoose';
+// import * as bodyParser from 'body-parser';
+// import dotenv from 'dotenv';
+// import { Event, IEvent } from "src/models/event";
+// import { Auth } from 'src/controllers/authentication.controller'
+// import { EventRegistration, IEventRegistration } from 'src/models/eventRegistration'
+// import { RacePoint, IRacePoint } from 'src/models/racePoint'
+// import { AccessToken } from "src/controllers/accessToken";
+// import { Ship, IShip } from 'src/models/ship'
+//
+// dotenv.config({ path: 'config/config.env' });
+//
+//
+//
+// const app = express();
+//
+// app.use(cors());
+//
+// const urlencode = bodyParser.urlencoded({ extended: true });
+// app.use(express.static('public'));
+// app.use(bodyParser.json());
+//
+// connect(process.env.DB, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// });
+//
+//
+// // ROUTING
+// const router = express.Router();
+//
+// // TO PROCESS THE NEXT REQUEST !!
+// router.use(function (req, res, next) {
+//     console.log("recieved a request now, ready for the next");
+//     next();
+// });
+//
+// app.use('/', router);
+// // FINDALL EVENTS
+// app.get('/events', async (req, res) => {
+//     try {
+//         const events: IEvent[] = await Event.find({}, { _id: 0, __v: 0 });
+//         res.status(201).json(events);
+//     } catch (e) {
+//         res.status(400).send('BAD REQUEST')
+//     }
+// });
+// // POST EVENT
+// app.post('/events', async (req, res) => {
+//     try {
+//         const verify: Boolean = await Auth.Authorize(req, res, req.params.role);
+//         if (!verify) {
+//             return res.status(400).send({ auth: false, message: 'Not Authorized' });
+//         }
+//         const event = new Event(req.body);
+//         const one: any = 1;
+//         const lastEvent: IEvent = await Event.findOne({}).sort('desc');
+//
+//         if (lastEvent) {
+//             event.eventId = lastEvent.eventId + one;
+//         }
+//         else {
+//             event.eventId = 1;
+//         }
+//
+//
+//         // Saving the new Event in the DB
+//         event.save();
+//         res.status(201).json(event);
+//
+//
+//
+//     } catch (e) {
+//         res.status(400).send('BAD REQUEST')
+//     }
+// });
+// // FIND SINGLE EVENT
+// app.get('/events/:eventId', async (req, res) => {
+//     try {
+//         const evId: any = req.params.eventId;
+//         const event: IEvent = await Event.findOne({ eventId: evId }, { _id: 0, __v: 0 });
+//
+//         if (!event) {
+//             res.status(400).send('Event not found');
+//         }
+//         else {
+//             res.status(200).send(event);
+//         }
+//     } catch (e) {
+//         res.status(400).send('BAD REQUEST');
+//     }
+// });
+//
+// // UPDATE EVENT
+// app.put('/events/:eventId', async (req, res) => {
+//     try {
+//         const verify: Boolean = await Auth.Authorize(req, res, req.params.role);
+//         if (!verify) {
+//             return res.status(400).send({ auth: false, message: 'Not Authorized' });
+//         }
+//         const newEvent: any = req.body;
+//         const evId: any = req.params.eventId;
+//         newEvent.eventId = req.params.eventId;
+//         Event.updateOne({ eventId: evId }, newEvent);
+//         res.status(202).json(newEvent);
+//     } catch (e) {
+//         res.status(400).send('BAD REQUEST');
+//     }
+//
+//
+//
+// });
+//
+// app.delete('/events/:eventId', async (req, res) => {
+//     try {
+//         // Checking if authorized
+//         const verify: Boolean = await Auth.Authorize(req, res, req.params.role);
+//         if (!verify) {
+//             return res.status(400).send({ auth: false, message: 'Not Authorized' });
+//         }
+//         const evId: any = req.params.eventId;
+//         // Finding and the deleting the event with the given eventId
+//         Event.findOneAndDelete({ eventId: evId });
+//         // Finding and deleting every EventRegistration with the given eventId
+//         EventRegistration.deleteMany({ eventId: evId });
+//         // Finding and deleting every RacePoint with the given eventId
+//         RacePoint.deleteMany({ eventId: evId });
+//         res.status(202).send('Event deleted');
+//
+//
+//
+//
+//
+//     } catch (e) {
+//         res.status(400).send('BAD REQUEST')
+//     }
+// });
+//
+// // Updating event property "isLive" to true
+// app.put('/events/startEvent/:eventId', async (req, res) => {
+//     try {
+//         // Checking if authorized
+//         const verify: Boolean = await Auth.Authorize(req, res, req.params.role);
+//         if (!verify) {
+//             return res.status(400).send({ auth: false, message: 'Not Authorized' });
+//         }
+//         const evId: any = req.params.eventId;
+//         const updatedEvent = { isLive: true, actualEventStart: req.body.actualEventStart }
+//         Event.findOneAndUpdate({ eventId: evId }, updatedEvent, { new: true });
+//         res.status(202).send('Event is now Live');
+//
+//
+//     } catch (e) {
+//         res.status(400).send('BAD REQUEST')
+//     }
+// });
+//
+// app.get('/events/stopEvent/:eventId', async (req, res) => {
+//     try {
+//         // Checking if authorized
+//         const verify: Boolean = await Auth.Authorize(req, res, req.params.role);
+//         if (!verify) {
+//             return res.status(400).send({ auth: false, message: 'Not Authorized' });
+//         }
+//         const evId: any = req.params.eventId;
+//         Event.findOneAndUpdate({ eventId: evId }, { isLive: false }, { new: true });
+//         res.status(202).send('Event Stopped');
+//     } catch (e) {
+//         res.status(400).send('BAD REQUEST')
+//     }
+// });
+//
+// app.get('/events/hasRoute/:eventId', async (req, res) => {
+//     try {
+//         const evId: any = req.params.eventId;
+//         const racepoints: IRacePoint[] = await RacePoint.find({ eventId: evId }, { _id: 0, __v: 0 });
+//         if (racepoints && racepoints.length !== 0)
+//             return res.status(200).send(true);
+//         else
+//             return res.status(200).send(false);
+//
+//     } catch (e) {
+//         res.status(400).send('BAD REQUEST')
+//     }
+// });
+//
+// app.get('/events/myEvents/findFromUsername', async (req, res) => {
+//     try {
+//         // Checking if authorized
+//         const verify: Boolean = await Auth.Authorize(req, res, req.params.role);
+//         if (!verify) {
+//             return res.status(400).send({ auth: false, message: 'Not Authorized' });
+//         }
+//         // Finding all the ships the user owns
+//         const events: any[] = new Array;
+//         const ships: IShip[] = await Ship.find({ emailUsername: req.params.emailUsername }, { _id: 0, __v: 0 });
+//
+//         if (ships.length > 0) {
+//             // Finding all eventRegistrations with a ship that the user owns
+//             ships.forEach( async (ship:IShip) => {
+//                 const eventRegistrations: IEventRegistration[] = await EventRegistration.find({ shipId: ship.shipId }, { _id: 0, __v: 0 });
+//                 if (eventRegistrations) {
+//                     eventRegistrations.forEach( async (eventRegistration:IEventRegistration) => {
+//                         pending++;
+//                         const ship: IShip = await Ship.findOne({ shipId: eventRegistration.shipId }, { _id: 0, __v: 0 });
+//                         if (ship) {
+//                             const event: IEvent = await Event.findOne({ eventId: eventRegistration.eventId }, { _id: 0, __v: 0 });
+//                             pending--
+//                             if (event) {
+//                                 events.push({ "eventId": event.eventId, "name": event.name, "eventStart": event.eventStart, "eventEnd": event.eventEnd, "city": event.city, "eventRegId": eventRegistration.eventRegId, "shipName": ship.name, "teamName": eventRegistration.teamName, "isLive": event.isLive, "actualEventStart": event.actualEventStart });
+//                             }
+//                             if (pending == 0) {
+//                                 res.status(200).send(events);
+//                             }
+//
+//                         }
+//
+//
+//                     });
+//                 }
+//             });
+//
+//         } else {
+//             res.status(200).send(events);
+//         }
+//
+//
+//
+//
+//     } catch (e) {
+//         res.status(400).send('BAD REQUEST')
+//     }
+// });
+//
+//
+//
+//
+//
+//
+// export { app }

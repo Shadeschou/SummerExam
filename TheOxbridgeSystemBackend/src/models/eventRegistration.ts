@@ -1,7 +1,8 @@
 export {};
-import {model, Schema} from 'mongoose';
+import {Model, model, Schema} from 'mongoose';
 
-interface EventRegistrationSchema {
+
+interface IEventRegistrationSchema {
     eventRegId: Number,
     shipId: Number,
     eventId: number,
@@ -9,7 +10,7 @@ interface EventRegistrationSchema {
     teamName: String
 }
 
-const schema = new Schema<EventRegistrationSchema>({
+const EventRegistrationSchema = new Schema<IEventRegistrationSchema>({
 
     eventRegId: {type: Number},
     shipId: {type: Number},
@@ -18,4 +19,6 @@ const schema = new Schema<EventRegistrationSchema>({
     teamName: {type: String},
 });
 
-export const EventRegistrationModel = model<EventRegistrationSchema>('EventRegistration', schema);
+const EventRegistrationModel = model<IEventRegistrationSchema>('EventRegistration', EventRegistrationSchema);
+
+export {EventRegistrationModel, IEventRegistrationSchema}

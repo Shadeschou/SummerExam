@@ -11,7 +11,7 @@ class locationRegistrationRoutes {
 
     export {
     post
-};
+}
 
 // Retrieve latest LocationRegistrations from specified event
 app.get('/locationRegistrations/getLive/:eventId', locationRegistrations.getLive);
