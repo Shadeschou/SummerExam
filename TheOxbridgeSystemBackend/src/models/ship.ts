@@ -1,14 +1,14 @@
 export {};
 import {model, Schema} from 'mongoose';
 
-export interface ShipSchema {
+interface IShip {
     shipId: Number,
     emailUsername: String,
     name: String,
 
 }
 
-const schema = new Schema<ShipSchema>({
+const ShipSchema = new Schema<IShip>({
 
     shipId: {type: Number, required: false},
     emailUsername: {type: String, required: false},
@@ -16,4 +16,5 @@ const schema = new Schema<ShipSchema>({
 
 });
 
-export const ShipModel = model<ShipSchema>('Ship', schema);
+const ShipModel = model<IShip>('Ship', ShipSchema);
+export {ShipModel, IShip}

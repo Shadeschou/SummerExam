@@ -1,7 +1,7 @@
 export {};
 import {model, Schema} from 'mongoose';
 
-interface racePointSchema {
+export interface IRacePoint {
     racePointId: Number,
     type: String,
     firstsecondeventId: Number,
@@ -12,7 +12,7 @@ interface racePointSchema {
     racePointNumber: Number
 }
 
-const schema = new Schema<racePointSchema>({
+const RacePointSchema = new Schema<IRacePoint>({
 
     racePointId: {type: Number},
     type: {type: String},
@@ -24,4 +24,5 @@ const schema = new Schema<racePointSchema>({
     racePointNumber: {type: Number}
 });
 
-export const RacePointModel = model<racePointSchema>('racePoint', schema);
+export const RacePointModel = model<IRacePoint>('racePoint', RacePointSchema);
+

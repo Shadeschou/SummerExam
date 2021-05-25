@@ -1,7 +1,7 @@
 export {};
 import {model, Schema} from 'mongoose';
 
-interface LocationRegistrationSchema {
+export interface ILocationRegistrationSchema {
     regId: Number,
     eventRegId: Number,
     locationTime: Date,
@@ -12,7 +12,7 @@ interface LocationRegistrationSchema {
     finishTime: Date
 }
 
-const schema = new Schema<LocationRegistrationSchema>({
+const LocationRegistrationSchema = new Schema<ILocationRegistrationSchema>({
 
     regId: {type: Number},
     eventRegId: {type: Number},
@@ -24,4 +24,4 @@ const schema = new Schema<LocationRegistrationSchema>({
     finishTime: {type: Date}
 });
 
-export const LocationRegistrationModel = model<LocationRegistrationSchema>('LocationRegistration', schema);
+export const LocationRegistrationModel = model<ILocationRegistrationSchema>('LocationRegistration', LocationRegistrationSchema);

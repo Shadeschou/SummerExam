@@ -1,7 +1,7 @@
 export {};
 import {model, Schema} from 'mongoose';
 
-interface UserSchema {
+export interface IUser {
 
     firstname: String,
     lastname: String,
@@ -10,7 +10,7 @@ interface UserSchema {
     role: String
 }
 
-const schema = new Schema<UserSchema>({
+const UserModelSchema = new Schema<IUser>({
 
     firstname: {type: String},
     lastname: {type: String},
@@ -19,4 +19,4 @@ const schema = new Schema<UserSchema>({
     role: {type: String, required: true}
 });
 
-export const UserModel = model<UserSchema>('User', schema);
+export const UserModel = model<IUser>('User', UserModelSchema);
