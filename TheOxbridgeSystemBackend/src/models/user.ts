@@ -6,7 +6,7 @@ export interface IUser {
     firstname: String,
     lastname: String,
     usernameMail: String,
-    password: Number,
+    password: String,
     role: String
 }
 
@@ -15,7 +15,7 @@ const UserModelSchema = new Schema<IUser>({
     firstname: {type: String},
     lastname: {type: String},
     usernameMail: {type: String},
-    password: {type: Number},
+    password: {type: String},
     role: {type: String, required: true}
 });
 

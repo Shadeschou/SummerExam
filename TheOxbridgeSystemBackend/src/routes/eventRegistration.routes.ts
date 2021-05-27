@@ -3,13 +3,13 @@
 //     const eventRegistrations = require('../controllers/eventRegistration.controller.ts');
 //
 //     // Create a new EventRegistration
-//     app.post('/eventRegistrations/', eventRegistrations.create);
+//     // app.post('/eventRegistrations/', eventRegistrations.create);
 //
 //     // Retrieve all EventRegistrations
-//     app.get('/eventRegistrations/', eventRegistrations.findAll);
+//     // app.get('/eventRegistrations/', eventRegistrations.findAll);
 //
 //     // Retrieve all EventRegistrations with ship that is owned by user registrered on token
-//     app.get('/eventRegistrations/findEventRegFromUsername/:eventId', eventRegistrations.findEventRegFromUsername);
+//     // app.get('/eventRegistrations/findEventRegFromUsername/:eventId', eventRegistrations.findEventRegFromUsername);
 //
 //     // Create an EventRegistration
 //     app.post('/eventRegistrations/signUp', eventRegistrations.signUp)
