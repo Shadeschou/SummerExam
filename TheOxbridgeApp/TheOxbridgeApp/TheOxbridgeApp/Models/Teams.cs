@@ -9,12 +9,19 @@ namespace TheOxbridgeApp.Models
 {
     public class Teams
     {
-        
-        public string TeamID { get; set; }
 
+        public Ship Ships { get; set; }
+        public User user { get; set; }
+        public Event Events { get; set; }
+        public int TeamID { get; set; }
+
+        public String City { get; set; }
         public String Name { get; set; }
 
-       // public String Username { get; set; }
+      
+
+
+     
        public string TeamImage { get; set; }
         public byte[] TeamImageBytes { get; set; }
 

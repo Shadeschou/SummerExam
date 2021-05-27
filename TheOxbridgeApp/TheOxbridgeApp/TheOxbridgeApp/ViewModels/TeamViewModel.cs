@@ -15,16 +15,47 @@ using Xamarin.Forms;
 
 namespace TheOxbridgeApp.ViewModels
 {
-   public class TeamViewModel : BaseViewModel
+    public class TeamViewModel : BaseViewModel
     {
 
-       // public Event ships = new Event();
+        // public Event ships = new Event();
 
         //public ObservableCollection<Event> Events;
 
-
+        private ServerClient serverClient;
 
         public string PhotoPath { get; set; }
+
+
+        public Event SelectedEvent { get; set; }
+
+
+        public List<Event> ListOfEvents;
+
+
+        public List<TeamPhotoData> ListOfPhotoData { get; set; }
+
+
+        private ObservableCollection<TeamPhotoData> teamPhotoList;
+        public ObservableCollection<TeamPhotoData> TeamPhotoList
+        {
+            get { return teamPhotoList; }
+            set
+            {
+                teamPhotoList = value;
+            }
+        }
+
+        private ObservableCollection<Event> eventObservable;
+        public ObservableCollection<Event> EventObservable
+        {
+            get { return eventObservable; }
+            set
+            {
+                eventObservable = value;
+            }
+        }
+
 
 
         private ObservableCollection<Teams> teamsList;
@@ -37,7 +68,7 @@ namespace TheOxbridgeApp.ViewModels
             }
         }
 
-        private async void PickPhoto() 
+        private async void PickPhoto()
         {
 
 
@@ -56,11 +87,11 @@ namespace TheOxbridgeApp.ViewModels
 
             var container = TeamsAddpicture.TeamFilePicker;
 
-        
+
             var teams = new Teams
             {
 
-                TeamID = "1",
+                TeamID = 1,
                 Name = "Sven",
                 TeamFilePicker = container,
 
@@ -75,7 +106,7 @@ namespace TheOxbridgeApp.ViewModels
         {
 
 
-           
+
 
 
 
@@ -91,7 +122,7 @@ namespace TheOxbridgeApp.ViewModels
                 var contentType = file.ContentType;
                 var stream = await file.OpenReadAsync();
 
-               
+
                 //...
                 file.Dispose();
 
@@ -101,20 +132,16 @@ namespace TheOxbridgeApp.ViewModels
 
             /*
             var status = await Permissions.RequestAsync<SaveMediaPermission>();
-
             if (status != PermissionStatus.Granted)
                 return;
-
             await MediaGallery.SaveAsync(MediaFileType.Video, filePath);
-
             //OR Using a byte array or a stream
-
             await MediaGallery.SaveAsync(MediaFileType.Image, stream, fileName);
             */
         }
 
 
-        public async void TakePhotoAsync() 
+        public async void TakePhotoAsync()
         {
 
 
@@ -154,22 +181,22 @@ namespace TheOxbridgeApp.ViewModels
                 await stream.CopyToAsync(newStream);
 
             Teams newTeam = new Teams();
-           // newTeam.TeamImageBytes = photo;
+            // newTeam.TeamImageBytes = photo;
             PhotoPath = newFile;
 
 
 
-           // var service = new TeamService();
+            // var service = new TeamService();
 
-
+            
             newTeam.TeamImageBytes = Encoding.ASCII.GetBytes(PhotoPath);
 
             var result = newTeam.TeamImageBytes;
-           // byte[] binaryContent = File.ReadAllBytes(PhotoPath);
+            // byte[] binaryContent = File.ReadAllBytes(PhotoPath);
             var teams = new Teams
             {
 
-                TeamID = "1",
+                TeamID = 1,
                 Name = "Karl",
                 TeamFilePicker = PhotoPath,
                 TeamImageBytes = result,
@@ -178,43 +205,102 @@ namespace TheOxbridgeApp.ViewModels
             //Events.Add(ships);
             TeamsList.Add(teams);
 
-           // service.Create(teams);
+            // service.Create(teams);
         }
 
 
 
-        public async void savepicture() 
+        public async Task savepicture(FileResult photo)
         {
 
-           // var screenshot = await Screenshot.CaptureAsync();
 
-           // await MediaGallery.SaveAsync(MediaFileType.Image, await screenshot.OpenReadAsync(), "MyScreenshot.png");
+            if (photo == null)
+            {
+                PhotoPath = null;
+                return;
+            }
+            // save the file into local storage
+            var newFile = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+            using (var stream = await photo.OpenReadAsync())
+            using (var newStream = File.OpenWrite(newFile))
+                await stream.CopyToAsync(newStream);
+
+            PhotoPath = newFile;
+
+            TeamPhotoData teamPhotObject = new TeamPhotoData();
+            teamPhotObject.TeamImageBytes = Encoding.ASCII.GetBytes(PhotoPath);
+
+        
+          
+
+
+
+
+
+            
+
+
+
+
+
+
+            // var screenshot = await Screenshot.CaptureAsync();
+
+            // await MediaGallery.SaveAsync(MediaFileType.Image, await screenshot.OpenReadAsync(), "MyScreenshot.png");
 
 
         }
+
+        public async void setupList() 
+        {
+
+           ListOfEvents = serverClient.GetEvents();
+
+
+            TrackingEvent trackingEvent = new TrackingEvent();
+
+
+            // EventObservable = new ObservableCollection<TrackingEvent>(ListOfEvents);
+
+            EventObservable = new ObservableCollection<Event>(ListOfEvents);
+            
+           // TrackingEvent trackingEvent = new TrackingEvent { 
+             //  Name = ,  City = "Sønderborg" };
+
+           // EventObservable.Add(ListOfEvents);
+
+          //  foreach (var item in ListOfEvents)
+           // {
+           //     EventObservable.Add(item);
+          //  }
+
+
+        }
+
+
 
         public ICommand AddToDB { get; set; }
 
         public ICommand SaveImage { get; set; }
-        private async void InsertPictureToDB() 
+        private async void InsertPictureToDB()
         {
             try
             {
-            var service = new TeamService();
+                var service = new TeamService();
 
-            byte[] binaryContent = File.ReadAllBytes("TeamIcon.png");
+                byte[] binaryContent = File.ReadAllBytes("TeamIcon.png");
 
-            var teams = new Teams
-            {
-                TeamID = "1",
-                Name = "Torben",
-                TeamImageBytes = binaryContent,
-                
+                var teams = new Teams
+                {
+                    TeamID = 1,
+                    Name = "Torben",
+                    TeamImageBytes = binaryContent,
 
-            };
 
-            service.Create(teams);
-            Console.WriteLine("Hello there");
+                };
+
+                //service.Create(teams);
+                Console.WriteLine("Hello there");
 
             }
             catch (Exception)
@@ -234,23 +320,25 @@ namespace TheOxbridgeApp.ViewModels
          */
 
 
-        public TeamViewModel() 
+        public TeamViewModel()
         {
             AddToDB = new Command(TakePhotoAsync);
-            SaveImage = new Command(savepicture);
-
-          //  Events = new ObservableCollection<Event>();
-            TeamsList = new ObservableCollection<Teams>();
-
-
-            TestData context = new TestData();
+            // SaveImage = new Command(savepicture);
+            setupList();
+             //  Events = new ObservableCollection<Event>();
+            
 
 
-            foreach (var teams in context.Teams)
-            {
-                TeamsList.Add(teams);
-            }
-        
+           
+
+          //  TestData context = new TestData();
+
+
+           // foreach (var teams in context.Teams)
+           // {
+               // TeamsList.Add(teams);
+            //}
+
         }
 
 

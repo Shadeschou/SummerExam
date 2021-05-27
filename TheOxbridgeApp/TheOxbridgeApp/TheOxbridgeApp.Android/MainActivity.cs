@@ -43,7 +43,7 @@ namespace TheOxbridgeApp.Droid
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
 
             instance = this;
-
+           
 
             LoadApplication(new App());
 

@@ -12,8 +12,8 @@
 
     <StackLayout>
         <Button Text="PickPhoto" Command="{Binding AddToDB}"></Button>
-        <Button Text="Save Picture" Command="{Binding SaveImage}"></Button>
-        <ListView ItemsSource="{Binding TeamsList}" 
+
+        <ListView  ItemsSource="{Binding EventObservable}" 
               HasUnevenRows="True"
               BackgroundColor="#ecf0f1"
               SeparatorVisibility="None"
@@ -26,11 +26,24 @@
                 <ViewCell>
                     <StackLayout Margin="6,4,6,4"
                                  BackgroundColor="White">
-                            <Image Source="{Binding TeamFilePicker}" />
+                           
                             <Label Text="{Binding Name}"
                                Margin="8,2,8,4"
                                FontSize="Small" />
-                            <Image Source="{Binding TeamImage}"></Image>
+
+                            <Label Text="{Binding City}"></Label>
+                            
+
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    NumberOfTapsRequired="1"
+                                   >
+                                    
+                                    
+                                </TapGestureRecognizer>
+                                
+                                
+                            </StackLayout.GestureRecognizers>
                         
                     </StackLayout>
                 </ViewCell>

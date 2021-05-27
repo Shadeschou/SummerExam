@@ -22,6 +22,9 @@ namespace TheOxbridgeApp.Services
         }
 
 
+
+
+
         /// <summary>
         /// Contacts the backend in order to login and get a token from the backend 
         /// </summary>
@@ -72,6 +75,8 @@ namespace TheOxbridgeApp.Services
             return locations;
         }
 
+
+
         /// <summary>
         /// Gets all the events that the logged in user is signed up for from the backend 
         /// </summary>
@@ -105,6 +110,20 @@ namespace TheOxbridgeApp.Services
             return events;
 
         }
+
+
+        public List<Event> GetEventsRegistration()
+        {
+            WebRequest request = WebRequest.Create(Target.EventsFromUsername);
+            request.Method = "GET";
+
+            String responseFromServer = GetResponse(request);
+
+            List<Event> events = JsonConvert.DeserializeObject<List<Event>>(responseFromServer);
+            return events;
+
+        }
+
 
 
         /// <summary>
