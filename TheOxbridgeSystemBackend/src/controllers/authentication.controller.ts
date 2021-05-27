@@ -5,10 +5,10 @@ import {AccessToken} from 'src/controllers/accessToken.controller'
 dotenv.config({path: 'config/config.env'}); // NEW
 
 export class Auth {
-    static async Authorize(req: Request, res: Response, role: String): Promise<Boolean> {
+    static async Authorize(req: Request, res: Response, role: string): Promise<boolean> {
         // Checks if a token is provided
         const token = req.header('x-access-token');
-        const verify: Promise<Boolean> = this.verify(token, process.env.TOKEN_SECRET, role);
+        const verify: Promise<boolean> = this.verify(token, process.env.TOKEN_SECRET, role);
         if (!verify) {
             return false;
         } else if (verify) {
@@ -17,7 +17,7 @@ export class Auth {
     }
 
     // Verifying the token
-    static async verify(token: any, secret: string, role: String): Promise<Boolean> {
+    static async verify(token: any, secret: string, role: string): Promise<boolean> {
 
         // Verifying that the request is allowed by the requesting role
         if (role === "admin" && AccessToken.userRole(token) !== "admin")

@@ -1,18 +1,20 @@
-export {};
-import {model, Schema} from 'mongoose';
+import {IRacePoint} from "./racePoint";
 
-export interface ILocationRegistrationSchema {
-    regId: Number,
-    eventRegId: Number,
+export {};
+import {Document, Model, model, Schema} from 'mongoose';
+
+export interface ILocationRegistration extends Document {
+    regId: number,
+    eventRegId: number,
     locationTime: Date,
     longtitude: Date,
-    latitude: String,
-    racePointNumber: Number,
-    raceScore: Date,
+    latitude: string,
+    racePointNumber: number,
+    raceScore: number,
     finishTime: Date
 }
 
-const LocationRegistrationSchema = new Schema<ILocationRegistrationSchema>({
+const ILocationRegistration = new Schema<ILocationRegistration>({
 
     regId: {type: Number},
     eventRegId: {type: Number},
@@ -24,4 +26,4 @@ const LocationRegistrationSchema = new Schema<ILocationRegistrationSchema>({
     finishTime: {type: Date}
 });
 
-export const LocationRegistrationModel = model<ILocationRegistrationSchema>('LocationRegistration', LocationRegistrationSchema);
+export const LocationRegistrationModel: Model<ILocationRegistration> = model('racePoint', ILocationRegistration);

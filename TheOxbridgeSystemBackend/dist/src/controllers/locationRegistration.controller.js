@@ -398,3 +398,4 @@
 //         return callback();
 //     });
 // }
+//# sourceMappingURL=locationRegistration.controller.js.map

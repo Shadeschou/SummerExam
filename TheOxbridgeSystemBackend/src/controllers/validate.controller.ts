@@ -1,23 +1,22 @@
-import {Event, EventModel, IEvent} from "../models/event";
-import {EventRegistration, EventRegistrationModel, IEventRegistration} from 'src/models/eventRegistration'
-
-import { ShipModel, IShip } from '../models/ship'
-import express from "express";
-import {LocationRegistrationModel} from "../models/locationRegistration";
-import {RacePointModel} from "../models/racePoint";
+import express from 'express';
+import { EventModel, IEvent } from "src/models/event";
+import { EventRegistrationModel, IEventRegistration } from 'src/models/eventRegistration'
+import { ShipModel, IShip } from 'src/models/ship'
+import { LocationRegistrationModel, ILocationRegistration } from 'src/models/locationRegistration'
+import { RacePointModel, IRacePoint } from 'src/models/racePoint'
 
 
 
 
 export class Validate {
-    static async validateForeignKeys(registration: IEventRegistration, res: express.Response): Promise<Boolean> {
+    static async validateEventForeignKeys(registration: IEventRegistration, res: express.Response): Promise<boolean> {
         // Checking if ship exists
         const ship: IShip = await ShipModel.findOne({ shipId: registration.shipId })
         if (!ship) {
             return false;
         }
         // Checking if event exists
-        const event: IEvent = await Event.findOne({ eventId: registration.eventId });
+        const event: IEvent = await EventModel.findOne({ eventId: registration.eventId });
         if (!event) {
             return false;
         }
@@ -25,28 +24,22 @@ export class Validate {
 
     static async createRegistration(newRegistration: IEventRegistration, res: express.Response): Promise<IEventRegistration> {
 
-
-        const val:Boolean = await this.validateForeignKeys(newRegistration,res);
-        if(!val){
+        const val: boolean = await this.validateEventForeignKeys(newRegistration, res);
+        if (!val) {
             return null;
         }
         // Finding next eventRegId
-        const lastEventRegistration: IEventRegistration = await EventRegistration.findOne({}).sort('-desc');
+        const lastEventRegistration: IEventRegistration = await EventRegistrationModel.findOne({}).sort('-desc');
         const one: any = 1;
         if (lastEventRegistration)
             newRegistration.eventRegId = lastEventRegistration.eventRegId + one;
         else
             newRegistration.eventRegId = 1;
 
-        newRegistration.save();
+        await newRegistration.save();
         return newRegistration;
-
-
-
     }
-
-    // Finds the ships distance to the racepoint
-    static    FindDistance(registration: any, racePoint: any, callback: any): any {
+    static FindDistance(registration: any, racePoint: any): any {
         const checkPoint1 = {
             longtitude: Number,
             latitude: Number
@@ -69,9 +62,9 @@ export class Validate {
         const S: number = Math.sqrt(P * (P - AC) * (P - AB) * (P - AC));
 
         const result = 2 * S / AB;
-        return callback(result)
+        return result
     }
-    static CalculateDistance(checkPoint1: { longtitude: any; latitude: any; }, checkPoint2: { longtitude: any; latitude: any; }): Number {
+    static CalculateDistance(checkPoint1: { longtitude: any; latitude: any; }, checkPoint2: { longtitude: any; latitude: any; }): number {
         const R = 6371e3; // metres
         const φ1 = checkPoint1.latitude * Math.PI / 180; // φ, λ in radians
         const φ2 = checkPoint2.latitude * Math.PI / 180;
@@ -89,11 +82,92 @@ export class Validate {
         return d;
     }
 
+    static async validateLocationForeignKeys(registration: ILocationRegistration, res: express.Response): Promise<boolean> {
+
+        // Checking if eventReg exists
+        const eventReg: IEventRegistration = await EventRegistrationModel.findOne({ eventRegId: registration.eventRegId });
+        if (!eventReg) {
+            return false;
+        }
+        return true;
+
+    }
+
+    static async CheckRacePoint(registration: ILocationRegistration, res: express.Response): Promise<any> {
+        const eventRegistration: IEventRegistration = await EventRegistrationModel.findOne({ eventRegId: registration.eventRegId }, { _id: 0, __v: 0 });
+
+        // Checks which racepoint the ship has reached last
+        let nextRacePointNumber = 2;
+        const one: any = 1;
+        const locationRegistration: ILocationRegistration = await LocationRegistrationModel.findOne({ eventRegId: registration.eventRegId }, { _id: 0, __v: 0 }, { sort: { 'locationTime': -1 } });
+        if (locationRegistration) {
+            nextRacePointNumber = locationRegistration.racePointNumber + one;
+            if (locationRegistration.finishTime != null) {
+                const updatedRegistration = registration;
+                updatedRegistration.racePointNumber = locationRegistration.racePointNumber;
+                updatedRegistration.raceScore = locationRegistration.raceScore;
+                updatedRegistration.finishTime = locationRegistration.finishTime;
+                return updatedRegistration;
+            }
+        }
+
+        if (eventRegistration) {
+            const event: IEvent = await EventModel.findOne({ eventId: eventRegistration.eventId }, { _id: 0, __v: 0 });
+            if (event && event.isLive) {
+
+                // Finds the next racepoint and calculates the ships distance to the racepoint
+                // and calculates the score based on the distance
+                const nextRacePoint: IRacePoint = await RacePointModel.findOne({ eventId: eventRegistration.eventId, racePointNumber: nextRacePointNumber }, { _id: 0, __v: 0 });
+                if (nextRacePoint) {
+                    let distance: any = this.FindDistance(registration, nextRacePoint);
+                    if (distance < 25) {
+
+                        if (nextRacePoint.type !== "finishLine") {
+                            const newNextRacePoint: IRacePoint = await RacePointModel.findOne({ eventId: eventRegistration.eventId, racePointNumber: nextRacePoint.racePointNumber + one }, { _id: 0, __v: 0 });
+
+
+                            if (newNextRacePoint) {
+                                const nextPointDistance: any = this.FindDistance(registration, newNextRacePoint);
+                                distance = nextPointDistance;
+
+                                const updatedRegistration = registration;
+                                updatedRegistration.racePointNumber = nextRacePointNumber;
+                                updatedRegistration.raceScore = ((nextRacePointNumber) * 10) + ((nextRacePointNumber) / distance);
+                                return updatedRegistration;
+
+
+
+                            }
+                        } else {
+                            const updatedRegistration = registration;
+                            updatedRegistration.racePointNumber = nextRacePointNumber;
+                            updatedRegistration.finishTime = registration.locationTime
+                            const ticks = ((registration.locationTime.getTime() * 10000) + 621355968000000000);
+                            updatedRegistration.raceScore = (1000000000000000000 - ticks) / 1000000000000
+                            return updatedRegistration;
+                        }
+                    } else {
+                        const updatedRegistration = registration;
+                        updatedRegistration.racePointNumber = nextRacePointNumber - 1;
+                        updatedRegistration.raceScore = ((nextRacePointNumber - 1) * 10) + ((nextRacePointNumber - 1) / distance);
+                        return updatedRegistration;
+                    }
+
+                } else {
+                    const updatedRegistration = registration;
+                    updatedRegistration.racePointNumber = 1;
+                    updatedRegistration.raceScore = 0;
+                    return updatedRegistration;
+
+                }
+            } else {
+                const updatedRegistration = registration;
+                updatedRegistration.racePointNumber = 1;
+                updatedRegistration.raceScore = 0;
+                return updatedRegistration;
+            }
+
+        }
+    }
+
 }
-
-
-
-
-
-
-

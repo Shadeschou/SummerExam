@@ -1,13 +1,11 @@
-import {model, Schema} from "mongoose";
+import {model, Schema, Model, Document} from 'mongoose';
 
-
-
-export interface IEventRegistration {
-    eventRegId: Number,
-    shipId: Number,
+export interface IEventRegistration extends Document {
+    eventRegId: number,
+    shipId: number,
     eventId: number,
     trackColor: Date,
-    teamName: String
+    teamName: string
 }
 
 const EventRegistrationSchema = new Schema<IEventRegistration>({
@@ -19,4 +17,5 @@ const EventRegistrationSchema = new Schema<IEventRegistration>({
     teamName: {type: String},
 });
 
-export const EventRegistration= model<IEventRegistration>('EventRegistration', EventRegistrationSchema);
+
+export const EventRegistrationModel: Model<IEventRegistration> = model('racePoint', EventRegistrationSchema);

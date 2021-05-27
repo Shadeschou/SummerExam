@@ -1,14 +1,14 @@
 export {};
-import {model, Schema} from 'mongoose';
+import {Document, Model, model, Schema} from 'mongoose';
 
-interface IShip {
-    shipId: Number,
-    emailUsername: String,
-    name: String,
+export interface IShip extends Document  {
+    shipId: number,
+    emailUsername: string,
+    name: string,
 
 }
 
-const ShipSchema = new Schema<IShip>({
+const ShipModelSchema = new Schema({
 
     shipId: {type: Number, required: false},
     emailUsername: {type: String, required: false},
@@ -16,5 +16,4 @@ const ShipSchema = new Schema<IShip>({
 
 });
 
-const ShipModel = model<IShip>('Ship', ShipSchema);
-export {ShipModel, IShip}
+export const ShipModel:Model<IShip> = model('Ship', ShipModelSchema);

@@ -1,18 +1,18 @@
 export {};
-import {model, Schema} from 'mongoose';
+import {Document, Model, model, Schema} from 'mongoose';
 
-export interface IRacePoint {
-    racePointId: Number,
-    type: String,
-    firstsecondeventId: Number,
-    firsteventId: Number,
-    secondsecondeventId: Number,
-    secondeventId: Number,
-    eventId: Number,
-    racePointNumber: Number
+export interface IRacePoint extends Document  {
+    racePointId: number,
+    type: string,
+    firstsecondeventId: number,
+    firsteventId: number,
+    secondsecondeventId: number,
+    secondeventId: number,
+    eventId: number,
+    racePointNumber: number
 }
 
-const RacePointSchema = new Schema<IRacePoint>({
+const RacePointSchema = new Schema({
 
     racePointId: {type: Number},
     type: {type: String},
@@ -24,5 +24,9 @@ const RacePointSchema = new Schema<IRacePoint>({
     racePointNumber: {type: Number}
 });
 
-export const RacePointModel = model<IRacePoint>('racePoint', RacePointSchema);
+export const RacePointModel: Model<IRacePoint> = model('racePoint', RacePointSchema);
+
+
+
+
 
