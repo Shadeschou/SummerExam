@@ -1,9 +1,9 @@
 import express from 'express';
-import { EventModel, IEvent } from "src/models/event";
-import { EventRegistrationModel, IEventRegistration } from 'src/models/eventRegistration'
-import { ShipModel, IShip } from 'src/models/ship'
-import { LocationRegistrationModel, ILocationRegistration } from 'src/models/locationRegistration'
-import { RacePointModel, IRacePoint } from 'src/models/racePoint'
+import { EventModel, IEvent } from "../models/event";
+import { EventRegistrationModel, IEventRegistration } from '../models/eventRegistration'
+import { ShipModel, IShip } from '../models/ship'
+import { LocationRegistrationModel, ILocationRegistration } from '../models/locationRegistration'
+import { RacePointModel, IRacePoint } from '../models/racePoint'
 
 
 

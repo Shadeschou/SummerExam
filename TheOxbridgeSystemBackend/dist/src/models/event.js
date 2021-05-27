@@ -12,5 +12,6 @@ const IEventSchema = new mongoose_1.Schema({
     actualEventStart: { type: Date },
     isLive: { type: Boolean }
 });
-exports.EventModel = mongoose_1.model('racePoint', IEventSchema);
+const EventModel = mongoose_1.model('Event', IEventSchema);
+exports.EventModel = EventModel;
 //# sourceMappingURL=event.js.map

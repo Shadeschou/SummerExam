@@ -30,7 +30,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Auth = void 0;
 const dotenv = __importStar(require("dotenv"));
-const accessToken_controller_1 = require("src/controllers/accessToken.controller");
+const accessToken_controller_1 = require("./accessToken.controller");
 dotenv.config({ path: 'config/config.env' }); // NEW
 class Auth {
     static Authorize(req, res, role) {

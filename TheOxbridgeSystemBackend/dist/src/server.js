@@ -37,19 +37,19 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const bodyParser = __importStar(require("body-parser"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const event_1 = require("src/models/event");
-const authentication_controller_1 = require("src/controllers/authentication.controller");
-const eventRegistration_1 = require("src/models/eventRegistration");
-const racePoint_1 = require("src/models/racePoint");
-const accessToken_controller_1 = require("src/controllers/accessToken.controller");
-const ship_1 = require("src/models/ship");
-const user_1 = require("src/models/user");
-const bcrypt_1 = __importDefault(require("bcrypt"));
+const event_1 = require("./models/event");
+const authentication_controller_1 = require("./controllers/authentication.controller");
+const eventRegistration_1 = require("./models/eventRegistration");
+const racePoint_1 = require("./models/racePoint");
+const accessToken_controller_1 = require("./controllers/accessToken.controller");
+const ship_1 = require("./models/ship");
+const user_1 = require("./models/user");
 const jwt = __importStar(require("jsonwebtoken"));
+const bcrypt = __importStar(require("bcrypt"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
-const validate_controller_1 = require("src/controllers/validate.controller");
-const locationRegistration_1 = require("src/models/locationRegistration");
-dotenv_1.default.config({ path: 'config/config.env' });
+const validate_controller_1 = require("./controllers/validate.controller");
+const locationRegistration_1 = require("./models/locationRegistration");
+dotenv_1.default.config({ path: 'configs/config.env' });
 const app = express_1.default();
 exports.app = app;
 app.use(cookie_parser_1.default(process.env.TOKEN_SECRET));
@@ -438,11 +438,11 @@ app.get('/users/:userName', (req, res) => __awaiter(void 0, void 0, void 0, func
 app.put('/users/:userName', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // Updating the user
-        const hashedPassword = bcrypt_1.default.hashSync(req.body.password, 10);
+        // const hashedPassword = await bcrypt.hashSync(req.body.password, 10);
         const newUser = new user_1.UserModel(req.body);
         const token = req.header('x-access-token');
         const user = accessToken_controller_1.AccessToken.getUser(token);
-        newUser.password = hashedPassword;
+        // newUser.password = hashedPassword;
         newUser.role = user.role;
         user_1.UserModel.findOneAndUpdate({ emailUsername: newUser.emailUsername }, newUser);
         if (!user)
@@ -479,7 +479,7 @@ app.post('/users/registerAdmin', (req, res) => __awaiter(void 0, void 0, void 0,
         if (users)
             return res.status(409).send({ message: "User with that username already exists" });
         // Creating the new user
-        const hashedPassword = bcrypt_1.default.hashSync(req.body.password, 10);
+        const hashedPassword = yield bcrypt.hashSync(req.body.password, 10);
         const user = new user_1.UserModel(req.body);
         user.password = hashedPassword;
         user.role = "admin";
@@ -499,7 +499,7 @@ app.post('/users/register', (req, res) => __awaiter(void 0, void 0, void 0, func
         if (isUser)
             return res.status(409).send({ message: "User with that username already exists" });
         // Creating the user
-        const hashedPassword = bcrypt_1.default.hashSync(req.body.password, 10);
+        const hashedPassword = yield bcrypt.hashSync(req.body.password, 10);
         const user = new user_1.UserModel(req.body);
         user.password = hashedPassword;
         user.role = "user";
@@ -521,7 +521,7 @@ app.post('/users/login', (req, res) => __awaiter(void 0, void 0, void 0, functio
             return res.status(403).json('Username incorrect');
         }
         const userpw = user.password;
-        const passwordIsValid = bcrypt_1.default.compareSync(req.body.password, userpw);
+        const passwordIsValid = bcrypt.compareSync(req.body.password, userpw);
         if (!passwordIsValid) {
             return res.status(401).send({ auth: false, token: null, message: "Invalid password" });
         }
@@ -656,9 +656,9 @@ app.post('/eventRegistrations/addParticipant', (req, res) => __awaiter(void 0, v
         // Creates a user if no user corresponding to the given emailUsername found
         const user = yield user_1.UserModel.findOne({ emailUsername: req.body.emailUsername }, { _id: 0, __v: 0 });
         if (!user) {
-            const hashedPassword = bcrypt_1.default.hashSync("1234", 10);
+            const hashedPassword = yield bcrypt.hashSync("1234", 10);
             const newUser = new user_1.UserModel({ "emailUsername": req.body.emailUsername, "firstname": req.body.firstname, "lastname": req.body.lastname, "password": hashedPassword, "role": "user" });
-            newUser.save();
+            yield newUser.save();
         }
         // Creating a ship if a ship with the given name and owned by the given user, doesn't exist
         const ship = yield ship_1.ShipModel.findOne({ emailUsername: req.body.emailUsername, name: req.body.shipName }, { _id: 0, __v: 0 });
@@ -670,7 +670,7 @@ app.post('/eventRegistrations/addParticipant', (req, res) => __awaiter(void 0, v
                 newShip.shipId = lastShip.shipId + one;
             else
                 newShip.shipId = 1;
-            newShip.save();
+            yield newShip.save();
             const newEventRegistration = new eventRegistration_1.EventRegistrationModel({ "eventId": req.body.eventId, "shipId": newShip.shipId, "trackColor": "Yellow", "teamName": req.body.teamName });
             const regDone = yield validate_controller_1.Validate.createRegistration(newEventRegistration, res);
             res.status(201).json(regDone);

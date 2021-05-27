@@ -12,5 +12,5 @@ const ILocationRegistration = new mongoose_1.Schema({
     raceScore: { type: Date },
     finishTime: { type: Date }
 });
-exports.LocationRegistrationModel = mongoose_1.model('racePoint', ILocationRegistration);
+exports.LocationRegistrationModel = mongoose_1.model('LocationRegistration', ILocationRegistration);
 //# sourceMappingURL=locationRegistration.js.map

@@ -26,4 +26,4 @@ const ILocationRegistration = new Schema<ILocationRegistration>({
     finishTime: {type: Date}
 });
 
-export const LocationRegistrationModel: Model<ILocationRegistration> = model('racePoint', ILocationRegistration);
+export const LocationRegistrationModel: Model<ILocationRegistration> = model('LocationRegistration', ILocationRegistration);

@@ -9,5 +9,6 @@ const EventRegistrationSchema = new mongoose_1.Schema({
     trackColor: { type: Date },
     teamName: { type: String },
 });
-exports.EventRegistrationModel = mongoose_1.model('racePoint', EventRegistrationSchema);
+const EventRegistrationModel = mongoose_1.model('EventRegistration', EventRegistrationSchema);
+exports.EventRegistrationModel = EventRegistrationModel;
 //# sourceMappingURL=eventRegistration.js.map

@@ -10,11 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Validate = void 0;
-const event_1 = require("src/models/event");
-const eventRegistration_1 = require("src/models/eventRegistration");
-const ship_1 = require("src/models/ship");
-const locationRegistration_1 = require("src/models/locationRegistration");
-const racePoint_1 = require("src/models/racePoint");
+const event_1 = require("../models/event");
+const eventRegistration_1 = require("../models/eventRegistration");
+const ship_1 = require("../models/ship");
+const locationRegistration_1 = require("../models/locationRegistration");
+const racePoint_1 = require("../models/racePoint");
 class Validate {
     static validateEventForeignKeys(registration, res) {
         return __awaiter(this, void 0, void 0, function* () {

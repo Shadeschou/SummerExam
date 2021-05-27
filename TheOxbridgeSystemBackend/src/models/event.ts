@@ -1,7 +1,6 @@
-export {};
 import {Document, Model, model, Schema} from 'mongoose';
 
-export interface IEvent extends Document {
+ interface IEvent extends Document {
     eventId: number,
     name: string,
     eventStart: Date,
@@ -25,6 +24,6 @@ const IEventSchema = new Schema<IEvent>({
 });
 
 
-export const EventModel: Model<IEvent> = model('racePoint', IEventSchema);
-
+ const EventModel: Model<IEvent> = model('Event', IEventSchema);
+export {IEvent, EventModel}
 

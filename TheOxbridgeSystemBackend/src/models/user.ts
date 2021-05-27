@@ -19,4 +19,4 @@ const UserModelSchema = new Schema({
     role: {type: String, required: true}
 });
 
-export const UserModel:Model<IUser> = model('Ship', UserModelSchema);
+export const UserModel:Model<IUser> = model('User', UserModelSchema);

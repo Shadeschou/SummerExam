@@ -9,5 +9,5 @@ const UserModelSchema = new mongoose_1.Schema({
     password: { type: String },
     role: { type: String, required: true }
 });
-exports.UserModel = mongoose_1.model('Ship', UserModelSchema);
+exports.UserModel = mongoose_1.model('User', UserModelSchema);
 //# sourceMappingURL=user.js.map

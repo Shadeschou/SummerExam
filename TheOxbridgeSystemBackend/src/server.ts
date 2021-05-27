@@ -1,25 +1,22 @@
 import { connect } from "mongoose";
 import express from 'express';
 import cors from 'cors';
-import * as mongoose from 'mongoose';
 import * as bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import { EventModel, IEvent } from "src/models/event";
-import { Auth } from 'src/controllers/authentication.controller'
-import { EventRegistrationModel, IEventRegistration } from 'src/models/eventRegistration'
-import { RacePointModel, IRacePoint } from 'src/models/racePoint'
-import { AccessToken } from "src/controllers/accessToken.controller";
-import { ShipModel, IShip } from 'src/models/ship'
-import { IUser, UserModel } from "src/models/user";
-import bcrypt from 'bcrypt';
+import { EventModel, IEvent } from "./models/event";
+import { Auth } from './controllers/authentication.controller'
+import { EventRegistrationModel, IEventRegistration } from './models/eventRegistration'
+import { RacePointModel, IRacePoint } from './models/racePoint'
+import { AccessToken } from './controllers/accessToken.controller';
+import { ShipModel, IShip } from './models/ship'
+import { IUser, UserModel } from "./models/user";
 import * as jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcrypt';
 import cookieParser from "cookie-parser";
-import { Validate } from "src/controllers/validate.controller"
-import { ILocationRegistration, LocationRegistrationModel } from "src/models/locationRegistration";
+import { Validate } from "./controllers/validate.controller"
+import { ILocationRegistration, LocationRegistrationModel } from "./models/locationRegistration";
 
-dotenv.config({ path: 'config/config.env' });
-
-
+dotenv.config({ path: 'configs/config.env' });
 
 const app = express();
 
@@ -474,11 +471,11 @@ app.get('/users/:userName', async (req, res) => {
 app.put('/users/:userName', async (req, res) => {
     try {
         // Updating the user
-        const hashedPassword = bcrypt.hashSync(req.body.password, 10);
+        // const hashedPassword = await bcrypt.hashSync(req.body.password, 10);
         const newUser = new UserModel(req.body);
         const token: any = req.header('x-access-token');
         const user: any = AccessToken.getUser(token);
-        newUser.password = hashedPassword;
+        // newUser.password = hashedPassword;
         newUser.role = user.role;
 
         UserModel.findOneAndUpdate({ emailUsername: newUser.emailUsername }, newUser);
@@ -521,7 +518,7 @@ app.post('/users/registerAdmin', async (req, res) => {
             return res.status(409).send({ message: "User with that username already exists" });
 
         // Creating the new user
-        const hashedPassword = bcrypt.hashSync(req.body.password, 10);
+        const hashedPassword = await bcrypt.hashSync(req.body.password, 10);
         const user = new UserModel(req.body);
         user.password = hashedPassword;
         user.role = "admin";
@@ -546,7 +543,7 @@ app.post('/users/register', async (req, res) => {
             return res.status(409).send({ message: "User with that username already exists" });
 
         // Creating the user
-        const hashedPassword = bcrypt.hashSync(req.body.password, 10);
+        const hashedPassword = await bcrypt.hashSync(req.body.password, 10);
         const user = new UserModel(req.body);
         user.password = hashedPassword;
         user.role = "user";
@@ -736,10 +733,10 @@ app.post('/eventRegistrations/addParticipant', async (req, res) => {
         const user: IUser = await UserModel.findOne({ emailUsername: req.body.emailUsername }, { _id: 0, __v: 0 });
         if (!user) {
 
-            const hashedPassword = bcrypt.hashSync("1234", 10);
+            const hashedPassword = await bcrypt.hashSync("1234", 10);
             const newUser = new UserModel({ "emailUsername": req.body.emailUsername, "firstname": req.body.firstname, "lastname": req.body.lastname, "password": hashedPassword, "role": "user" });
 
-            newUser.save();
+            await newUser.save();
         }
 
         // Creating a ship if a ship with the given name and owned by the given user, doesn't exist
@@ -755,7 +752,7 @@ app.post('/eventRegistrations/addParticipant', async (req, res) => {
             else
                 newShip.shipId = 1;
 
-            newShip.save();
+            await newShip.save();
             const newEventRegistration: IEventRegistration = new EventRegistrationModel({ "eventId": req.body.eventId, "shipId": newShip.shipId, "trackColor": "Yellow", "teamName": req.body.teamName });
             const regDone: IEventRegistration = await Validate.createRegistration(newEventRegistration, res);
             res.status(201).json(regDone);

@@ -24,7 +24,7 @@ const RacePointSchema = new Schema({
     racePointNumber: {type: Number}
 });
 
-export const RacePointModel: Model<IRacePoint> = model('racePoint', RacePointSchema);
+export const RacePointModel: Model<IRacePoint> = model('RacePoint', RacePointSchema);
 
 
 

@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 import {Request, Response} from 'express';
-import {AccessToken} from 'src/controllers/accessToken.controller'
+import {AccessToken} from './accessToken.controller'
 
 dotenv.config({path: 'config/config.env'}); // NEW
 
