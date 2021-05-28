@@ -20,9 +20,13 @@ namespace TheOxbridgeApp.Views {
         private global::TheOxbridgeApp.CustomMap Map;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Xamarin.Forms.ListView navigationList;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(MapView));
             Map = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::TheOxbridgeApp.CustomMap>(this, "Map");
+            navigationList = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.ListView>(this, "navigationList");
         }
     }
 }

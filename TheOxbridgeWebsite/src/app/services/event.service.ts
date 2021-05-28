@@ -13,8 +13,10 @@ import { Participant } from '../models/participant';
 })
 export class EventService {
 
-  private eventsUrl = 'https://oxbridgecloud.azurewebsites.net/events/';
+  // private eventsUrl = 'https://oxbridgecloud.azurewebsites.net/events/';
 
+  private eventsUrl = 'http://localhost:3000/events/';
+  
   constructor(private http: HttpClient, private cookieService:CookieService) { }
 
   /**

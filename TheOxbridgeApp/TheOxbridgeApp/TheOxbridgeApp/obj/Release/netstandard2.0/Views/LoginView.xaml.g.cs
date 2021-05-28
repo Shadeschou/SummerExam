@@ -17,8 +17,12 @@ namespace TheOxbridgeApp.Views {
     public partial class LoginView : global::Xamarin.Forms.ContentPage {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::TheOxbridgeApp.CustomBehaviors.EmailValidatorBehavior EmailValidator;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(LoginView));
+            EmailValidator = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::TheOxbridgeApp.CustomBehaviors.EmailValidatorBehavior>(this, "EmailValidator");
         }
     }
 }
