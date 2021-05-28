@@ -2246,24 +2246,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Rasmu\\.nuget\\packages\\": {},
+    "C:\\Users\\cappe\\.nuget\\packages\\": {},
     "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Rasmu\\source\\repos\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp.Android\\TheOxbridgeApp.Android.csproj",
+      "projectUniqueName": "C:\\Users\\cappe\\Desktop\\summerExam\\SummerExam\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp.Android\\TheOxbridgeApp.Android.csproj",
       "projectName": "TheOxbridgeApp.Android",
-      "projectPath": "C:\\Users\\Rasmu\\source\\repos\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp.Android\\TheOxbridgeApp.Android.csproj",
-      "packagesPath": "C:\\Users\\Rasmu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Rasmu\\source\\repos\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp.Android\\obj\\",
+      "projectPath": "C:\\Users\\cappe\\Desktop\\summerExam\\SummerExam\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp.Android\\TheOxbridgeApp.Android.csproj",
+      "packagesPath": "C:\\Users\\cappe\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\cappe\\Desktop\\summerExam\\SummerExam\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp.Android\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\Rasmu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\cappe\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -2277,8 +2277,8 @@
       "frameworks": {
         "monoandroid90": {
           "projectReferences": {
-            "C:\\Users\\Rasmu\\source\\repos\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp.csproj": {
-              "projectPath": "C:\\Users\\Rasmu\\source\\repos\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp.csproj"
+            "C:\\Users\\cappe\\Desktop\\summerExam\\SummerExam\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp.csproj": {
+              "projectPath": "C:\\Users\\cappe\\Desktop\\summerExam\\SummerExam\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp.csproj"
             }
           }
         }

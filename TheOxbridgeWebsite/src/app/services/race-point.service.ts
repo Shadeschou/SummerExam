@@ -11,8 +11,10 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class RacePointService {
 
-  private racepointUrl = 'https://oxbridgecloud.azurewebsites.net/racepoints/';
+  // private racepointUrl = 'https://oxbridgecloud.azurewebsites.net/racepoints/';
 
+  private racepointUrl = 'http://localhost:3000//racepoints/';
+  
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   /**
