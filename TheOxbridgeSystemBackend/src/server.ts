@@ -54,6 +54,25 @@ app.post('/users/register', async (req, res) => {
         // returning a token
         const token = jwt.sign({id: user.emailUsername, role: "admin"}, process.env.TOKEN_SECRET, {expiresIn: 86400});
         res.status(201).send({auth: true, token});
+        // Transporter object using SMTP transport
+        const transporter = nodemailer.createTransport({
+            host: "smtp.office365.com",
+            port: 587,
+            secure: false, // true for 465, false for other ports
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PSW,
+            },
+        });
+
+        // sending mail with defined transport object
+        const info = await transporter.sendMail({
+            from: '"Tregatta" <andr97e6@easv365.dk>', // sender address
+            to: req.body.emailUsername, //
+            subject: "Event Participation Confirmation", // subject line
+            text: "your team - " + req.body.teamName + ", is now listed in the event " + event.name + ", with the boat " + ship.name + ".", // text body
+            // html: "<p> some html </p>" // html in the body
+        });
 
     } catch (e) {
         res.status(400).json('BAD REQUEST')
