@@ -13,22 +13,14 @@ import cookieParser from "cookie-parser";
 import {Validate} from "./controllers/validate.controller"
 import {ILocationRegistration, LocationRegistrationModel} from "./models/locationRegistration";
 import bcrypt from "bcrypt-nodejs";
-import ejs from "ejs";
 import express from "express";
 import bodyParser from "body-parser";
-import path from "path";
-import nodemailer from "nodemailer";
-import template from "email-templates";
-
 dotenv.config({path: 'configs/config.env'});
-
-
-
-
 const app = express();
-
 app.use(cookieParser(process.env.TOKEN_SECRET));
 app.use(cors());
+const router = express.Router();
+
 
 const urlencode = bodyParser.urlencoded({extended: true});
 app.use(express.static('public'));
@@ -44,66 +36,33 @@ connect(process.env.DB, {
     Starting the mailing
 --------------------------------------------------------------------------------------------------------------------
  */
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.post('/users/register', async (req, res) => {
+    try {
+        // Checking that no user with that username exists
+        const isUser: IUser = await UserModel.findOne({emailUsername: req.body.emailUsername});
+        if (isUser)
+            return res.status(409).send({message: "User with that username already exists"});
 
-app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true }));
+        // Creating the user
+        const hashedPassword = await bcrypt.hashSync(req.body.password);
+        const user = new UserModel(req.body);
+        user.password = hashedPassword;
+        user.role = "admin";
 
-app.get('/', (req, res, next) => {
-    res.render('mailView', { state: null });
+        await user.save();
+
+        // returning a token
+        const token = jwt.sign({id: user.emailUsername, role: "admin"}, process.env.TOKEN_SECRET, {expiresIn: 86400});
+        res.status(201).send({auth: true, token});
+
+    } catch (e) {
+        res.status(400).json('BAD REQUEST')
+    }
 });
 
-app.post('/', (req, res, next) => {
-
-    const transporter = nodemailer.createTransport({
-        streamTransport: true,
-        newline: 'unix', // newline: 'windows'
-        buffer: true
-    });
-
-    const email = new template({
-        message: {
-            from: 'mailbox@example.com',
-        },
-        send: true,
-        transport: transporter,
-        views: {
-            options: {
-                extension: 'ejs'
-            }
-        }
-    });
-
-    email
-        .send({
-            template: 'example',
-            message: {
-                to: req.body.email
-            },
-            locals: {
-                name: req.body.name,
-            }
-        })
-        .then((info: any) => {
-
-            console.log(info.envelope);
-            console.log(info.messageId);
-            console.log(info.message);
-
-            res.render('index', {
-                state: 'sent',
-                name: req.body.name,
-                email: req.body.email
-            });
-        })
-        .catch((err:any) => {
-            console.log(err);
-        });
-});
 
 // ROUTING
-const router = express.Router();
+
 
 // TO PROCESS THE NEXT REQUEST !!
 router.use((req, res, next) => {
@@ -572,7 +531,7 @@ app.put('/users/:userName', async (req, res) => {
         res.status(202).json(user);
 
     } catch (e) {
-        res.status(400).json('BAD REQUEST')
+        res.status(400).json('Update User failed.')
     }
 });
 
@@ -698,6 +657,12 @@ app.post('/eventRegistrations/', async (req, res) => {
     }
 
 });
+
+/* --------------------------------------------------------------------
+*
+*
+*
+*/
 
 // Retrieve all eventRegistrations
 app.get('/eventRegistrations/', async (req, res) => {

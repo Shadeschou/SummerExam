@@ -49,9 +49,6 @@ const locationRegistration_1 = require("./models/locationRegistration");
 const bcrypt_nodejs_1 = __importDefault(require("bcrypt-nodejs"));
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
-const path_1 = __importDefault(require("path"));
-const nodemailer_1 = __importDefault(require("nodemailer"));
-const email_templates_1 = __importDefault(require("email-templates"));
 dotenv_1.default.config({ path: 'configs/config.env' });
 const app = express_1.default();
 exports.app = app;
@@ -69,55 +66,6 @@ mongoose_1.connect(process.env.DB, {
     Starting the mailing
 --------------------------------------------------------------------------------------------------------------------
  */
-app.set('views', path_1.default.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-app.use(express_1.default.static('public'));
-app.use(body_parser_1.default.urlencoded({ extended: true }));
-app.get('/', (req, res, next) => {
-    res.render('mailView', { state: null });
-});
-app.post('/', (req, res, next) => {
-    const transporter = nodemailer_1.default.createTransport({
-        streamTransport: true,
-        newline: 'unix',
-        buffer: true
-    });
-    const email = new email_templates_1.default({
-        message: {
-            from: 'mailbox@example.com',
-        },
-        send: true,
-        transport: transporter,
-        views: {
-            options: {
-                extension: 'ejs'
-            }
-        }
-    });
-    email
-        .send({
-        template: 'example',
-        message: {
-            to: req.body.email
-        },
-        locals: {
-            name: req.body.name,
-        }
-    })
-        .then((info) => {
-        console.log(info.envelope);
-        console.log(info.messageId);
-        console.log(info.message);
-        res.render('index', {
-            state: 'sent',
-            name: req.body.name,
-            email: req.body.email
-        });
-    })
-        .catch((err) => {
-        console.log(err);
-    });
-});
 // ROUTING
 const router = express_1.default.Router();
 // TO PROCESS THE NEXT REQUEST !!
@@ -642,6 +590,11 @@ app.post('/eventRegistrations/', (req, res) => __awaiter(void 0, void 0, void 0,
         res.status(400).json('BAD REQUEST');
     }
 }));
+/* --------------------------------------------------------------------
+*
+*
+*
+*/
 // Retrieve all eventRegistrations
 app.get('/eventRegistrations/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const verify = yield authentication_controller_1.Auth.Authorize(req, res, "admin");
