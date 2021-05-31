@@ -1,7 +1,7 @@
 export {};
 import {Document, Model, model, Schema} from 'mongoose';
 
-export interface IRacePoint extends Document  {
+export interface IRacePoint extends Document {
     racePointId: number,
     type: string,
     firstsecondeventId: number,

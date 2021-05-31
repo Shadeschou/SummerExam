@@ -1,22 +1,20 @@
 import express from 'express';
-import { EventModel, IEvent } from "../models/event";
-import { EventRegistrationModel, IEventRegistration } from '../models/eventRegistration'
-import { ShipModel, IShip } from '../models/ship'
-import { LocationRegistrationModel, ILocationRegistration } from '../models/locationRegistration'
-import { RacePointModel, IRacePoint } from '../models/racePoint'
-
-
+import {EventModel, IEvent} from "../models/event";
+import {EventRegistrationModel, IEventRegistration} from '../models/eventRegistration'
+import {IShip, ShipModel} from '../models/ship'
+import {ILocationRegistration, LocationRegistrationModel} from '../models/locationRegistration'
+import {IRacePoint, RacePointModel} from '../models/racePoint'
 
 
 export class Validate {
     static async validateEventForeignKeys(registration: IEventRegistration, res: express.Response): Promise<boolean> {
         // Checking if ship exists
-        const ship: IShip = await ShipModel.findOne({ shipId: registration.shipId })
+        const ship: IShip = await ShipModel.findOne({shipId: registration.shipId})
         if (!ship) {
             return false;
         }
         // Checking if event exists
-        const event: IEvent = await EventModel.findOne({ eventId: registration.eventId });
+        const event: IEvent = await EventModel.findOne({eventId: registration.eventId});
         if (!event) {
             return false;
         }
@@ -39,6 +37,7 @@ export class Validate {
         await newRegistration.save();
         return newRegistration;
     }
+
     static FindDistance(registration: any, racePoint: any): any {
         const checkPoint1 = {
             longtitude: Number,
@@ -64,6 +63,7 @@ export class Validate {
         const result = 2 * S / AB;
         return result
     }
+
     static CalculateDistance(checkPoint1: { longtitude: any; latitude: any; }, checkPoint2: { longtitude: any; latitude: any; }): number {
         const R = 6371e3; // metres
         const φ1 = checkPoint1.latitude * Math.PI / 180; // φ, λ in radians
@@ -85,7 +85,7 @@ export class Validate {
     static async validateLocationForeignKeys(registration: ILocationRegistration, res: express.Response): Promise<boolean> {
 
         // Checking if eventReg exists
-        const eventReg: IEventRegistration = await EventRegistrationModel.findOne({ eventRegId: registration.eventRegId });
+        const eventReg: IEventRegistration = await EventRegistrationModel.findOne({eventRegId: registration.eventRegId});
         if (!eventReg) {
             return false;
         }
@@ -94,12 +94,18 @@ export class Validate {
     }
 
     static async CheckRacePoint(registration: ILocationRegistration, res: express.Response): Promise<any> {
-        const eventRegistration: IEventRegistration = await EventRegistrationModel.findOne({ eventRegId: registration.eventRegId }, { _id: 0, __v: 0 });
+        const eventRegistration: IEventRegistration = await EventRegistrationModel.findOne({eventRegId: registration.eventRegId}, {
+            _id: 0,
+            __v: 0
+        });
 
         // Checks which racepoint the ship has reached last
         let nextRacePointNumber = 2;
         const one: any = 1;
-        const locationRegistration: ILocationRegistration = await LocationRegistrationModel.findOne({ eventRegId: registration.eventRegId }, { _id: 0, __v: 0 }, { sort: { 'locationTime': -1 } });
+        const locationRegistration: ILocationRegistration = await LocationRegistrationModel.findOne({eventRegId: registration.eventRegId}, {
+            _id: 0,
+            __v: 0
+        }, {sort: {'locationTime': -1}});
         if (locationRegistration) {
             nextRacePointNumber = locationRegistration.racePointNumber + one;
             if (locationRegistration.finishTime != null) {
@@ -112,18 +118,24 @@ export class Validate {
         }
 
         if (eventRegistration) {
-            const event: IEvent = await EventModel.findOne({ eventId: eventRegistration.eventId }, { _id: 0, __v: 0 });
+            const event: IEvent = await EventModel.findOne({eventId: eventRegistration.eventId}, {_id: 0, __v: 0});
             if (event && event.isLive) {
 
                 // Finds the next racepoint and calculates the ships distance to the racepoint
                 // and calculates the score based on the distance
-                const nextRacePoint: IRacePoint = await RacePointModel.findOne({ eventId: eventRegistration.eventId, racePointNumber: nextRacePointNumber }, { _id: 0, __v: 0 });
+                const nextRacePoint: IRacePoint = await RacePointModel.findOne({
+                    eventId: eventRegistration.eventId,
+                    racePointNumber: nextRacePointNumber
+                }, {_id: 0, __v: 0});
                 if (nextRacePoint) {
                     let distance: any = this.FindDistance(registration, nextRacePoint);
                     if (distance < 25) {
 
                         if (nextRacePoint.type !== "finishLine") {
-                            const newNextRacePoint: IRacePoint = await RacePointModel.findOne({ eventId: eventRegistration.eventId, racePointNumber: nextRacePoint.racePointNumber + one }, { _id: 0, __v: 0 });
+                            const newNextRacePoint: IRacePoint = await RacePointModel.findOne({
+                                eventId: eventRegistration.eventId,
+                                racePointNumber: nextRacePoint.racePointNumber + one
+                            }, {_id: 0, __v: 0});
 
 
                             if (newNextRacePoint) {
@@ -134,7 +146,6 @@ export class Validate {
                                 updatedRegistration.racePointNumber = nextRacePointNumber;
                                 updatedRegistration.raceScore = ((nextRacePointNumber) * 10) + ((nextRacePointNumber) / distance);
                                 return updatedRegistration;
-
 
 
                             }
@@ -169,5 +180,6 @@ export class Validate {
 
         }
     }
+
 
 }

@@ -1,7 +1,6 @@
-import {IRacePoint} from "./racePoint";
+import {Document, Model, model, Schema} from 'mongoose';
 
 export {};
-import {Document, Model, model, Schema} from 'mongoose';
 
 export interface ILocationRegistration extends Document {
     regId: number,

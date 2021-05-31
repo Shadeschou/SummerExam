@@ -94,11 +94,17 @@ class Validate {
     }
     static CheckRacePoint(registration, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const eventRegistration = yield eventRegistration_1.EventRegistrationModel.findOne({ eventRegId: registration.eventRegId }, { _id: 0, __v: 0 });
+            const eventRegistration = yield eventRegistration_1.EventRegistrationModel.findOne({ eventRegId: registration.eventRegId }, {
+                _id: 0,
+                __v: 0
+            });
             // Checks which racepoint the ship has reached last
             let nextRacePointNumber = 2;
             const one = 1;
-            const locationRegistration = yield locationRegistration_1.LocationRegistrationModel.findOne({ eventRegId: registration.eventRegId }, { _id: 0, __v: 0 }, { sort: { 'locationTime': -1 } });
+            const locationRegistration = yield locationRegistration_1.LocationRegistrationModel.findOne({ eventRegId: registration.eventRegId }, {
+                _id: 0,
+                __v: 0
+            }, { sort: { 'locationTime': -1 } });
             if (locationRegistration) {
                 nextRacePointNumber = locationRegistration.racePointNumber + one;
                 if (locationRegistration.finishTime != null) {
@@ -114,12 +120,18 @@ class Validate {
                 if (event && event.isLive) {
                     // Finds the next racepoint and calculates the ships distance to the racepoint
                     // and calculates the score based on the distance
-                    const nextRacePoint = yield racePoint_1.RacePointModel.findOne({ eventId: eventRegistration.eventId, racePointNumber: nextRacePointNumber }, { _id: 0, __v: 0 });
+                    const nextRacePoint = yield racePoint_1.RacePointModel.findOne({
+                        eventId: eventRegistration.eventId,
+                        racePointNumber: nextRacePointNumber
+                    }, { _id: 0, __v: 0 });
                     if (nextRacePoint) {
                         let distance = this.FindDistance(registration, nextRacePoint);
                         if (distance < 25) {
                             if (nextRacePoint.type !== "finishLine") {
-                                const newNextRacePoint = yield racePoint_1.RacePointModel.findOne({ eventId: eventRegistration.eventId, racePointNumber: nextRacePoint.racePointNumber + one }, { _id: 0, __v: 0 });
+                                const newNextRacePoint = yield racePoint_1.RacePointModel.findOne({
+                                    eventId: eventRegistration.eventId,
+                                    racePointNumber: nextRacePoint.racePointNumber + one
+                                }, { _id: 0, __v: 0 });
                                 if (newNextRacePoint) {
                                     const nextPointDistance = this.FindDistance(registration, newNextRacePoint);
                                     distance = nextPointDistance;
