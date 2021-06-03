@@ -79,6 +79,7 @@ namespace TheOxbridgeApp.ViewModels.Popups
            
 
   
+
             NavigationService.NavigateToAsync(typeof( TeamViewModel));
           
 
