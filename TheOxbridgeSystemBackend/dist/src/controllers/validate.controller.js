@@ -12,32 +12,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Validate = void 0;
 const event_1 = require("../models/event");
 const eventRegistration_1 = require("../models/eventRegistration");
-const ship_1 = require("../models/ship");
 const locationRegistration_1 = require("../models/locationRegistration");
 const racePoint_1 = require("../models/racePoint");
 class Validate {
-    static validateEventForeignKeys(registration, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            // Checking if ship exists
-            const ship = yield ship_1.ShipModel.findOne({ shipId: registration.shipId });
-            if (!ship) {
-                return false;
-            }
-            // Checking if event exists
-            const event = yield event_1.EventModel.findOne({ eventId: registration.eventId });
-            if (!event) {
-                return false;
-            }
-        });
-    }
+    // static async validateEventForeignKeys(registration: IEventRegistration, res: express.Response): Promise<boolean> {
+    //     // Checking if ship exists
+    //     const ship: IShip = await ShipModel.findOne({shipId: registration.shipId})
+    //     if (!ship) {
+    //         return false;
+    //     }
+    //     // Checking if event exists
+    //     const event: IEvent = await EventModel.findOne({eventId: registration.eventId});
+    //     if (!event) {
+    //         return false;
+    //     }
+    // }
     static createRegistration(newRegistration, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const val = yield this.validateEventForeignKeys(newRegistration, res);
-            if (!val) {
-                return null;
-            }
+            // const val: boolean = await this.validateEventForeignKeys(newRegistration, res);
+            // if (!val) {
+            //     return null;
+            // }
             // Finding next eventRegId
-            const lastEventRegistration = yield eventRegistration_1.EventRegistrationModel.findOne({}).sort('-desc');
+            const lastEventRegistration = yield eventRegistration_1.EventRegistrationModel.findOne({}, {}, { sort: { regId: -1 } });
             const one = 1;
             if (lastEventRegistration)
                 newRegistration.eventRegId = lastEventRegistration.eventRegId + one;

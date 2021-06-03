@@ -15,13 +15,31 @@ import {ILocationRegistration, LocationRegistrationModel} from "./models/locatio
 import bcrypt from "bcrypt-nodejs";
 import express from "express";
 import bodyParser from "body-parser";
+import nodemailer from "nodemailer"
+import date from "date-and-time";
 dotenv.config({path: 'configs/config.env'});
 const app = express();
 app.use(cookieParser(process.env.TOKEN_SECRET));
 app.use(cors());
 const router = express.Router();
 
+const timerForTheReminder = async(): Promise<any> => {
+    const now = new Date();
+    const currentTime = date.format(now, "YYYY/MM/DD HH");
+    console.log(currentTime);
+    const events: IEvent[] = await EventModel.find({});
+    events.forEach(async (event: IEvent) => {
+        const reminderDate = date.addDays(event.eventStart, -3);
+        const minusHours = date.addHours(reminderDate,-2);
+        const eventDate = date.format(minusHours, "YYYY/MM/DD HH");
+        console.log(eventDate);
 
+        if(eventDate === currentTime)
+        {
+            const eventRegistrations: IEventRegistration[ = await EventRegistrationModel.find({eventId: event.eventId})
+        }
+    })
+}
 const urlencode = bodyParser.urlencoded({extended: true});
 app.use(express.static('public'));
 app.use(bodyParser.json());
@@ -29,60 +47,9 @@ app.use(bodyParser.json());
 connect(process.env.DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true
-});
-
-/*
-------------------------------------------------------------------------------------------------------------------------
-    Starting the mailing
---------------------------------------------------------------------------------------------------------------------
- */
-app.post('/users/register', async (req, res) => {
-    try {
-        // Checking that no user with that username exists
-        const isUser: IUser = await UserModel.findOne({emailUsername: req.body.emailUsername});
-        if (isUser)
-            return res.status(409).send({message: "User with that username already exists"});
-
-        // Creating the user
-        const hashedPassword = await bcrypt.hashSync(req.body.password);
-        const user = new UserModel(req.body);
-        user.password = hashedPassword;
-        user.role = "admin";
-
-        await user.save();
-
-        // returning a token
-        const token = jwt.sign({id: user.emailUsername, role: "admin"}, process.env.TOKEN_SECRET, {expiresIn: 86400});
-        res.status(201).send({auth: true, token});
-        // Transporter object using SMTP transport
-        const transporter = nodemailer.createTransport({
-            host: "smtp.office365.com",
-            port: 587,
-            secure: false, // true for 465, false for other ports
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PSW,
-            },
-        });
-
-        // sending mail with defined transport object
-        const info = await transporter.sendMail({
-            from: '"Tregatta" <andr97e6@easv365.dk>', // sender address
-            to: req.body.emailUsername, //
-            subject: "Event Participation Confirmation", // subject line
-            text: "your team - " + req.body.teamName + ", is now listed in the event " + event.name + ", with the boat " + ship.name + ".", // text body
-            // html: "<p> some html </p>" // html in the body
-        });
-
-    } catch (e) {
-        res.status(400).json('BAD REQUEST')
-    }
-});
-
+})
 
 // ROUTING
-
-
 // TO PROCESS THE NEXT REQUEST !!
 router.use((req, res, next) => {
     console.log("recieved a request now, ready for the next");
@@ -302,7 +269,7 @@ app.post('/ships', async (req, res) => {
 
         // Finding next shipId
         const one: any = 1;
-        const lastShip: IShip = await ShipModel.findOne({}).sort('desc');
+        const lastShip: IShip = await ShipModel.findOne({}, {_id: 0, __v: 0});
         if (lastShip)
             ship.shipId = lastShip.shipId + one;
         else
@@ -341,7 +308,7 @@ app.get('/ships/:shipId', async (req, res) => {
         if (!ship)
             return res.status(404).send({message: "Ship with id " + req.params.shipId + " was not found"});
 
-        res.status(200).send({"name": ship.name, "shipId": ship.shipId});
+        res.status(200).send({"name": ship.name, "shipId": ship.shipId, "emailUsername": ship.emailUsername});
 
 
     } catch (e) {
@@ -382,7 +349,7 @@ app.get('/ships/myShips/fromUsername', async (req, res) => {
     try {
         const token: any = req.header('x-access-token');
         const user: any = AccessToken.getUser(token);
-        const ships: IShip[] = await ShipModel.find({emailUsername: user.emailUsername}, {_id: 0, __v: 0});
+        const ships: IShip[] = await ShipModel.find({emailUsername: user.id}, {_id: 0, __v: 0});
         res.status(200).send(ships);
     } catch (e) {
         res.status(400).json('BAD REQUEST')
@@ -469,7 +436,7 @@ app.post('/racepoints/createRoute/:eventId', async (req, res) => {
 
         const racePoints = req.body;
         if (Array.isArray(racePoints)) {
-            const lastRacePoint: IRacePoint = await RacePointModel.findOne({}).sort('desc');
+            const lastRacePoint: IRacePoint = await RacePointModel.findOne({}, {},{sort:{racePointId:-1}});
             let racepointId: number;
             const lastRaceP: any = lastRacePoint.racePointId;
             if (lastRacePoint)
@@ -601,6 +568,7 @@ app.post('/users/registerAdmin', async (req, res) => {
 
 // Register a new user
 app.post('/users/register', async (req, res) => {
+
     try {
         // Checking that no user with that username exists
         const isUser: IUser = await UserModel.findOne({emailUsername: req.body.emailUsername});
@@ -619,8 +587,9 @@ app.post('/users/register', async (req, res) => {
         const token = jwt.sign({id: user.emailUsername, role: "admin"}, process.env.TOKEN_SECRET, {expiresIn: 86400});
         res.status(201).send({auth: true, token});
 
+        // Transporter object using SMTP transport
     } catch (e) {
-        res.status(400).json('BAD REQUEST')
+        res.status(400).json('Failed to Register user')
     }
 });
 
@@ -739,11 +708,13 @@ app.get('/eventRegistrations/findEventRegFromUsername/:eventId', async (req, res
 
 app.post('/eventRegistrations/signUp', async (req, res) => {
     // Checking if authorized
-    const verify: boolean = await Auth.Authorize(req, res, "admin");
-    if (!verify) {
-        return res.status(400).send({auth: false, message: 'Not Authorized'});
-    }
+    // const verify: boolean = await Auth.Authorize(req, res, "admin");
+    // if (!verify) {
+    //     return res.status(400).send({auth: false, message: 'Not Authorized'});
+    // }
     try {
+        const token: any = req.header('x-access-token');
+        const user: any = AccessToken.getUser(token);
 
         // Checks that the eventCode is correct
         const event: IEvent = await EventModel.findOne({eventCode: req.body.eventCode}, {_id: 0, __v: 0});
@@ -767,15 +738,37 @@ app.post('/eventRegistrations/signUp', async (req, res) => {
                 registration.eventId = event.eventId;
                 const regDone: IEventRegistration = await Validate.createRegistration(registration, res);
                 if (regDone === null) {
-                    return res.status(500).send({message: "SUCKS FOR YOU"});
+                    return res.status(500).send({message: "creation failed"});
                 }
+                console.log("Before Ship init - Transporter")
+                const foundShip: IShip = await ShipModel.findOne({ shipId: req.body.shipId });
+                // Transporter object using SMTP transport
+                const transporter = nodemailer.createTransport({
+                    host: "smtp.office365.com",
+                    port: 587,
+                    secure: false, // true for 465, false for other ports
+                    auth: {
+                        user: process.env.EMAIL,
+                        pass: process.env.PSW,
+                    },
+                });
+                console.log("Before Send")
+
+
+                // sending mail with defined transport object
+                const info = await transporter.sendMail({
+                    from: '"Treggata" <aljo0025@easv365.dk>', // sender address
+                    to: user.id, //
+                    subject: "Event Participation Confirmation", // subject line
+                    text: "your team - " + req.body.teamName + ", is now listed in the event " + event.name + ", with the boat " + foundShip.name + ".", // text body
+                    // html: "<p> some html </p>" // html in the body
+                });
+                console.log("After Send")
 
                 return res.status(201).json(regDone);
 
             }
         }
-
-
     } catch (e) {
         res.status(400).json('BAD REQUEST')
     }
@@ -833,7 +826,7 @@ app.post('/eventRegistrations/addParticipant', async (req, res) => {
 
             const newShip = new ShipModel({"name": req.body.shipName, "emailUsername": req.body.emailUsername});
 
-            const lastShip: IShip = await ShipModel.findOne({}).sort('-desc');
+            const lastShip: IShip = await ShipModel.findOne({}, {},{sort:{shipId:-1}});
             const one: any = 1;
             if (lastShip)
                 newShip.shipId = lastShip.shipId + one;
@@ -844,7 +837,7 @@ app.post('/eventRegistrations/addParticipant', async (req, res) => {
             const newEventRegistration: IEventRegistration = new EventRegistrationModel({
                 "eventId": req.body.eventId,
                 "shipId": newShip.shipId,
-                "trackColor": "Yellow",
+                "trackColor": "Blue",
                 "teamName": req.body.teamName
             });
             const regDone: IEventRegistration = await Validate.createRegistration(newEventRegistration, res);
@@ -854,10 +847,11 @@ app.post('/eventRegistrations/addParticipant', async (req, res) => {
             const newEventRegistration = new EventRegistrationModel({
                 "eventId": req.body.eventId,
                 "shipId": ship.shipId,
-                "trackColor": "Yellow",
+                "trackColor": "Blue",
                 "teamName": req.body.teamName
             })
             const regDone: IEventRegistration = await Validate.createRegistration(newEventRegistration, res);
+
             res.status(201).json(regDone);
         }
 
@@ -880,7 +874,7 @@ app.get('/eventRegistrations/getParticipants/:eventId', async (req, res) => {
 
 
         eventRegs.forEach(async (eventRegistration: IEventRegistration) => {
-            pending++;
+
 
             const ship: IShip = await ShipModel.findOne({shipId: eventRegistration.shipId}, {_id: 0, __v: 0});
             if (!ship)
@@ -888,7 +882,7 @@ app.get('/eventRegistrations/getParticipants/:eventId', async (req, res) => {
 
             else if (ship) {
                 const user: IUser = await UserModel.findOne({emailUsername: ship.emailUsername}, {_id: 0, __v: 0});
-                pending--;
+
                 if (!user)
                     return res.status(404).send({message: "User not found"});
 
@@ -903,14 +897,9 @@ app.get('/eventRegistrations/getParticipants/:eventId', async (req, res) => {
                     }
                     participants.push(participant);
 
-                    if (pending === 0) {
                         return res.status(200).json(participants);
                     }
-                }
-
-            }
-        })
-
+                }})
 
     } catch (e) {
         res.status(400).json('BAD REQUEST')

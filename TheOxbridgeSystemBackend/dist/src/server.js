@@ -49,11 +49,13 @@ const locationRegistration_1 = require("./models/locationRegistration");
 const bcrypt_nodejs_1 = __importDefault(require("bcrypt-nodejs"));
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
+const nodemailer_1 = __importDefault(require("nodemailer"));
 dotenv_1.default.config({ path: 'configs/config.env' });
 const app = express_1.default();
 exports.app = app;
 app.use(cookie_parser_1.default(process.env.TOKEN_SECRET));
 app.use(cors_1.default());
+const router = express_1.default.Router();
 const urlencode = body_parser_1.default.urlencoded({ extended: true });
 app.use(express_1.default.static('public'));
 app.use(body_parser_1.default.json());
@@ -61,13 +63,7 @@ mongoose_1.connect(process.env.DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
-/*
-------------------------------------------------------------------------------------------------------------------------
-    Starting the mailing
---------------------------------------------------------------------------------------------------------------------
- */
 // ROUTING
-const router = express_1.default.Router();
 // TO PROCESS THE NEXT REQUEST !!
 router.use((req, res, next) => {
     console.log("recieved a request now, ready for the next");
@@ -269,7 +265,7 @@ app.post('/ships', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const ship = new ship_1.ShipModel(req.body);
         // Finding next shipId
         const one = 1;
-        const lastShip = yield ship_1.ShipModel.findOne({}).sort('desc');
+        const lastShip = yield ship_1.ShipModel.findOne({}, { _id: 0, __v: 0 });
         if (lastShip)
             ship.shipId = lastShip.shipId + one;
         else
@@ -300,7 +296,7 @@ app.get('/ships/:shipId', (req, res) => __awaiter(void 0, void 0, void 0, functi
         const ship = yield ship_1.ShipModel.findOne({ shipId: sId }, { _id: 0, __v: 0 });
         if (!ship)
             return res.status(404).send({ message: "Ship with id " + req.params.shipId + " was not found" });
-        res.status(200).send({ "name": ship.name, "shipId": ship.shipId });
+        res.status(200).send({ "name": ship.name, "shipId": ship.shipId, "emailUsername": ship.emailUsername });
     }
     catch (e) {
         res.status(400).json('BAD REQUEST');
@@ -334,7 +330,7 @@ app.get('/ships/myShips/fromUsername', (req, res) => __awaiter(void 0, void 0, v
     try {
         const token = req.header('x-access-token');
         const user = accessToken_controller_1.AccessToken.getUser(token);
-        const ships = yield ship_1.ShipModel.find({ emailUsername: user.emailUsername }, { _id: 0, __v: 0 });
+        const ships = yield ship_1.ShipModel.find({ emailUsername: user.id }, { _id: 0, __v: 0 });
         res.status(200).send(ships);
     }
     catch (e) {
@@ -413,7 +409,7 @@ app.post('/racepoints/createRoute/:eventId', (req, res) => __awaiter(void 0, voi
         racePoint_1.RacePointModel.deleteMany({ eventId: evId });
         const racePoints = req.body;
         if (Array.isArray(racePoints)) {
-            const lastRacePoint = yield racePoint_1.RacePointModel.findOne({}).sort('desc');
+            const lastRacePoint = yield racePoint_1.RacePointModel.findOne({}, {}, { sort: { racePointId: -1 } });
             let racepointId;
             const lastRaceP = lastRacePoint.racePointId;
             if (lastRacePoint)
@@ -483,7 +479,7 @@ app.put('/users/:userName', (req, res) => __awaiter(void 0, void 0, void 0, func
         res.status(202).json(user);
     }
     catch (e) {
-        res.status(400).json('BAD REQUEST');
+        res.status(400).json('Update User failed.');
     }
 }));
 // Delete a User with the given emailUsername
@@ -540,9 +536,10 @@ app.post('/users/register', (req, res) => __awaiter(void 0, void 0, void 0, func
         // returning a token
         const token = jwt.sign({ id: user.emailUsername, role: "admin" }, process.env.TOKEN_SECRET, { expiresIn: 86400 });
         res.status(201).send({ auth: true, token });
+        // Transporter object using SMTP transport
     }
     catch (e) {
-        res.status(400).json('BAD REQUEST');
+        res.status(400).json('Failed to Register user');
     }
 }));
 // Login
@@ -645,11 +642,13 @@ app.get('/eventRegistrations/findEventRegFromUsername/:eventId', (req, res) => _
 }));
 app.post('/eventRegistrations/signUp', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // Checking if authorized
-    const verify = yield authentication_controller_1.Auth.Authorize(req, res, "admin");
-    if (!verify) {
-        return res.status(400).send({ auth: false, message: 'Not Authorized' });
-    }
+    // const verify: boolean = await Auth.Authorize(req, res, "admin");
+    // if (!verify) {
+    //     return res.status(400).send({auth: false, message: 'Not Authorized'});
+    // }
     try {
+        const token = req.header('x-access-token');
+        const user = accessToken_controller_1.AccessToken.getUser(token);
         // Checks that the eventCode is correct
         const event = yield event_1.EventModel.findOne({ eventCode: req.body.eventCode }, { _id: 0, __v: 0 });
         if (!event)
@@ -668,8 +667,30 @@ app.post('/eventRegistrations/signUp', (req, res) => __awaiter(void 0, void 0, v
                 registration.eventId = event.eventId;
                 const regDone = yield validate_controller_1.Validate.createRegistration(registration, res);
                 if (regDone === null) {
-                    return res.status(500).send({ message: "SUCKS FOR YOU" });
+                    return res.status(500).send({ message: "creation failed" });
                 }
+                console.log("Before Ship init - Transporter");
+                const foundShip = yield ship_1.ShipModel.findOne({ shipId: req.body.shipId });
+                // Transporter object using SMTP transport
+                const transporter = nodemailer_1.default.createTransport({
+                    host: "smtp.office365.com",
+                    port: 587,
+                    secure: false,
+                    auth: {
+                        user: process.env.EMAIL,
+                        pass: process.env.PSW,
+                    },
+                });
+                console.log("Before Send");
+                // sending mail with defined transport object
+                const info = yield transporter.sendMail({
+                    from: '"Treggata" <aljo0025@easv365.dk>',
+                    to: user.id,
+                    subject: "Event Participation Confirmation",
+                    text: "your team - " + req.body.teamName + ", is now listed in the event " + event.name + ", with the boat " + foundShip.name + ".", // text body
+                    // html: "<p> some html </p>" // html in the body
+                });
+                console.log("After Send");
                 return res.status(201).json(regDone);
             }
         }
@@ -723,7 +744,7 @@ app.post('/eventRegistrations/addParticipant', (req, res) => __awaiter(void 0, v
         }, { _id: 0, __v: 0 });
         if (!ship) {
             const newShip = new ship_1.ShipModel({ "name": req.body.shipName, "emailUsername": req.body.emailUsername });
-            const lastShip = yield ship_1.ShipModel.findOne({}).sort('-desc');
+            const lastShip = yield ship_1.ShipModel.findOne({}, {}, { sort: { shipId: -1 } });
             const one = 1;
             if (lastShip)
                 newShip.shipId = lastShip.shipId + one;
@@ -733,7 +754,7 @@ app.post('/eventRegistrations/addParticipant', (req, res) => __awaiter(void 0, v
             const newEventRegistration = new eventRegistration_1.EventRegistrationModel({
                 "eventId": req.body.eventId,
                 "shipId": newShip.shipId,
-                "trackColor": "Yellow",
+                "trackColor": "Blue",
                 "teamName": req.body.teamName
             });
             const regDone = yield validate_controller_1.Validate.createRegistration(newEventRegistration, res);
@@ -743,7 +764,7 @@ app.post('/eventRegistrations/addParticipant', (req, res) => __awaiter(void 0, v
             const newEventRegistration = new eventRegistration_1.EventRegistrationModel({
                 "eventId": req.body.eventId,
                 "shipId": ship.shipId,
-                "trackColor": "Yellow",
+                "trackColor": "Blue",
                 "teamName": req.body.teamName
             });
             const regDone = yield validate_controller_1.Validate.createRegistration(newEventRegistration, res);
@@ -762,13 +783,11 @@ app.get('/eventRegistrations/getParticipants/:eventId', (req, res) => __awaiter(
         if (!eventRegs || eventRegs.length === 0)
             return res.status(404).send({ message: "No participants found" });
         eventRegs.forEach((eventRegistration) => __awaiter(void 0, void 0, void 0, function* () {
-            pending++;
             const ship = yield ship_1.ShipModel.findOne({ shipId: eventRegistration.shipId }, { _id: 0, __v: 0 });
             if (!ship)
                 return res.status(404).send({ message: "Ship not found" });
             else if (ship) {
                 const user = yield user_1.UserModel.findOne({ emailUsername: ship.emailUsername }, { _id: 0, __v: 0 });
-                pending--;
                 if (!user)
                     return res.status(404).send({ message: "User not found" });
                 if (user) {
@@ -781,9 +800,7 @@ app.get('/eventRegistrations/getParticipants/:eventId', (req, res) => __awaiter(
                         "eventRegId": eventRegistration.eventRegId
                     };
                     participants.push(participant);
-                    if (pending === 0) {
-                        return res.status(200).json(participants);
-                    }
+                    return res.status(200).json(participants);
                 }
             }
         }));

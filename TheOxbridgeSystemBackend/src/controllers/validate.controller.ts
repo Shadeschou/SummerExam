@@ -7,27 +7,27 @@ import {IRacePoint, RacePointModel} from '../models/racePoint'
 
 
 export class Validate {
-    static async validateEventForeignKeys(registration: IEventRegistration, res: express.Response): Promise<boolean> {
-        // Checking if ship exists
-        const ship: IShip = await ShipModel.findOne({shipId: registration.shipId})
-        if (!ship) {
-            return false;
-        }
-        // Checking if event exists
-        const event: IEvent = await EventModel.findOne({eventId: registration.eventId});
-        if (!event) {
-            return false;
-        }
-    }
+    // static async validateEventForeignKeys(registration: IEventRegistration, res: express.Response): Promise<boolean> {
+    //     // Checking if ship exists
+    //     const ship: IShip = await ShipModel.findOne({shipId: registration.shipId})
+    //     if (!ship) {
+    //         return false;
+    //     }
+    //     // Checking if event exists
+    //     const event: IEvent = await EventModel.findOne({eventId: registration.eventId});
+    //     if (!event) {
+    //         return false;
+    //     }
+    // }
 
     static async createRegistration(newRegistration: IEventRegistration, res: express.Response): Promise<IEventRegistration> {
 
-        const val: boolean = await this.validateEventForeignKeys(newRegistration, res);
-        if (!val) {
-            return null;
-        }
+        // const val: boolean = await this.validateEventForeignKeys(newRegistration, res);
+        // if (!val) {
+        //     return null;
+        // }
         // Finding next eventRegId
-        const lastEventRegistration: IEventRegistration = await EventRegistrationModel.findOne({}).sort('-desc');
+        const lastEventRegistration: IEventRegistration = await EventRegistrationModel.findOne({}, {},{sort:{regId: -1}});
         const one: any = 1;
         if (lastEventRegistration)
             newRegistration.eventRegId = lastEventRegistration.eventRegId + one;
