@@ -33,9 +33,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.app = void 0;
 const mongoose_1 = require("mongoose");
-const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const bodyParser = __importStar(require("body-parser"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const event_1 = require("./models/event");
 const authentication_controller_1 = require("./controllers/authentication.controller");
@@ -45,31 +43,81 @@ const accessToken_controller_1 = require("./controllers/accessToken.controller")
 const ship_1 = require("./models/ship");
 const user_1 = require("./models/user");
 const jwt = __importStar(require("jsonwebtoken"));
-const bcrypt = __importStar(require("bcrypt"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const validate_controller_1 = require("./controllers/validate.controller");
 const locationRegistration_1 = require("./models/locationRegistration");
+const bcrypt_nodejs_1 = __importDefault(require("bcrypt-nodejs"));
+const express_1 = __importDefault(require("express"));
+const body_parser_1 = __importDefault(require("body-parser"));
+const nodemailer_1 = __importDefault(require("nodemailer"));
+const date_and_time_1 = __importDefault(require("date-and-time"));
 dotenv_1.default.config({ path: 'configs/config.env' });
 const app = express_1.default();
 exports.app = app;
 app.use(cookie_parser_1.default(process.env.TOKEN_SECRET));
 app.use(cors_1.default());
-const urlencode = bodyParser.urlencoded({ extended: true });
+const router = express_1.default.Router();
+const timerForTheReminder = () => __awaiter(void 0, void 0, void 0, function* () {
+    const now = new Date();
+    const currentTime = date_and_time_1.default.format(now, "YYYY/MM/DD HH");
+    console.log(currentTime);
+    const events = yield event_1.EventModel.find({});
+    yield events.forEach((event) => __awaiter(void 0, void 0, void 0, function* () {
+        const reminderDate = date_and_time_1.default.addDays(event.eventStart, -3);
+        const minusHours = date_and_time_1.default.addHours(reminderDate, -2);
+        const eventDate = date_and_time_1.default.format(minusHours, "YYYY/MM/DD HH");
+        console.log(eventDate);
+        if (eventDate === currentTime) {
+            const eventRegistrations = yield eventRegistration_1.EventRegistrationModel.find({ eventId: event.eventId });
+            eventRegistrations.forEach((eventRegistration) => __awaiter(void 0, void 0, void 0, function* () {
+                const ship = yield ship_1.ShipModel.findOne({ shipId: eventRegistration.shipId });
+                // Transporter object using SMTP transport
+                if (eventRegistration.mailRecieved === false) {
+                    const transporter = nodemailer_1.default.createTransport({
+                        host: "smtp.office365.com",
+                        port: 587,
+                        secure: false,
+                        auth: {
+                            user: process.env.EMAIL,
+                            pass: process.env.PSW,
+                        },
+                    });
+                    console.log("Before Send");
+                    // sending mail with defined transport object
+                    const info = yield transporter.sendMail({
+                        from: '"Treggata" <aljo0025@easv365.dk>',
+                        to: ship.emailUsername,
+                        subject: "Event Reminder: Your event is due in 3 days.",
+                        text: "You shall be on the following event in 3 days: " + event.name + "." + "Make sure to be there on time :)", // text body
+                        // html: "<p> some html </p>" // html in the body
+                    });
+                    eventRegistration.mailRecieved = true;
+                    eventRegistration.save();
+                    console.log("After Send");
+                }
+            }));
+        }
+    }));
+    return Promise;
+});
+const twentyfourHoursInMS = 86400000;
+const oneMinuteinMSForThePresentation = 60000;
+setInterval(timerForTheReminder, oneMinuteinMSForThePresentation);
+const urlencode = body_parser_1.default.urlencoded({ extended: true });
 app.use(express_1.default.static('public'));
-app.use(bodyParser.json());
+app.use(body_parser_1.default.json());
 mongoose_1.connect(process.env.DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
 // ROUTING
-const router = express_1.default.Router();
 // TO PROCESS THE NEXT REQUEST !!
 router.use((req, res, next) => {
     console.log("recieved a request now, ready for the next");
     next();
 });
 app.use('/', router);
-// FINDALL EVENTS
+// FINDALL
 app.get('/events', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const events = yield event_1.EventModel.find({}, { _id: 0, __v: 0 });
@@ -216,14 +264,31 @@ app.get('/events/myEvents/findFromUsername', (req, res) => __awaiter(void 0, voi
         if (ships.length > 0) {
             // Finding all eventRegistrations with a ship that the user owns
             ships.forEach((ship) => __awaiter(void 0, void 0, void 0, function* () {
-                const eventRegistrations = yield eventRegistration_1.EventRegistrationModel.find({ shipId: ship.shipId }, { _id: 0, __v: 0 });
+                const eventRegistrations = yield eventRegistration_1.EventRegistrationModel.find({ shipId: ship.shipId }, {
+                    _id: 0,
+                    __v: 0
+                });
                 if (eventRegistrations) {
                     eventRegistrations.forEach((eventRegistration) => __awaiter(void 0, void 0, void 0, function* () {
                         ship = yield ship_1.ShipModel.findOne({ shipId: eventRegistration.shipId }, { _id: 0, __v: 0 });
                         if (ship) {
-                            const event = yield event_1.EventModel.findOne({ eventId: eventRegistration.eventId }, { _id: 0, __v: 0 });
+                            const event = yield event_1.EventModel.findOne({ eventId: eventRegistration.eventId }, {
+                                _id: 0,
+                                __v: 0
+                            });
                             if (event) {
-                                events.push({ "eventId": event.eventId, "name": event.name, "eventStart": event.eventStart, "eventEnd": event.eventEnd, "city": event.city, "eventRegId": eventRegistration.eventRegId, "shipName": ship.name, "teamName": eventRegistration.teamName, "isLive": event.isLive, "actualEventStart": event.actualEventStart });
+                                events.push({
+                                    "eventId": event.eventId,
+                                    "name": event.name,
+                                    "eventStart": event.eventStart,
+                                    "eventEnd": event.eventEnd,
+                                    "city": event.city,
+                                    "eventRegId": eventRegistration.eventRegId,
+                                    "shipName": ship.name,
+                                    "teamName": eventRegistration.teamName,
+                                    "isLive": event.isLive,
+                                    "actualEventStart": event.actualEventStart
+                                });
                             }
                         }
                     }));
@@ -247,7 +312,7 @@ app.post('/ships', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const ship = new ship_1.ShipModel(req.body);
         // Finding next shipId
         const one = 1;
-        const lastShip = yield ship_1.ShipModel.findOne({}).sort('desc');
+        const lastShip = yield ship_1.ShipModel.findOne({}, { _id: 0, __v: 0 });
         if (lastShip)
             ship.shipId = lastShip.shipId + one;
         else
@@ -278,7 +343,7 @@ app.get('/ships/:shipId', (req, res) => __awaiter(void 0, void 0, void 0, functi
         const ship = yield ship_1.ShipModel.findOne({ shipId: sId }, { _id: 0, __v: 0 });
         if (!ship)
             return res.status(404).send({ message: "Ship with id " + req.params.shipId + " was not found" });
-        res.status(200).send({ "name": ship.name, "shipId": ship.shipId });
+        res.status(200).send({ "name": ship.name, "shipId": ship.shipId, "emailUsername": ship.emailUsername });
     }
     catch (e) {
         res.status(400).json('BAD REQUEST');
@@ -289,7 +354,10 @@ app.get('/ships/fromEventId/:eventId', (req, res) => __awaiter(void 0, void 0, v
     try {
         const evId = req.params.eventId;
         const ships = [];
-        const eventRegistrations = yield eventRegistration_1.EventRegistrationModel.find({ eventId: evId }, { _id: 0, __v: 0 });
+        const eventRegistrations = yield eventRegistration_1.EventRegistrationModel.find({ eventId: evId }, {
+            _id: 0,
+            __v: 0
+        });
         if (eventRegistrations.length !== 0) {
             eventRegistrations.forEach((eventRegistration) => __awaiter(void 0, void 0, void 0, function* () {
                 const ship = yield ship_1.ShipModel.findOne({ shipId: eventRegistration.shipId }, { _id: 0, __v: 0 });
@@ -309,7 +377,7 @@ app.get('/ships/myShips/fromUsername', (req, res) => __awaiter(void 0, void 0, v
     try {
         const token = req.header('x-access-token');
         const user = accessToken_controller_1.AccessToken.getUser(token);
-        const ships = yield ship_1.ShipModel.find({ emailUsername: user.emailUsername }, { _id: 0, __v: 0 });
+        const ships = yield ship_1.ShipModel.find({ emailUsername: user.id }, { _id: 0, __v: 0 });
         res.status(200).send(ships);
     }
     catch (e) {
@@ -355,7 +423,10 @@ app.delete('/ships/:shipId', (req, res) => __awaiter(void 0, void 0, void 0, fun
 app.get('/racePoints/findStartAndFinish/:eventId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const evId = req.params.eventId;
-        const racePoints = yield racePoint_1.RacePointModel.find({ eventId: evId, $or: [{ type: 'startLine' }, { type: 'finishLine' }] }, { _id: 0, __v: 0 });
+        const racePoints = yield racePoint_1.RacePointModel.find({
+            eventId: evId,
+            $or: [{ type: 'startLine' }, { type: 'finishLine' }]
+        }, { _id: 0, __v: 0 });
         res.status(200).json(racePoints);
     }
     catch (e) {
@@ -365,7 +436,10 @@ app.get('/racePoints/findStartAndFinish/:eventId', (req, res) => __awaiter(void 
 // Retrieve all racepoints from an specific event
 app.get('/racepoints/fromEventId/:eventId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const evId = req.params.eventId;
-    const racePoints = yield racePoint_1.RacePointModel.find({ eventId: evId }, { _id: 0, __v: 0 }, { sort: { racePointNumber: 1 } });
+    const racePoints = yield racePoint_1.RacePointModel.find({ eventId: evId }, {
+        _id: 0,
+        __v: 0
+    }, { sort: { racePointNumber: 1 } });
     return res.status(200).send(racePoints);
 }));
 // Creates a new route of racepoints for an event
@@ -382,7 +456,7 @@ app.post('/racepoints/createRoute/:eventId', (req, res) => __awaiter(void 0, voi
         racePoint_1.RacePointModel.deleteMany({ eventId: evId });
         const racePoints = req.body;
         if (Array.isArray(racePoints)) {
-            const lastRacePoint = yield racePoint_1.RacePointModel.findOne({}).sort('desc');
+            const lastRacePoint = yield racePoint_1.RacePointModel.findOne({}, {}, { sort: { racePointId: -1 } });
             let racepointId;
             const lastRaceP = lastRacePoint.racePointId;
             if (lastRacePoint)
@@ -438,11 +512,13 @@ app.get('/users/:userName', (req, res) => __awaiter(void 0, void 0, void 0, func
 app.put('/users/:userName', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // Updating the user
-        // const hashedPassword = await bcrypt.hashSync(req.body.password, 10);
+        console.log("hit the crypt");
+        const hashedPassword = yield bcrypt_nodejs_1.default.hashSync(req.body.password);
+        console.log("done the crypt");
         const newUser = new user_1.UserModel(req.body);
         const token = req.header('x-access-token');
         const user = accessToken_controller_1.AccessToken.getUser(token);
-        // newUser.password = hashedPassword;
+        newUser.password = hashedPassword;
         newUser.role = user.role;
         user_1.UserModel.findOneAndUpdate({ emailUsername: newUser.emailUsername }, newUser);
         if (!user)
@@ -450,7 +526,7 @@ app.put('/users/:userName', (req, res) => __awaiter(void 0, void 0, void 0, func
         res.status(202).json(user);
     }
     catch (e) {
-        res.status(400).json('BAD REQUEST');
+        res.status(400).json('Update User failed.');
     }
 }));
 // Delete a User with the given emailUsername
@@ -479,7 +555,7 @@ app.post('/users/registerAdmin', (req, res) => __awaiter(void 0, void 0, void 0,
         if (users)
             return res.status(409).send({ message: "User with that username already exists" });
         // Creating the new user
-        const hashedPassword = yield bcrypt.hashSync(req.body.password, 10);
+        const hashedPassword = yield bcrypt_nodejs_1.default.hashSync(req.body.password);
         const user = new user_1.UserModel(req.body);
         user.password = hashedPassword;
         user.role = "admin";
@@ -499,17 +575,18 @@ app.post('/users/register', (req, res) => __awaiter(void 0, void 0, void 0, func
         if (isUser)
             return res.status(409).send({ message: "User with that username already exists" });
         // Creating the user
-        const hashedPassword = yield bcrypt.hashSync(req.body.password, 10);
+        const hashedPassword = yield bcrypt_nodejs_1.default.hashSync(req.body.password);
         const user = new user_1.UserModel(req.body);
         user.password = hashedPassword;
-        user.role = "user";
+        user.role = "admin";
         yield user.save();
         // returning a token
-        const token = jwt.sign({ id: user.emailUsername, role: "user" }, process.env.TOKEN_SECRET, { expiresIn: 86400 });
+        const token = jwt.sign({ id: user.emailUsername, role: "admin" }, process.env.TOKEN_SECRET, { expiresIn: 86400 });
         res.status(201).send({ auth: true, token });
+        // Transporter object using SMTP transport
     }
     catch (e) {
-        res.status(400).json('BAD REQUEST');
+        res.status(400).json('Failed to Register user');
     }
 }));
 // Login
@@ -521,12 +598,18 @@ app.post('/users/login', (req, res) => __awaiter(void 0, void 0, void 0, functio
             return res.status(403).json('Username incorrect');
         }
         const userpw = user.password;
-        const passwordIsValid = bcrypt.compareSync(req.body.password, userpw);
+        const passwordIsValid = bcrypt_nodejs_1.default.compareSync(req.body.password, userpw);
         if (!passwordIsValid) {
             return res.status(401).send({ auth: false, token: null, message: "Invalid password" });
         }
         const token = jwt.sign({ id: user.emailUsername, role: user.role }, process.env.TOKEN_SECRET, { expiresIn: 86400 });
-        res.status(200).send({ emailUsername: user.emailUsername, firstname: user.firstname, lastname: user.lastname, auth: true, token });
+        res.status(200).send({
+            emailUsername: user.emailUsername,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            auth: true,
+            token
+        });
     }
     catch (e) {
         res.status(400).json('BAD REQUEST');
@@ -551,6 +634,11 @@ app.post('/eventRegistrations/', (req, res) => __awaiter(void 0, void 0, void 0,
         res.status(400).json('BAD REQUEST');
     }
 }));
+/* --------------------------------------------------------------------
+*
+*
+*
+*/
 // Retrieve all eventRegistrations
 app.get('/eventRegistrations/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const verify = yield authentication_controller_1.Auth.Authorize(req, res, "admin");
@@ -585,7 +673,10 @@ app.get('/eventRegistrations/findEventRegFromUsername/:eventId', (req, res) => _
             pending++;
             const evId = req.params.eventId;
             const sId = ship.shipId;
-            const eventRegistration = yield eventRegistration_1.EventRegistrationModel.find({ eventId: evId, shipId: sId }, { _id: 0, __v: 0 });
+            const eventRegistration = yield eventRegistration_1.EventRegistrationModel.find({
+                eventId: evId,
+                shipId: sId
+            }, { _id: 0, __v: 0 });
             pending--;
             eventRegistrations.push(eventRegistration);
         }));
@@ -598,18 +689,23 @@ app.get('/eventRegistrations/findEventRegFromUsername/:eventId', (req, res) => _
 }));
 app.post('/eventRegistrations/signUp', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // Checking if authorized
-    const verify = yield authentication_controller_1.Auth.Authorize(req, res, "admin");
-    if (!verify) {
-        return res.status(400).send({ auth: false, message: 'Not Authorized' });
-    }
+    // const verify: boolean = await Auth.Authorize(req, res, "admin");
+    // if (!verify) {
+    //     return res.status(400).send({auth: false, message: 'Not Authorized'});
+    // }
     try {
+        const token = req.header('x-access-token');
+        const user = accessToken_controller_1.AccessToken.getUser(token);
         // Checks that the eventCode is correct
         const event = yield event_1.EventModel.findOne({ eventCode: req.body.eventCode }, { _id: 0, __v: 0 });
         if (!event)
             return res.status(404).send({ message: "Wrong eventCode" });
         if (event) {
             // Checks that the ship isn't already assigned to the event
-            const eventRegistration = yield eventRegistration_1.EventRegistrationModel.findOne({ shipId: req.body.shipId, eventId: event.eventId }, { _id: 0, __v: 0 });
+            const eventRegistration = yield eventRegistration_1.EventRegistrationModel.findOne({
+                shipId: req.body.shipId,
+                eventId: event.eventId
+            }, { _id: 0, __v: 0 });
             if (eventRegistration)
                 return res.status(409).send({ message: "ship already registered to this event" });
             if (!eventRegistration) {
@@ -618,8 +714,30 @@ app.post('/eventRegistrations/signUp', (req, res) => __awaiter(void 0, void 0, v
                 registration.eventId = event.eventId;
                 const regDone = yield validate_controller_1.Validate.createRegistration(registration, res);
                 if (regDone === null) {
-                    return res.status(500).send({ message: "SUCKS FOR YOU" });
+                    return res.status(500).send({ message: "creation failed" });
                 }
+                console.log("Before Ship init - Transporter");
+                const foundShip = yield ship_1.ShipModel.findOne({ shipId: req.body.shipId });
+                // Transporter object using SMTP transport
+                const transporter = nodemailer_1.default.createTransport({
+                    host: "smtp.office365.com",
+                    port: 587,
+                    secure: false,
+                    auth: {
+                        user: process.env.EMAIL,
+                        pass: process.env.PSW,
+                    },
+                });
+                console.log("Before Send");
+                // sending mail with defined transport object
+                const info = yield transporter.sendMail({
+                    from: '"Treggata" <aljo0025@easv365.dk>',
+                    to: user.id,
+                    subject: "Event Participation Confirmation",
+                    text: "your team - " + req.body.teamName + ", is now listed in the event " + event.name + ", with the boat " + foundShip.name + ".", // text body
+                    // html: "<p> some html </p>" // html in the body
+                });
+                console.log("After Send");
                 return res.status(201).json(regDone);
             }
         }
@@ -656,27 +774,46 @@ app.post('/eventRegistrations/addParticipant', (req, res) => __awaiter(void 0, v
         // Creates a user if no user corresponding to the given emailUsername found
         const user = yield user_1.UserModel.findOne({ emailUsername: req.body.emailUsername }, { _id: 0, __v: 0 });
         if (!user) {
-            const hashedPassword = yield bcrypt.hashSync("1234", 10);
-            const newUser = new user_1.UserModel({ "emailUsername": req.body.emailUsername, "firstname": req.body.firstname, "lastname": req.body.lastname, "password": hashedPassword, "role": "user" });
+            const hashedPassword = yield bcrypt_nodejs_1.default.hashSync("1234");
+            const newUser = new user_1.UserModel({
+                "emailUsername": req.body.emailUsername,
+                "firstname": req.body.firstname,
+                "lastname": req.body.lastname,
+                "password": hashedPassword,
+                "role": "user"
+            });
             yield newUser.save();
         }
         // Creating a ship if a ship with the given name and owned by the given user, doesn't exist
-        const ship = yield ship_1.ShipModel.findOne({ emailUsername: req.body.emailUsername, name: req.body.shipName }, { _id: 0, __v: 0 });
+        const ship = yield ship_1.ShipModel.findOne({
+            emailUsername: req.body.emailUsername,
+            name: req.body.shipName
+        }, { _id: 0, __v: 0 });
         if (!ship) {
             const newShip = new ship_1.ShipModel({ "name": req.body.shipName, "emailUsername": req.body.emailUsername });
-            const lastShip = yield ship_1.ShipModel.findOne({}).sort('-desc');
+            const lastShip = yield ship_1.ShipModel.findOne({}, {}, { sort: { shipId: -1 } });
             const one = 1;
             if (lastShip)
                 newShip.shipId = lastShip.shipId + one;
             else
                 newShip.shipId = 1;
             yield newShip.save();
-            const newEventRegistration = new eventRegistration_1.EventRegistrationModel({ "eventId": req.body.eventId, "shipId": newShip.shipId, "trackColor": "Yellow", "teamName": req.body.teamName });
+            const newEventRegistration = new eventRegistration_1.EventRegistrationModel({
+                "eventId": req.body.eventId,
+                "shipId": newShip.shipId,
+                "trackColor": "Blue",
+                "teamName": req.body.teamName
+            });
             const regDone = yield validate_controller_1.Validate.createRegistration(newEventRegistration, res);
             res.status(201).json(regDone);
         }
         else {
-            const newEventRegistration = new eventRegistration_1.EventRegistrationModel({ "eventId": req.body.eventId, "shipId": ship.shipId, "trackColor": "Yellow", "teamName": req.body.teamName });
+            const newEventRegistration = new eventRegistration_1.EventRegistrationModel({
+                "eventId": req.body.eventId,
+                "shipId": ship.shipId,
+                "trackColor": "Blue",
+                "teamName": req.body.teamName
+            });
             const regDone = yield validate_controller_1.Validate.createRegistration(newEventRegistration, res);
             res.status(201).json(regDone);
         }
@@ -693,13 +830,11 @@ app.get('/eventRegistrations/getParticipants/:eventId', (req, res) => __awaiter(
         if (!eventRegs || eventRegs.length === 0)
             return res.status(404).send({ message: "No participants found" });
         eventRegs.forEach((eventRegistration) => __awaiter(void 0, void 0, void 0, function* () {
-            pending++;
             const ship = yield ship_1.ShipModel.findOne({ shipId: eventRegistration.shipId }, { _id: 0, __v: 0 });
             if (!ship)
                 return res.status(404).send({ message: "Ship not found" });
             else if (ship) {
                 const user = yield user_1.UserModel.findOne({ emailUsername: ship.emailUsername }, { _id: 0, __v: 0 });
-                pending--;
                 if (!user)
                     return res.status(404).send({ message: "User not found" });
                 if (user) {
@@ -712,9 +847,7 @@ app.get('/eventRegistrations/getParticipants/:eventId', (req, res) => __awaiter(
                         "eventRegId": eventRegistration.eventRegId
                     };
                     participants.push(participant);
-                    if (pending === 0) {
-                        return res.status(200).json(participants);
-                    }
+                    return res.status(200).json(participants);
                 }
             }
         }));
@@ -782,12 +915,23 @@ app.post('/locationRegistrations/', (req, res) => __awaiter(void 0, void 0, void
 app.get('/locationRegistrations/getLive/:eventId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const evId = req.params.eventId;
-        const eventRegistrations = yield eventRegistration_1.EventRegistrationModel.find({ eventId: evId }, { _id: 0, __v: 0 });
+        const eventRegistrations = yield eventRegistration_1.EventRegistrationModel.find({ eventId: evId }, {
+            _id: 0,
+            __v: 0
+        });
         const fewRegistrations = [];
         eventRegistrations.forEach((eventRegistration) => __awaiter(void 0, void 0, void 0, function* () {
-            const locationRegistration = yield locationRegistration_1.LocationRegistrationModel.find({ eventRegId: eventRegistration.eventRegId }, { _id: 0, __v: 0 }, { sort: { 'locationTime': -1 }, limit: 20 });
+            const locationRegistration = yield locationRegistration_1.LocationRegistrationModel.find({ eventRegId: eventRegistration.eventRegId }, {
+                _id: 0,
+                __v: 0
+            }, { sort: { 'locationTime': -1 }, limit: 20 });
             if (locationRegistration.length !== 0) {
-                const boatLocations = { "locationsRegistrations": locationRegistration, "color": eventRegistration.trackColor, "shipId": eventRegistration.shipId, "teamName": eventRegistration.teamName };
+                const boatLocations = {
+                    "locationsRegistrations": locationRegistration,
+                    "color": eventRegistration.trackColor,
+                    "shipId": eventRegistration.shipId,
+                    "teamName": eventRegistration.teamName
+                };
                 fewRegistrations.push(boatLocations);
             }
         }));
@@ -811,13 +955,24 @@ app.get('/locationRegistrations/getLive/:eventId', (req, res) => __awaiter(void 
 app.get('/locationRegistrations/getReplay/:eventId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const evId = req.params.eventId;
-        const eventRegistrations = yield eventRegistration_1.EventRegistrationModel.find({ eventId: evId }, { _id: 0, __v: 0 });
+        const eventRegistrations = yield eventRegistration_1.EventRegistrationModel.find({ eventId: evId }, {
+            _id: 0,
+            __v: 0
+        });
         if (eventRegistrations.length !== 0) {
             const shipLocations = [];
             eventRegistrations.forEach((eventRegistration) => __awaiter(void 0, void 0, void 0, function* () {
-                const locationRegistrations = yield locationRegistration_1.LocationRegistrationModel.find({ eventRegId: eventRegistration.eventRegId }, { _id: 0, __v: 0 }, { sort: { 'locationTime': 1 } });
+                const locationRegistrations = yield locationRegistration_1.LocationRegistrationModel.find({ eventRegId: eventRegistration.eventRegId }, {
+                    _id: 0,
+                    __v: 0
+                }, { sort: { 'locationTime': 1 } });
                 if (locationRegistrations) {
-                    const shipLocation = { "locationsRegistrations": locationRegistrations, "color": eventRegistration.trackColor, "shipId": eventRegistration.shipId, "teamName": eventRegistration.teamName };
+                    const shipLocation = {
+                        "locationsRegistrations": locationRegistrations,
+                        "color": eventRegistration.trackColor,
+                        "shipId": eventRegistration.shipId,
+                        "teamName": eventRegistration.teamName
+                    };
                     shipLocations.push(shipLocation);
                 }
             }));
@@ -834,16 +989,29 @@ app.get('/locationRegistrations/getReplay/:eventId', (req, res) => __awaiter(voi
 app.get('/locationRegistrations/getScoreboard/:eventId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const evId = req.params.eventId;
-        const eventRegistrations = yield eventRegistration_1.EventRegistrationModel.find({ eventId: evId }, { _id: 0, __v: 0 });
+        const eventRegistrations = yield eventRegistration_1.EventRegistrationModel.find({ eventId: evId }, {
+            _id: 0,
+            __v: 0
+        });
         const scores = [];
         if (eventRegistrations.length !== 0) {
             eventRegistrations.forEach((eventReg) => __awaiter(void 0, void 0, void 0, function* () {
-                const locationRegistration = yield locationRegistration_1.LocationRegistrationModel.find({ eventRegId: eventReg.eventRegId }, { _id: 0, __v: 0 }, { sort: { 'locationTime': -1 }, limit: 1 });
+                const locationRegistration = yield locationRegistration_1.LocationRegistrationModel.find({ eventRegId: eventReg.eventRegId }, {
+                    _id: 0,
+                    __v: 0
+                }, { sort: { 'locationTime': -1 }, limit: 1 });
                 if (locationRegistration.length !== 0) {
                     const ship = yield ship_1.ShipModel.findOne({ shipId: eventReg.shipId }, { _id: 0, __v: 0 });
                     const user = yield user_1.UserModel.findOne({ emailUsername: ship.emailUsername }, { _id: 0, __v: 0 });
                     if (user) {
-                        const score = { "locationsRegistrations": locationRegistration, "color": eventReg.trackColor, "shipId": eventReg.shipId, "shipName": ship.name, "teamName": eventReg.teamName, "owner": user.firstname + " " + user.lastname };
+                        const score = {
+                            "locationsRegistrations": locationRegistration,
+                            "color": eventReg.trackColor,
+                            "shipId": eventReg.shipId,
+                            "shipName": ship.name,
+                            "teamName": eventReg.teamName,
+                            "owner": user.firstname + " " + user.lastname
+                        };
                         scores.push(score);
                     }
                 }

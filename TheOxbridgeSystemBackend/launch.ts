@@ -1,7 +1,10 @@
 import {app} from "./src/server";
+import {EventModel} from "./src/models/event";
+
 const port = 3000;
 
-const server = app.listen(port, () =>{
-    console.log('Running in this mode: '+process.env.PORT);
-    console.log('This server is listening at port:' + port);
+const server = app.listen(port, () => {
+
+    console.log('This server is listening at port:' + process.env.PORT);
+
 });

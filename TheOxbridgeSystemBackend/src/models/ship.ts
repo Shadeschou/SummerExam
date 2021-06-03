@@ -1,7 +1,7 @@
 export {};
 import {Document, Model, model, Schema} from 'mongoose';
 
-export interface IShip extends Document  {
+export interface IShip extends Document {
     shipId: number,
     emailUsername: string,
     name: string,
@@ -16,4 +16,4 @@ const ShipModelSchema = new Schema({
 
 });
 
-export const ShipModel:Model<IShip> = model('Ship', ShipModelSchema);
+export const ShipModel: Model<IShip> = model('Ship', ShipModelSchema);
