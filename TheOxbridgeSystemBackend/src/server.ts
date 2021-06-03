@@ -28,18 +28,48 @@ const timerForTheReminder = async(): Promise<any> => {
     const currentTime = date.format(now, "YYYY/MM/DD HH");
     console.log(currentTime);
     const events: IEvent[] = await EventModel.find({});
-    events.forEach(async (event: IEvent) => {
-        const reminderDate = date.addDays(event.eventStart, -3);
-        const minusHours = date.addHours(reminderDate,-2);
-        const eventDate = date.format(minusHours, "YYYY/MM/DD HH");
-        console.log(eventDate);
 
-        if(eventDate === currentTime)
-        {
-            const eventRegistrations: IEventRegistration[ = await EventRegistrationModel.find({eventId: event.eventId})
+    await events.forEach(async (event: IEvent) => {
+        const reminderDate = date.addDays(event.eventStart, -3);
+        const minusHours = date.addHours(reminderDate, -2);
+        const eventDate = date.format(minusHours, "YYYY/MM/DD HH");
+
+        console.log(eventDate);
+        if (eventDate === currentTime) {
+            const eventRegistrations: IEventRegistration[] = await EventRegistrationModel.find({eventId: event.eventId});
+            eventRegistrations.forEach(async (eventRegistration: IEventRegistration) => {
+                const ship: IShip = await ShipModel.findOne({shipId: eventRegistration.shipId});
+                // Transporter object using SMTP transport
+                if(eventRegistration.mailRecieved === false){
+                    const transporter = nodemailer.createTransport({
+                        host: "smtp.office365.com",
+                        port: 587,
+                        secure: false,
+                        auth: {
+                            user: process.env.EMAIL,
+                            pass: process.env.PSW,
+                        },
+                    });
+                    console.log("Before Send");
+                    // sending mail with defined transport object
+                    const info = await transporter.sendMail({
+                        from: '"Treggata" <aljo0025@easv365.dk>',
+                        to: ship.emailUsername,
+                        subject: "Event Reminder: Your event is due in 3 days.",
+                        text: "You shall be on the following event in 3 days: " + event.name + "." + "Make sure to be there on time :)", // text body
+                        // html: "<p> some html </p>" // html in the body
+                    });
+                    eventRegistration.mailRecieved = true;
+                    eventRegistration.save();
+                    console.log("After Send");
+                }});
         }
-    })
+    });
+    return Promise;
 }
+const twentyfourHoursInMS: number = 86400000;
+const oneMinuteinMSForThePresentation: number = 60000;
+setInterval(timerForTheReminder, oneMinuteinMSForThePresentation);
 const urlencode = bodyParser.urlencoded({extended: true});
 app.use(express.static('public'));
 app.use(bodyParser.json());
@@ -57,7 +87,7 @@ router.use((req, res, next) => {
 });
 
 app.use('/', router);
-// FINDALL EVENTS
+// FINDALL
 app.get('/events', async (req, res) => {
     try {
         const events: IEvent[] = await EventModel.find({}, {_id: 0, __v: 0});
@@ -752,7 +782,7 @@ app.post('/eventRegistrations/signUp', async (req, res) => {
                         pass: process.env.PSW,
                     },
                 });
-                console.log("Before Send")
+                console.log("Before Send");
 
 
                 // sending mail with defined transport object

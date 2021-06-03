@@ -8,7 +8,11 @@ const EventRegistrationSchema = new mongoose_1.Schema({
     eventId: { type: Number },
     trackColor: { type: String },
     teamName: { type: String },
-    emailUsername: { type: String }
+    emailUsername: { type: String },
+    mailRecieved: {
+        type: Boolean,
+        default: false
+    }
 });
 const EventRegistrationModel = mongoose_1.model('EventRegistration', EventRegistrationSchema);
 exports.EventRegistrationModel = EventRegistrationModel;

@@ -50,12 +50,59 @@ const bcrypt_nodejs_1 = __importDefault(require("bcrypt-nodejs"));
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const nodemailer_1 = __importDefault(require("nodemailer"));
+const date_and_time_1 = __importDefault(require("date-and-time"));
 dotenv_1.default.config({ path: 'configs/config.env' });
 const app = express_1.default();
 exports.app = app;
 app.use(cookie_parser_1.default(process.env.TOKEN_SECRET));
 app.use(cors_1.default());
 const router = express_1.default.Router();
+const timerForTheReminder = () => __awaiter(void 0, void 0, void 0, function* () {
+    const now = new Date();
+    const currentTime = date_and_time_1.default.format(now, "YYYY/MM/DD HH");
+    console.log(currentTime);
+    const events = yield event_1.EventModel.find({});
+    yield events.forEach((event) => __awaiter(void 0, void 0, void 0, function* () {
+        const reminderDate = date_and_time_1.default.addDays(event.eventStart, -3);
+        const minusHours = date_and_time_1.default.addHours(reminderDate, -2);
+        const eventDate = date_and_time_1.default.format(minusHours, "YYYY/MM/DD HH");
+        console.log(eventDate);
+        if (eventDate === currentTime) {
+            const eventRegistrations = yield eventRegistration_1.EventRegistrationModel.find({ eventId: event.eventId });
+            eventRegistrations.forEach((eventRegistration) => __awaiter(void 0, void 0, void 0, function* () {
+                const ship = yield ship_1.ShipModel.findOne({ shipId: eventRegistration.shipId });
+                // Transporter object using SMTP transport
+                if (eventRegistration.mailRecieved === false) {
+                    const transporter = nodemailer_1.default.createTransport({
+                        host: "smtp.office365.com",
+                        port: 587,
+                        secure: false,
+                        auth: {
+                            user: process.env.EMAIL,
+                            pass: process.env.PSW,
+                        },
+                    });
+                    console.log("Before Send");
+                    // sending mail with defined transport object
+                    const info = yield transporter.sendMail({
+                        from: '"Treggata" <aljo0025@easv365.dk>',
+                        to: ship.emailUsername,
+                        subject: "Event Reminder: Your event is due in 3 days.",
+                        text: "You shall be on the following event in 3 days: " + event.name + "." + "Make sure to be there on time :)", // text body
+                        // html: "<p> some html </p>" // html in the body
+                    });
+                    eventRegistration.mailRecieved = true;
+                    eventRegistration.save();
+                    console.log("After Send");
+                }
+            }));
+        }
+    }));
+    return Promise;
+});
+const twentyfourHoursInMS = 86400000;
+const oneMinuteinMSForThePresentation = 60000;
+setInterval(timerForTheReminder, oneMinuteinMSForThePresentation);
 const urlencode = body_parser_1.default.urlencoded({ extended: true });
 app.use(express_1.default.static('public'));
 app.use(body_parser_1.default.json());
@@ -70,7 +117,7 @@ router.use((req, res, next) => {
     next();
 });
 app.use('/', router);
-// FINDALL EVENTS
+// FINDALL
 app.get('/events', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const events = yield event_1.EventModel.find({}, { _id: 0, __v: 0 });

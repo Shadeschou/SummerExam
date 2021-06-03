@@ -6,7 +6,8 @@ interface IEventRegistration extends Document {
     eventId: number,
     trackColor: string,
     teamName: string,
-    emailUsername: string
+    emailUsername: string,
+    mailRecieved: boolean
 }
 
 const EventRegistrationSchema = new Schema<IEventRegistration>({
@@ -16,7 +17,11 @@ const EventRegistrationSchema = new Schema<IEventRegistration>({
     eventId: {type: Number},
     trackColor: {type: String},
     teamName: {type: String},
-    emailUsername: {type: String}
+    emailUsername: {type: String},
+    mailRecieved: {
+        type: Boolean,
+        default: false
+    }
 });
 
 
