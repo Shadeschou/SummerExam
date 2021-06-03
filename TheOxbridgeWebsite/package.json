@@ -27,6 +27,7 @@
     "@types/googlemaps": "^3.39.6",
     "angular-font-awesome": "^3.1.2",
     "bootstrap": "^4.5.0",
+    "cors": "^2.8.5",
     "font-awesome": "^4.7.0",
     "http": "0.0.1-security",
     "jwt-decode": "^2.2.0",

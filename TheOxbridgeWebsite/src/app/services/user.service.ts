@@ -11,7 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class UserService {
 
-  private userUrl = 'https://oxbridgecloud.azurewebsites.net/users/'
+  private userUrl = 'mongodb://localhost:27017/OxbridgeDB'
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
@@ -20,7 +20,7 @@ export class UserService {
    * @param newUser - The new user to be registered
    */
   public registerUser(newUser: User): Observable<User> {
-    return this.http.post<User>(this.userUrl+"register", newUser).pipe(map(user => {
+    return this.http.post<User>(this.userUrl+"/register", newUser).pipe(map(user => {
       user.role = this.getDecodedAccessToken(user.token).role;
       return user;
     }));
