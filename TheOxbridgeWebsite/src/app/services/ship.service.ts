@@ -46,19 +46,22 @@ export class ShipService {
       .pipe(map(ship => { return ship }));
   }
 
+
+
+  
   /**
    * Sends a http post request to the backend, in order to add a ship
    * @param newShip - The new ship to be added
    */
-  public addShip(newShip: Ship): Observable<Ship>
-  {
-    let user = JSON.parse(this.cookieService.get('user'));
+   public addShip(newShip: Ship, userName: string): Observable<Ship> {
+    const user = JSON.parse(this.cookieService.get('user'));
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'x-access-token': user.token
       })
-    }
-    return this.http.post<Ship>(this.shipUrl, newShip, httpOptions).pipe(map(ship => { return ship }));
+    };
+    newShip.emailUsername = userName;
+    return this.http.post<Ship>(this.shipUrl, newShip, httpOptions).pipe(map(ship => ship));
   }
 }

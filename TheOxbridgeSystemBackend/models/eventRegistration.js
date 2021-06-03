@@ -6,7 +6,8 @@ var EventRegistrationSchema = new Schema({
     shipId : Number,
     eventId : Number,
     trackColor : String,
-    teamName : String
+    teamName : String,
+    
 });
 
 module.exports = mongoose.model('EventRegistration', EventRegistrationSchema);
