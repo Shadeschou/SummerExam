@@ -43,3 +43,4 @@ C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\
 C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\TheOxbridgeApp.pdb
 C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\TeamView.xaml.g.cs
 C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\TheOxbridgeApp.csprojAssemblyReference.cache
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\EventListView.xaml.g.cs

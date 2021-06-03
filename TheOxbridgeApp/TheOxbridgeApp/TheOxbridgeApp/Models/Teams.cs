@@ -18,11 +18,12 @@ namespace TheOxbridgeApp.Models
         public String City { get; set; }
         public String Name { get; set; }
 
-      
 
 
-     
-       public string TeamImage { get; set; }
+
+        public String ShipName { get; set; }
+
+        public string TeamImage { get; set; }
         public byte[] TeamImageBytes { get; set; }
 
         public ImageSource TeamFilePicker { get; set; }

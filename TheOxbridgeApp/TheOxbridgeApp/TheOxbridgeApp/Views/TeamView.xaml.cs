@@ -18,9 +18,7 @@ namespace TheOxbridgeApp.Views
             
         }
 
-        private void ContentPage_Appearing(object sender, EventArgs e)
-        {
-        }
+     
 
 
     }

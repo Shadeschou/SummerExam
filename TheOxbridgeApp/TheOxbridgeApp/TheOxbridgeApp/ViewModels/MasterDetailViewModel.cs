@@ -116,8 +116,8 @@ namespace TheOxbridgeApp.ViewModels
                         TargetViewModel = typeof(TrackingEventViewModel)
                     });
 
-                    IsLogOutVisible = true;
                 }
+                    IsLogOutVisible = true;
             }
             else
             {
@@ -129,7 +129,15 @@ namespace TheOxbridgeApp.ViewModels
                 });
                 IsLogOutVisible = false;
 
-
+                /*
+                MenuItems.Add(new MasterMenuItems()
+                {
+                    Text = "Team Events",
+                    ImagePath = "userIcon.png",
+                    TargetViewModel = typeof(ListEventViewModel)
+                });
+                IsLogOutVisible = false;
+                */
 
                 MenuItems.Add(new MasterMenuItems()
                 {
@@ -138,6 +146,8 @@ namespace TheOxbridgeApp.ViewModels
                     TargetViewModel = typeof(TeamViewModel)
                 });
                 IsLogOutVisible = false;
+
+
 
             }
 

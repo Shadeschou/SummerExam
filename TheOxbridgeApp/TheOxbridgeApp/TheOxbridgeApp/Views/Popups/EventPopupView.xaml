@@ -68,6 +68,8 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </Frame>
+            <Button Text="Show members" Command="{Binding NavigateToTeamView}" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="{Binding IsNavigationVisible}"  BorderRadius="8"></Button>
+            
             <Button Text="{Binding EventStatus}" Command="{Binding NavigateToMapCMD}" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="{Binding IsNavigationVisible}"  BorderRadius="8"></Button>
         </StackLayout>
     </Frame>

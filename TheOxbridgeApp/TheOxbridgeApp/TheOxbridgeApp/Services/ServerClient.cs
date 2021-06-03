@@ -126,6 +126,21 @@ namespace TheOxbridgeApp.Services
 
 
 
+
+
+        public List<Team> GetTeams()
+        {
+            WebRequest request = WebRequest.Create(Target.GetImages);
+            request.Method = "GET";
+
+            String responseFromServer = GetResponse(request);
+
+            List<Team> teams = JsonConvert.DeserializeObject<List<Team>>(responseFromServer);
+            return teams;
+
+        }
+
+
         /// <summary>
         /// Gets all locations from all boats in a specific event from the backend
         /// </summary>
@@ -202,6 +217,41 @@ namespace TheOxbridgeApp.Services
             }
             return ships;
         }
+
+
+        public async Task<bool> PutData(ISerializable serializable, String target)
+        {
+            String statusCode = "";
+            String jsonData = JsonConvert.SerializeObject(serializable);
+            WebRequest request = WebRequest.Create(target);
+            request.Method = "PUT";
+            request.ContentType = "application/json";
+            request.Headers.Add("x-access-token", (await dataController.GetUser()).Token);
+
+            using (Stream requestStream = request.GetRequestStream())
+            {
+                using (StreamWriter streamWriter = new StreamWriter(requestStream))
+                {
+                    streamWriter.Write(jsonData);
+                }
+            }
+            try
+            {
+                statusCode = GetStatusCode(request);
+            }
+            catch (Exception)
+            {
+            }
+            if (statusCode.ToLower().Equals("created"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
 
         /// <summary>
         /// Gets the response from a request from the backend

@@ -13,7 +13,7 @@
     <StackLayout>
         <Button Text="PickPhoto" Command="{Binding AddToDB}"></Button>
 
-        <ListView  ItemsSource="{Binding EventObservable}" 
+        <ListView  ItemsSource="{Binding TeamList}" 
               HasUnevenRows="True"
               BackgroundColor="#ecf0f1"
               SeparatorVisibility="None"
@@ -26,26 +26,20 @@
                 <ViewCell>
                     <StackLayout Margin="6,4,6,4"
                                  BackgroundColor="White">
-                           
-                            <Label Text="{Binding Name}"
+
+                            <Label Text="Hello a test"
                                Margin="8,2,8,4"
                                FontSize="Small" />
 
-                            <Label Text="{Binding City}"></Label>
-                            
+                            <Label Text="{Binding EventID}"></Label>
+                            <Label Text="{Binding EventRegId}"></Label>
+                            <Label Text="{Binding TeamName}"></Label>
+                            <Label Text="{Binding TrackColor}"></Label>
+                            <Label Text="{Binding TeamImageSourcePicture}"></Label>
 
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    NumberOfTapsRequired="1"
-                                   >
-                                    
-                                    
-                                </TapGestureRecognizer>
-                                
-                                
-                            </StackLayout.GestureRecognizers>
-                        
-                    </StackLayout>
+
+
+                        </StackLayout>
                 </ViewCell>
             </DataTemplate>
 

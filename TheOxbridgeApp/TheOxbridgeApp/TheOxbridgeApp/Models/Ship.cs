@@ -10,6 +10,9 @@ namespace TheOxbridgeApp.Models
 
         public String Username { get; set; }
 
+        public String emailUsername { get; set; }
+
+
         public String TeamName { get; set; }
     }
 }

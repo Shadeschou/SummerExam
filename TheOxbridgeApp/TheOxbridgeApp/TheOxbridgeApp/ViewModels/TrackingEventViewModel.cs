@@ -93,6 +93,8 @@ namespace TheOxbridgeApp.ViewModels
         {
             DateTime currentTime = DateTime.Now;
 
+           
+
             foreach (TrackingEvent currentEvent in unHandledEvents)
             {
                 var dateSpan = DateTimeSpan.CompareDates(currentEvent.EventStart, currentTime);

@@ -6,6 +6,9 @@ namespace TheOxbridgeApp.Models
     {
         public int EventId { get; set; }
 
+        public string UserName { get; set; }
+
+
         public String Name { get; set; }
 
         public DateTime EventStart { get; set; }

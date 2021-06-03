@@ -74,9 +74,26 @@ namespace TheOxbridgeApp.ViewModels.Popups
         public ICommand NavigateToMapCMD { get; set; }
         #endregion
 
+        public async void ShowListOfParticipants() 
+        {
+           
+
+  
+            NavigationService.NavigateToAsync(typeof( TeamViewModel));
+          
+
+
+        }
+
+        public ICommand NavigateToTeamView { get; set; }
+
+
+
+
 
         public EventPopupViewModel(Event selectedEvent)
         {
+            NavigateToTeamView = new Command(ShowListOfParticipants);
             sharedData = SingletonSharedData.GetInstance();
             serverClient = new ServerClient();
             NavigateToMapCMD = new Command(NavigateToMap);
