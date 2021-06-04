@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap, startWith, race } from 'rxjs/operators';
-import { EventService } from 'src/app/services/event.service';
-import { Event } from '../../models/event';
-import { RacePointService } from 'src/app/services/race-point.service';
-import { Observable, interval } from 'rxjs';
-import { Score } from 'src/app/models/score';
-import { LocationRegistrationService } from 'src/app/services/location-registration.service';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, ParamMap} from '@angular/router';
+import {switchMap} from 'rxjs/operators';
+import {EventService} from 'src/app/services/event.service';
+import {Event} from '../../models/event';
+import {RacePointService} from 'src/app/services/race-point.service';
+import {Observable} from 'rxjs';
+import {Score} from 'src/app/models/score';
+import {LocationRegistrationService} from 'src/app/services/location-registration.service';
 
 @Component({
   selector: 'app-live-event',
@@ -15,7 +15,7 @@ import { LocationRegistrationService } from 'src/app/services/location-registrat
 })
 export class LiveEventComponent implements OnInit {
 
-  @ViewChild('mapContainer', { static: false }) gmap: ElementRef;
+  @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
   map: google.maps.Map;
   mapOptions: google.maps.MapOptions;
   coordinates;
@@ -38,7 +38,9 @@ export class LiveEventComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
-        this.eventService.getEvent(parseInt(params.get('eventId'))).pipe(event => { return event }))).subscribe(event => { this.event = event });
+        this.eventService.getEvent(parseInt(params.get('eventId'))).pipe(event => event))).subscribe(event => {
+      this.event = event;
+    });
   }
 
   ngAfterViewInit() {
@@ -52,9 +54,9 @@ export class LiveEventComponent implements OnInit {
     this.map = new google.maps.Map(this.gmap.nativeElement, this.mapOptions);
 
     this.route.paramMap.pipe(switchMap((params: ParamMap) => {
-      return this.racePointService.getStartAndFinish(parseInt(params.get('eventId'))).pipe(racePoints => { return racePoints })
+      return this.racePointService.getStartAndFinish(parseInt(params.get('eventId'))).pipe(racePoints => racePoints);
     })).subscribe(racePoints => {
-      console.log("racepoints lenght" + racePoints.length)
+      console.log('racepoints lenght' + racePoints.length);
       this.placeMarker(new google.maps.LatLng(racePoints[0].firstLatitude, racePoints[0].firstLongtitude), '../assets/images/startline.png');
       this.placeMarker(new google.maps.LatLng(racePoints[0].secondLatitude, racePoints[0].secondLongtitude), '../assets/images/startline.png');
 
@@ -63,7 +65,7 @@ export class LiveEventComponent implements OnInit {
 
       this.map.setCenter(new google.maps.LatLng(racePoints[0].firstLatitude, racePoints[0].firstLongtitude));
       this.initializeBoatTracking();
-    })
+    });
   }
 
   /**
@@ -73,30 +75,30 @@ export class LiveEventComponent implements OnInit {
    */
   placeMarker(latLng, url) {
 
-    var marker = new google.maps.Marker({
+    const marker = new google.maps.Marker({
       position: latLng,
       map: this.map,
       icon: url
-    })
+    });
 
     this.markers.push(marker);
 
     if (this.markers.length % 2 === 0) {
-      let marker1 = this.markers[this.markers.length - 2];
-      let marker2 = this.markers[this.markers.length - 1];
-      var polyline = this.setPolyline(marker1, marker2);
+      const marker1 = this.markers[this.markers.length - 2];
+      const marker2 = this.markers[this.markers.length - 1];
+      const polyline = this.setPolyline(marker1, marker2);
     }
     marker.setMap(this.map);
   }
 
   /**
    * Place a polyline between the two given markers
-   * @param marker1 
-   * @param marker2 
+   * @param marker1
+   * @param marker2
    */
   setPolyline(marker1, marker2) {
-    var lineCoordinates = [marker1.position, marker2.position]
-    var line = new google.maps.Polyline({
+    const lineCoordinates = [marker1.position, marker2.position];
+    const line = new google.maps.Polyline({
       path: lineCoordinates,
       geodesic: true,
       strokeColor: '#000000',
@@ -122,7 +124,7 @@ export class LiveEventComponent implements OnInit {
 
   /**
    * Setting or moving the the ship markers to the new given positions
-   * @param scores 
+   * @param scores
    */
   setBoatMarkers(scores: Score[]) {
 
@@ -132,7 +134,7 @@ export class LiveEventComponent implements OnInit {
 
     if (this.boatMarkers === null || this.boatMarkers.length === 0) {
       scores.forEach(score => {
-        let boat = new google.maps.Marker({
+        const boat = new google.maps.Marker({
           position: new google.maps.LatLng(score.locationsRegistrations[0].latitude, score.locationsRegistrations[0].longtitude),
           map: this.map,
           icon: '../assets/images/boatIcon.png',
@@ -140,18 +142,19 @@ export class LiveEventComponent implements OnInit {
             text: score.placement.toString(),
             color: score.color
           }
-        })
+        });
         boat.setMap(this.map);
-        boat.setTitle(score.shipId.toString() + " " + score.teamName);
+        boat.setTitle(score.shipId.toString() + ' ' + score.teamName);
         this.boatMarkers.push(boat);
       });
-    }
-    else {
+    } else {
       this.boatMarkers.forEach(boat => {
-        let index = scores.map(function (e) { return e.shipId }).indexOf(parseInt(boat.getTitle()));
-        boat.setLabel({text: scores[index].placement.toString(), color: scores[index].color})
+        const index = scores.map(function (e) {
+          return e.shipId;
+        }).indexOf(parseInt(boat.getTitle()));
+        boat.setLabel({text: scores[index].placement.toString(), color: scores[index].color});
         boat.setPosition(new google.maps.LatLng(scores[index].locationsRegistrations[0].latitude, scores[index].locationsRegistrations[0].longtitude));
-      })
+      });
     }
   }
 

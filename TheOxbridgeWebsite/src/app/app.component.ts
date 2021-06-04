@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { User } from './models/user';
-import { CookieService } from 'ngx-cookie-service';
-import { Router } from '@angular/router';
+import {Component} from '@angular/core';
+import {User} from './models/user';
+import {CookieService} from 'ngx-cookie-service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -23,20 +23,22 @@ export class AppComponent {
    * Updates the user to the user saved in cookies
    */
   public updateUser() {
-    if (this.cookieService.check('user'))
+    if (this.cookieService.check('user')) {
       this.user = JSON.parse(this.cookieService.get('user'));
-    else
+    } else {
       this.user = null;
+    }
   }
 
   /**
    * Event handler for the dropdown button
    */
   dropDownClicked() {
-    if (this.open)
+    if (this.open) {
       this.open = false;
-    else
+    } else {
       this.open = true;
+    }
   }
 
   /**
@@ -53,13 +55,14 @@ export class AppComponent {
    */
   registrationClicked() {
     if (this.cookieService.check('user')) {
-      let user = JSON.parse(this.cookieService.get('user'));
-      if (user.role === 'admin')
+      const user = JSON.parse(this.cookieService.get('user'));
+      if (user.role === 'admin') {
         this.router.navigateByUrl('/administrerEvents');
-      else
+      } else {
         this.router.navigateByUrl('/mineEvents');
-    }
-    else
+      }
+    } else {
       this.router.navigateByUrl('/tilmelding');
+    }
   }
 }

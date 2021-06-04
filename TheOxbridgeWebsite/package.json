@@ -1,4 +1,4 @@
-{
+ {
   "name": "oxbridge-website",
   "version": "0.0.0",
   "scripts": {
@@ -27,7 +27,6 @@
     "@types/googlemaps": "^3.39.6",
     "angular-font-awesome": "^3.1.2",
     "bootstrap": "^4.5.0",
-    "cors": "^2.8.5",
     "font-awesome": "^4.7.0",
     "http": "0.0.1-security",
     "jwt-decode": "^2.2.0",
@@ -49,6 +48,7 @@
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/jwt-decode": "^2.2.1",
+    "@types/mongoose": "^5.10.5",
     "@types/node": "^12.11.1",
     "codelyzer": "^5.1.2",
     "jasmine-core": "~3.5.0",

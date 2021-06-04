@@ -1,4 +1,4 @@
-import { CheckPoint } from './check-point';
+import {CheckPoint} from './check-point';
 
 describe('CheckPoint', () => {
   it('should create an instance', () => {
