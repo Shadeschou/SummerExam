@@ -17,6 +17,7 @@ export class RacePointService {
   constructor(private http: HttpClient, private cookieService: CookieService) {
   }
 
+
   /**
    * Sends a http get request to the backend, in order to get all racepoints
    * @param eventId - The id of the event

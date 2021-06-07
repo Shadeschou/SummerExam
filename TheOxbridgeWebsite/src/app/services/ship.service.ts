@@ -11,7 +11,6 @@ import {map} from 'rxjs/operators';
 export class ShipService {
 
   // private shipUrl = 'https://oxbridgecloud.azurewebsites.net/ships/'
-
   private shipUrl = 'http://localhost:3000/ships/';
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
