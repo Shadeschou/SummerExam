@@ -1,11 +1,14 @@
-import { LocationsRegistration } from './locations-registration';
+import {LocationsRegistration} from './locations-registration';
 
 export class Score {
-    constructor(
-        public placement: number, 
-        public teamName: string, 
-        public color:string, 
-        public shipId: number, 
-        public locationsRegistrations: LocationsRegistration[]
-        ){}
+  constructor(
+    public placement: number,
+    public teamName: string,
+    public color: string,
+    public shipId: number,
+    public locationsRegistrations: LocationsRegistration[],
+    public owner: string,
+    public shipName: string
+  ) {
+  }
 }

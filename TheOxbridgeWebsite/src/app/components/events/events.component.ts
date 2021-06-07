@@ -1,9 +1,9 @@
-import { Component, OnInit, NgModule } from '@angular/core';
-import { Event } from 'src/app/models/Event';
-import { Observable, combineLatest } from 'rxjs';
-import { EventService } from 'src/app/services/event.service';
-import { FormControl } from '@angular/forms';
-import { map, startWith } from 'rxjs/operators';
+import {Component, OnInit} from '@angular/core';
+import {Event} from 'src/app/models/Event';
+import {combineLatest, Observable} from 'rxjs';
+import {EventService} from 'src/app/services/event.service';
+import {FormControl} from '@angular/forms';
+import {map, startWith} from 'rxjs/operators';
 
 
 @Component({
@@ -24,11 +24,12 @@ export class EventsComponent implements OnInit {
     this.filter = new FormControl('');
     this.filter$ = this.filter.valueChanges.pipe(startWith(''));
 
-    //Setting searchfilter
+    // Setting searchfilter
     this.filteredEvents = combineLatest(this.events, this.filter$)
       .pipe(map(([events, filterString]) => events.filter(event => event.name.toLowerCase().indexOf(filterString.toLowerCase()) !== -1 || event.city.toLowerCase().indexOf(filterString.toLowerCase()) !== -1)));
-   }
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
 }

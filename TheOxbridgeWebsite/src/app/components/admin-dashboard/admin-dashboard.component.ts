@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, NgForm } from '@angular/forms';
-import { Observable, combineLatest } from 'rxjs';
-import { Event } from 'src/app/models/Event';
-import { EventService } from 'src/app/services/event.service';
-import { CookieService } from 'ngx-cookie-service';
-import { startWith, map } from 'rxjs/operators';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, NgForm} from '@angular/forms';
+import {combineLatest, Observable} from 'rxjs';
+import {Event} from 'src/app/models/Event';
+import {EventService} from 'src/app/services/event.service';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -25,7 +24,8 @@ export class AdminDashboardComponent implements OnInit {
     this.setEvents();
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
   /**
    * Gets all events from the backend and sets the search filter
@@ -41,14 +41,14 @@ export class AdminDashboardComponent implements OnInit {
 
   /**
    * Event handler for submitting a new event
-   * @param form 
+   * @param form
    */
   OnSubmit(form: NgForm) {
     this.eventService.AddEvent(this.model).pipe()
       .subscribe(eventReg => {
-        this.setEvents();
-        form.reset();
-      },
+          this.setEvents();
+          form.reset();
+        },
         error => {
           console.log(error.status);
         });

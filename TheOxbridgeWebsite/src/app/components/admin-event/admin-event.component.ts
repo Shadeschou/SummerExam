@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, combineLatest } from 'rxjs';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { EventService } from 'src/app/services/event.service';
-import { switchMap, tap, startWith, map } from 'rxjs/operators';
-import { Event } from '../../models/event';
-import { FormGroup, FormControl, FormBuilder, Validators, NgForm } from '@angular/forms';
-import { formatDate } from '@angular/common';
-import { Participant } from 'src/app/models/participant';
-import { EventRegistrationService } from 'src/app/services/event-registration.service';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {combineLatest, Observable} from 'rxjs';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {EventService} from 'src/app/services/event.service';
+import {map, startWith, switchMap, tap} from 'rxjs/operators';
+import {Event} from '../../models/event';
+import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import {formatDate} from '@angular/common';
+import {Participant} from 'src/app/models/participant';
+import {EventRegistrationService} from 'src/app/services/event-registration.service';
 
 
 @Component({
@@ -29,7 +28,7 @@ export class AdminEventComponent implements OnInit {
   eventForm: FormGroup;
   model: Participant;
 
-  buttonText: String;
+  buttonText: string;
   hasRoute: Observable<boolean>;
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private eventService: EventService, private eventRegService: EventRegistrationService, private router: Router) {
@@ -37,7 +36,7 @@ export class AdminEventComponent implements OnInit {
 
   ngOnInit(): void {
 
-    //Initializing the formgroup
+    // Initializing the formgroup
     this.eventForm = this.formBuilder.group({
       name: ['', Validators.required],
       eventStart: ['', Validators.required],
@@ -51,19 +50,20 @@ export class AdminEventComponent implements OnInit {
     this.setParticipants();
 
     this.event.subscribe(event => {
-      this.eventId = event.eventId
-      this.model = new Participant("", "", "", "", "", event.eventId, "")
+      this.eventId = event.eventId;
+      this.model = new Participant('', '', '', '', '', event.eventId, '');
     });
 
-    //Checks if the event has a route or not
+    // Checks if the event has a route or not
     this.route.paramMap.pipe(switchMap((params: ParamMap) => {
-      return this.eventService.hasRoute(parseInt(params.get('eventId')))
+      return this.eventService.hasRoute(parseInt(params.get('eventId')));
     })).subscribe(hasRoute => {
-      if (hasRoute)
-        this.buttonText = "Se Rute";
-      else
-        this.buttonText = "Planlæg rute";
-    })
+      if (hasRoute) {
+        this.buttonText = 'Se Rute';
+      } else {
+        this.buttonText = 'Planlæg rute';
+      }
+    });
   }
 
   /**
@@ -73,7 +73,7 @@ export class AdminEventComponent implements OnInit {
     this.participants = this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
         this.eventRegService.getParticipants(parseInt(params.get('eventId'))))
-    )
+    );
 
     this.filter = new FormControl('');
     this.filter$ = this.filter.valueChanges.pipe(startWith(''));
@@ -97,17 +97,17 @@ export class AdminEventComponent implements OnInit {
         this.eventService.getEvent(parseInt(params.get('eventId'))).pipe(tap(event => {
           this.eventForm.patchValue(event);
 
-          //Formatting the dates and times
-          this.eventForm.controls['eventStart'].setValue(formatDate(event.eventStart, 'yyyy-MM-dd', 'en'));
-          this.eventForm.controls['eventEnd'].setValue(formatDate(event.eventEnd, 'yyyy-MM-dd', 'en'));
+          // Formatting the dates and times
+          this.eventForm.controls.eventStart.setValue(formatDate(event.eventStart, 'yyyy-MM-dd', 'en'));
+          this.eventForm.controls.eventEnd.setValue(formatDate(event.eventEnd, 'yyyy-MM-dd', 'en'));
 
-          let startTime = new Date(event.eventStart);
+          const startTime = new Date(event.eventStart);
           startTime.setUTCHours(startTime.getUTCHours() - 2);
-          this.eventForm.controls['startTime'].setValue(formatDate(startTime, 'HH:mm', 'en'));
+          this.eventForm.controls.startTime.setValue(formatDate(startTime, 'HH:mm', 'en'));
 
-          let endTime = new Date(event.eventEnd);
+          const endTime = new Date(event.eventEnd);
           endTime.setUTCHours(endTime.getUTCHours() - 2);
-          this.eventForm.controls['endTime'].setValue(formatDate(endTime, 'HH:mm', 'en'));
+          this.eventForm.controls.endTime.setValue(formatDate(endTime, 'HH:mm', 'en'));
         })))
     );
   }
@@ -116,18 +116,19 @@ export class AdminEventComponent implements OnInit {
    * Event handler for submitting changes to the event information
    */
   onEventSubmit() {
-    let newEvent = new Event();
-    newEvent.eventStart = this.eventForm.controls['eventStart'].value + "T" + this.eventForm.controls['startTime'].value + ":00.000+00:00";
-    newEvent.eventEnd = this.eventForm.controls['eventEnd'].value + "T" + this.eventForm.controls['endTime'].value + ":00.000+00:00";
-    newEvent.name = this.eventForm.controls['name'].value;
-    newEvent.city = this.eventForm.controls['city'].value;
+    const newEvent = new Event();
+    newEvent.eventStart = this.eventForm.controls.eventStart.value + 'T' + this.eventForm.controls.startTime.value + ':00.000+00:00';
+    newEvent.eventEnd = this.eventForm.controls.eventEnd.value + 'T' + this.eventForm.controls.endTime.value + ':00.000+00:00';
+    newEvent.name = this.eventForm.controls.name.value;
+    newEvent.city = this.eventForm.controls.city.value;
 
     this.event.subscribe(event => {
       newEvent.eventId = event.eventId;
+      // tslint:disable-next-line:no-shadowed-variable
       this.eventService.updateEvent(newEvent, newEvent.eventId).subscribe(event => {
-        alert("De nye eventinformationer er gemt");
-        this.setEvent();
-      },
+          alert('De nye eventinformationer er gemt');
+          this.setEvent();
+        },
         error => {
           console.log(error);
         });
@@ -136,14 +137,14 @@ export class AdminEventComponent implements OnInit {
 
   /**
    * Event handler for submitting a new participant to the event
-   * @param form 
+   * @param form
    */
   onSubmit(form: NgForm) {
     this.eventRegService.addParticipant(this.model).pipe()
       .subscribe(participant => {
-        this.setParticipants();
-        form.reset();
-      },
+          this.setParticipants();
+          form.reset();
+        },
         error => {
           console.log(error.status);
         });
@@ -151,11 +152,11 @@ export class AdminEventComponent implements OnInit {
 
   /**
    * Event handler for submitting changes to a given participants information
-   * @param participant 
+   * @param participant
    */
   editParticipant(participant) {
     this.eventRegService.updateParticipant(participant).subscribe(participant => {
-      alert("Deltagerens nye informationer er gemt");
+      alert('Deltagerens nye informationer er gemt');
       this.setParticipants();
     }, error => {
       console.log(error.status);
@@ -164,7 +165,7 @@ export class AdminEventComponent implements OnInit {
 
   /**
    * Event handler for deleting a given participant from the event
-   * @param participant 
+   * @param participant
    */
   deleteParticipant(participant) {
     this.eventRegService.deleteParticipant(participant.eventRegId).subscribe(participant => {
@@ -182,7 +183,7 @@ export class AdminEventComponent implements OnInit {
       this.router.navigateByUrl('/administrerEvents');
     }, error => {
       console.log(error.status);
-    })
+    });
   }
 
   /**
@@ -203,7 +204,7 @@ export class AdminEventComponent implements OnInit {
     this.eventService.stopEvent(this.eventId).subscribe(event => {
       this.setEvent();
     }, error => {
-      console.log(error)
-    })
+      console.log(error);
+    });
   }
 }

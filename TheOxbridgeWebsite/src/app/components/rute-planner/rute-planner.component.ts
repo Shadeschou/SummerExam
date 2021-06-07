@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { CheckPoint } from 'src/app/models/check-point';
-import { Event } from '../../models/event';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
-import { EventService } from 'src/app/services/event.service';
-import { RacePointService } from 'src/app/services/race-point.service';
-import { RacePoint } from 'src/app/models/race-point';
-import { Location } from '@angular/common';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {CheckPoint} from 'src/app/models/check-point';
+import {Event} from '../../models/event';
+import {ActivatedRoute, ParamMap} from '@angular/router';
+import {switchMap} from 'rxjs/operators';
+import {EventService} from 'src/app/services/event.service';
+import {RacePointService} from 'src/app/services/race-point.service';
+import {RacePoint} from 'src/app/models/race-point';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-rute-planner',
@@ -15,7 +15,7 @@ import { Location } from '@angular/common';
 })
 export class RutePlannerComponent implements OnInit {
 
-  @ViewChild('mapContainer', { static: false }) gmap: ElementRef;
+  @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
   map: google.maps.Map;
 
   event: Event;
@@ -27,18 +27,20 @@ export class RutePlannerComponent implements OnInit {
   secondMarker = false;
   mapOptions: google.maps.MapOptions;
 
-  ngOnInit(): void {
-    this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>
-        this.eventService.getEvent(parseInt(params.get('eventId'))).pipe(event => { return event }))).subscribe(event => { this.event = event });
-  }
-
   constructor(private route: ActivatedRoute, private eventService: EventService, private racePointService: RacePointService, private location: Location) {
     this.coordinates = new google.maps.LatLng(54.982711, 9.775667);
     this.mapOptions = {
       center: this.coordinates,
       zoom: 10
     };
+  }
+
+  ngOnInit(): void {
+    this.route.paramMap.pipe(
+      switchMap((params: ParamMap) =>
+        this.eventService.getEvent(parseInt(params.get('eventId'))).pipe(event => event))).subscribe(event => {
+      this.event = event;
+    });
   }
 
   /**
@@ -48,26 +50,26 @@ export class RutePlannerComponent implements OnInit {
    */
   placeMarker(latLng) {
 
-    var marker = new google.maps.Marker({
+    const marker = new google.maps.Marker({
       position: latLng,
       map: this.map,
-    })
+    });
 
     if (this.markers.length === 0 || this.markers.length === 1) {
       marker.setIcon('../assets/images/startline.png');
-    }
-    else {
-      if (this.markers.length > 3)
+    } else {
+      if (this.markers.length > 3) {
         this.markers[this.markers.length - 2].setIcon('../assets/images/MapPin.png');
-      marker.setIcon('../assets/images/finishflag.png')
+      }
+      marker.setIcon('../assets/images/finishflag.png');
     }
 
     this.markers.push(marker);
 
     if (this.markers.length % 2 === 0) {
-      let marker1 = this.markers[this.markers.length - 2];
-      let marker2 = this.markers[this.markers.length - 1];
-      var polyline = this.setPolyline(marker1, marker2);
+      const marker1 = this.markers[this.markers.length - 2];
+      const marker2 = this.markers[this.markers.length - 1];
+      const polyline = this.setPolyline(marker1, marker2);
       this.setCheckpoint(marker1, marker2, polyline);
     }
     marker.setMap(this.map);
@@ -75,12 +77,12 @@ export class RutePlannerComponent implements OnInit {
 
   /**
    * Sets a polyline between the two given markers
-   * @param marker1 
-   * @param marker2 
+   * @param marker1
+   * @param marker2
    */
   setPolyline(marker1, marker2): google.maps.Polyline {
-    var lineCoordinates = [marker1.position, marker2.position]
-    var line = new google.maps.Polyline({
+    const lineCoordinates = [marker1.position, marker2.position];
+    const line = new google.maps.Polyline({
       path: lineCoordinates,
       geodesic: true,
       strokeColor: '#FF0000',
@@ -94,9 +96,9 @@ export class RutePlannerComponent implements OnInit {
 
   /**
    * Saving the two given markers and polyline as a checkpoint
-   * @param marker1 
-   * @param marker2 
-   * @param polyline 
+   * @param marker1
+   * @param marker2
+   * @param polyline
    */
   setCheckpoint(marker1, marker2, polyline) {
     this.checkPoints.push(new CheckPoint(this.checkPoints.length + 1, marker1, marker2, polyline));
@@ -106,14 +108,14 @@ export class RutePlannerComponent implements OnInit {
   ngAfterViewInit() {
     this.mapInitializer();
 
-    //Setting the already planned event markers 
+    // Setting the already planned event markers
     this.route.paramMap.pipe(switchMap((params: ParamMap) => {
-      return this.racePointService.getAllEventRacePoints(parseInt(params.get('eventId'))).pipe(racePoints => { return racePoints })
+      return this.racePointService.getAllEventRacePoints(parseInt(params.get('eventId'))).pipe(racePoints => racePoints);
     })).subscribe(racePoints => {
       racePoints.forEach(racePoint => {
         this.placeMarker(new google.maps.LatLng(racePoint.firstLatitude, racePoint.firstLongtitude));
         this.placeMarker(new google.maps.LatLng(racePoint.secondLatitude, racePoint.secondLongtitude));
-      })
+      });
       this.map.setCenter(this.markers[0].position);
     });
   }
@@ -130,7 +132,7 @@ export class RutePlannerComponent implements OnInit {
 
   /**
    * Deleting the given checkpoint
-   * @param checkPointChoosen 
+   * @param checkPointChoosen
    */
   deleteCheckPoint(checkPointChoosen) {
 
@@ -138,15 +140,15 @@ export class RutePlannerComponent implements OnInit {
       if (this.checkPoints.indexOf(checkPointChoosen) < this.checkPoints.indexOf(checkPoint)) {
         checkPoint.id = checkPoint.id - 1;
       }
-    })
-    this.deleteCheckPointMarkers(checkPointChoosen)
+    });
+    this.deleteCheckPointMarkers(checkPointChoosen);
 
     this.checkPoints.splice(this.checkPoints.indexOf(checkPointChoosen), 1);
   }
 
   /**
    * Removing the given checkpoints markers and polyline
-   * @param checkPoint 
+   * @param checkPoint
    */
   deleteCheckPointMarkers(checkPoint) {
     if (this.markers.length - 2 === this.markers.indexOf(checkPoint.pin1) && this.markers.indexOf(checkPoint.pin1) !== 2) {
@@ -168,20 +170,21 @@ export class RutePlannerComponent implements OnInit {
   saveRoute() {
     this.racePoints = [];
     this.checkPoints.forEach(checkpoint => {
-      let newRacePoint = new RacePoint(checkpoint.pin1.getPosition().lng(), checkpoint.pin1.getPosition().lat(), checkpoint.pin2.getPosition().lng(), checkpoint.pin2.getPosition().lat(), parseInt(this.event.eventId), this.racePoints.length + 1);
-      if (checkpoint.id === 1)
-        newRacePoint.type = "startLine";
-      else if (checkpoint.id === this.checkPoints.length)
-        newRacePoint.type = "finishLine";
-      else
-        newRacePoint.type = "checkpoint";
+      const newRacePoint = new RacePoint(checkpoint.pin1.getPosition().lng(), checkpoint.pin1.getPosition().lat(), checkpoint.pin2.getPosition().lng(), checkpoint.pin2.getPosition().lat(), parseInt(this.event.eventId), this.racePoints.length + 1);
+      if (checkpoint.id === 1) {
+        newRacePoint.type = 'startLine';
+      } else if (checkpoint.id === this.checkPoints.length) {
+        newRacePoint.type = 'finishLine';
+      } else {
+        newRacePoint.type = 'checkpoint';
+      }
 
       this.racePoints.push(newRacePoint);
     });
 
     this.racePointService.saveRoute(this.racePoints, parseInt(this.event.eventId)).pipe().subscribe(racepoints => {
-      this.location.back();
-    },
+        this.location.back();
+      },
       error => {
         console.log(error);
       });

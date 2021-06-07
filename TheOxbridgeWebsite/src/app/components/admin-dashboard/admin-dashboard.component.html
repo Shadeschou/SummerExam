@@ -1,101 +1,106 @@
 <div id="image">
-    <div class="container h-100 align-items-start">
-        <div class="row h-100 align-items-end pb-4">
-            <div class=" col-lg text-start">
-                <h1 class="image-text font-weight-normal text-white pb-2 pl-3 pr-3">Administrer Events</h1>
-            </div>
-        </div>
+  <div class="container h-100 align-items-start">
+    <div class="row h-100 align-items-end pb-4">
+      <div class=" col-lg text-start">
+        <h1 class="image-text font-weight-normal text-white pb-2 pl-3 pr-3">Administrer Events</h1>
+      </div>
     </div>
+  </div>
 </div>
 
 
 <div class="row">
-    <div class="col-lg-2"></div>
+  <div class="col-lg-2"></div>
 
-    <!-- List of events -->
-    <section class="eventList pt-4 col-lg-6">
-        <div class="container" *ngFor="let event of filteredEvents | async">
-            <div class="event row p-1 pb-3">
-                <div class="pt-2">
-                    <img id="eventIcon" src="../../../assets/images/pin.png">
-                </div>
-                <div class="col-sm">
-                    <a id="eventLink" class="btn btn-link"
-                        [routerLink]="['/administrerEvent', event.eventId, event.name]" routerLinkActive="active">
-                        <h4 class="pt-1">{{event.name}}</h4>
-                    </a>
-                    <div id="date" class="row pl-3">
-                        <label>{{event.eventStart | date}} - {{event.eventEnd | date}}</label>
-                    </div>
-                    <div id="city" class="row pl-3">
-                        <label>{{event.city}}</label>
-                    </div>
-                </div>
-            </div>
+  <!-- List of events -->
+  <section class="eventList pt-4 col-lg-6">
+    <div *ngFor="let event of filteredEvents | async" class="container">
+      <div class="event row p-1 pb-3">
+        <div class="pt-2">
+          <img id="eventIcon" src="../../../assets/images/pin.png">
         </div>
-    </section>
-
-    <!-- Right side menu -->
-    <div id="rightMenu" class="col">
-        <form class="form-inline p-3 pt-4">
-            <input class="form-control mr-sm-2 form-control-sm" type="search" placeholder="Søg efter event"
-                [formControl]="filter" aria-label="Søg">
-            <button class="btn btn-outline-info my-2 my-sm-0 btn-sm" type="submit">Søg</button>
-        </form>
-
-        <!-- Event form -->
-        <div class="container justify-content-center col-sm-9 mt-5">
-            <form id="addEvent" class="p-3 pt-4 justify-content-center" #AddEventForm="ngForm"
-                (ngSubmit)="OnSubmit(AddEventForm)">
-                <div class="row justify-content-center pb-3">
-                    <h3 class="font-weight-normal">Tilføj event her</h3>
-                </div>
-                <div class="row justify-content-center pb-2">
-                    <div class="col">
-                        <input class="form-control mr-sm-2 form-control-sm" placeholder="Event navn" required
-                            [(ngModel)]="model.name" #eventName="ngModel" name="eventName">
-                    </div>
-                    <div class="col">
-                        <input class="form-control mr-sm-2 form-control-sm" placeholder="By" required
-                            [(ngModel)]="model.city" #city="ngModel" name="city">
-                    </div>
-                </div>
-                <div id="dates" class="row justify-content-center">
-                    <div class="col-xs pl-3 ">
-                        <p class="pt-1">Start dato: </p>
-                    </div>
-                    <div class="col-md-5 p-0 pl-2">
-                        <input class="date font-weight-light form-control font-size-l" type="date" #eventStart="ngModel"
-                            name="eventStart" placeholder="Start dato" [(ngModel)]="model.eventStart" required>
-                    </div>
-                    <div class="col-sm">
-                        <input class="form-control mr-sm-2 form-control-sm" placeholder="Start tidspunkt"
-                            [(ngModel)]="model.eventStartTime" required #eventStartTime="ngModel" name="eventStartTime">
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-xs pl-3 pr-1">
-                        <p class="pt-1">Slut dato: </p>
-                    </div>
-                    <div class="col-md-5 p-0 pl-2">
-                        <input class="date font-weight-light form-control font-size-l" type="date" #eventEnd="ngModel"
-                            name="eventEnd" placeholder="Slut dato" [(ngModel)]="model.eventEnd" required>
-                    </div>
-                    <div class="col-sm">
-                        <input class="form-control mr-sm-2 form-control-sm" placeholder="Slut tidspunkt"
-                            [(ngModel)]="model.eventEndTime" required #eventEndTime="ngModel" name="eventEndTime">
-                    </div>
-
-                </div>
-                <div class="row justify-content-center pr-3">
-                    <div class="col">
-                        <input class="form-control mr-sm-2 form-control-sm" placeholder="Eventkode" required
-                            [(ngModel)]="model.eventCode" #eventCode="ngModel" name="eventCode">
-                    </div>
-                    <button class="btn btn-info my-sm-0 btn-sm " type="submit"
-                        [disabled]="!AddEventForm.form.valid">Opret Event</button>
-                </div>
-            </form>
+        <div class="col-sm">
+          <a [routerLink]="['/administrerEvent', event.eventId, event.name]" class="btn btn-link"
+             id="eventLink" routerLinkActive="active">
+            <h4 class="pt-1">{{event.name}}</h4>
+          </a>
+          <div class="row pl-3" id="date">
+            <label>{{event.eventStart | date}} - {{event.eventEnd | date}}</label>
+          </div>
+          <div class="row pl-3" id="city">
+            <label>{{event.city}}</label>
+          </div>
         </div>
+      </div>
     </div>
+  </section>
+
+  <!-- Right side menu -->
+  <div class="col" id="rightMenu">
+    <form class="form-inline p-3 pt-4">
+      <input [formControl]="filter" aria-label="Søg" class="form-control mr-sm-2 form-control-sm"
+             placeholder="Søg efter event" type="search">
+      <button class="btn btn-outline-info my-2 my-sm-0 btn-sm" type="submit">Søg</button>
+    </form>
+
+    <!-- Event form -->
+    <div class="container justify-content-center col-sm-9 mt-5">
+      <form #AddEventForm="ngForm" (ngSubmit)="OnSubmit(AddEventForm)" class="p-3 pt-4 justify-content-center"
+            id="addEvent">
+        <div class="row justify-content-center pb-3">
+          <h3 class="font-weight-normal">Tilføj event her</h3>
+        </div>
+        <div class="row justify-content-center pb-2">
+          <div class="col">
+            <input #eventName="ngModel" [(ngModel)]="model.name" class="form-control mr-sm-2 form-control-sm"
+                   name="eventName" placeholder="Event navn" required>
+          </div>
+          <div class="col">
+            <input #city="ngModel" [(ngModel)]="model.city" class="form-control mr-sm-2 form-control-sm"
+                   name="city" placeholder="By" required>
+          </div>
+        </div>
+        <div class="row justify-content-center" id="dates">
+          <div class="col-xs pl-3 ">
+            <p class="pt-1">Start dato: </p>
+          </div>
+          <div class="col-md-5 p-0 pl-2">
+            <input #eventStart="ngModel" [(ngModel)]="model.eventStart"
+                   class="date font-weight-light form-control font-size-l"
+                   name="eventStart" placeholder="Start dato" required type="date">
+          </div>
+          <div class="col-sm">
+            <input #eventStartTime="ngModel" [(ngModel)]="model.eventStartTime"
+                   class="form-control mr-sm-2 form-control-sm" name="eventStartTime" placeholder="Start tidspunkt"
+                   required>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-xs pl-3 pr-1">
+            <p class="pt-1">Slut dato: </p>
+          </div>
+          <div class="col-md-5 p-0 pl-2">
+            <input #eventEnd="ngModel" [(ngModel)]="model.eventEnd"
+                   class="date font-weight-light form-control font-size-l"
+                   name="eventEnd" placeholder="Slut dato" required type="date">
+          </div>
+          <div class="col-sm">
+            <input #eventEndTime="ngModel" [(ngModel)]="model.eventEndTime"
+                   class="form-control mr-sm-2 form-control-sm" name="eventEndTime" placeholder="Slut tidspunkt"
+                   required>
+          </div>
+
+        </div>
+        <div class="row justify-content-center pr-3">
+          <div class="col">
+            <input #eventCode="ngModel" [(ngModel)]="model.eventCode" class="form-control mr-sm-2 form-control-sm"
+                   name="eventCode" placeholder="Eventkode" required>
+          </div>
+          <button [disabled]="!AddEventForm.form.valid" class="btn btn-info my-sm-0 btn-sm "
+                  type="submit">Opret Event
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

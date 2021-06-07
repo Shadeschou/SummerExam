@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Ship } from 'src/app/models/ship';
-import { User } from 'src/app/models/user';
-import { CookieService } from 'ngx-cookie-service';
-import { HttpClient } from '@angular/common/http';
-import { ShipService } from 'src/app/services/ship.service';
-import { UserService } from 'src/app/services/user.service';
-import { AppComponent } from 'src/app/app.component';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {Ship} from 'src/app/models/ship';
+import {User} from 'src/app/models/user';
+import {CookieService} from 'ngx-cookie-service';
+import {HttpClient} from '@angular/common/http';
+import {ShipService} from 'src/app/services/ship.service';
+import {UserService} from 'src/app/services/user.service';
+import {AppComponent} from 'src/app/app.component';
 
 @Component({
   selector: 'app-profile',
@@ -15,11 +15,13 @@ import { AppComponent } from 'src/app/app.component';
 })
 export class ProfileComponent implements OnInit {
 
-  ships: Observable<Ship[]>
-  user: User;
+  ships: Observable<Ship[]>;
+  public user: User;
   model = new Ship();
 
-  constructor(private cookieService: CookieService, private http: HttpClient, private shipService: ShipService, private userService: UserService, private appComponent: AppComponent) { }
+  constructor(private cookieService: CookieService, private http: HttpClient, private shipService: ShipService, private userService: UserService, private appComponent: AppComponent) {
+    this.user = new User();
+  }
 
   ngOnInit(): void {
     this.setShips();
@@ -35,7 +37,7 @@ export class ProfileComponent implements OnInit {
 
   /**
    * Event handler for deleting a ship
-   * @param ship 
+   * @param ship
    */
   deleteShip(ship) {
     this.shipService.deleteShip(ship.shipId).subscribe(ship => this.setShips());
@@ -48,16 +50,15 @@ export class ProfileComponent implements OnInit {
     this.userService.updateUser(this.user).subscribe(res => {
       this.cookieService.set('user', JSON.stringify(this.user));
       this.appComponent.updateUser();
-      alert("Dine nye oplysninger er nu gemt")
+      alert('Dine nye oplysninger er nu gemt');
     }, error => {
       this.user = JSON.parse(this.cookieService.get('user'));
     });
   }
-
   /**
    * Event handler for submitting a new ship
    */
   OnShipSubmit() {
-    this.shipService.addShip(this.model).subscribe(ship => this.setShips());
+    this.shipService.addShip(this.model, this.user.emailUsername).subscribe(ship => this.setShips());
   }
 }

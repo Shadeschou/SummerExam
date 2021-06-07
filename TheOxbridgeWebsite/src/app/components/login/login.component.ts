@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/app/models/user';
-import { CookieService } from 'ngx-cookie-service';
-import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
-import { AppComponent } from 'src/app/app.component';
-import * as decode from 'jwt-decode';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from 'src/app/services/user.service';
+import {User} from 'src/app/models/user';
+import {CookieService} from 'ngx-cookie-service';
+import {Router} from '@angular/router';
+import {first} from 'rxjs/operators';
+import {AppComponent} from 'src/app/app.component';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +14,8 @@ import * as decode from 'jwt-decode';
 export class LoginComponent implements OnInit {
 
   public model: User;
-  public wrongLogin: boolean = false;
-  public wrongPassword: boolean = false;
+  public wrongLogin = false;
+  public wrongPassword = false;
 
   constructor(private userService: UserService, private cookieService: CookieService, private router: Router, private appComponent: AppComponent) {
     this.model = new User();
@@ -31,28 +30,27 @@ export class LoginComponent implements OnInit {
   OnSubmit() {
     this.userService.login(this.model.emailUsername, this.model.password).pipe(first())
       .subscribe(user => {
-        this.cookieService.set('user', JSON.stringify(user), 1);
-        
-        if (user.role === "admin") {
-          this.router.navigate(['/administrerEvents']);
-        }
-        else {
-          this.router.navigate(['/mineEvents']);
-        }
-        this.appComponent.updateUser();
-      },
-      //Showing error message to the user depending on the http respons
+          this.cookieService.set('user', JSON.stringify(user), 1);
+
+          if (user.role === 'admin') {
+            this.router.navigate(['/administrerEvents']);
+          } else {
+            this.router.navigate(['/mineEvents']);
+          }
+          this.appComponent.updateUser();
+        },
+        // Showing error message to the user depending on the http respons
         error => {
           if (error.status === 401) {
-            this.model.password = "";
+            this.model.password = '';
             this.wrongLogin = false;
             this.wrongPassword = true;
+          } else if (error.status === 404) {
+            this.model.emailUsername = '';
           }
-          else if(error.status === 404)
-            this.model.emailUsername = "";
-            this.model.password = "";
-            this.wrongPassword = false;
-            this.wrongLogin = true;
+          this.model.password = '';
+          this.wrongPassword = false;
+          this.wrongLogin = true;
         });
   }
 }

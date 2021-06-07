@@ -1,4 +1,4 @@
-import { MyEvents } from './my-events';
+import {MyEvents} from './my-events';
 
 describe('MyEvents', () => {
   it('should create an instance', () => {
