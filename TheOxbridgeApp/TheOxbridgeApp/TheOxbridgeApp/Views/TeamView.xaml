@@ -13,12 +13,13 @@
     <StackLayout>
         <Button Text="PickPhoto" Command="{Binding AddToDB}"></Button>
 
-        <ListView  ItemsSource="{Binding TeamList}" 
+        <ListView  ItemsSource="{Binding TeamObservable}" 
               HasUnevenRows="True"
               BackgroundColor="#ecf0f1"
               SeparatorVisibility="None"
               HorizontalOptions="FillAndExpand"
-              VerticalOptions="FillAndExpand">
+              VerticalOptions="FillAndExpand"
+                 >
 
         <ListView.ItemTemplate>
 
@@ -27,17 +28,16 @@
                     <StackLayout Margin="6,4,6,4"
                                  BackgroundColor="White">
 
-                            <Label Text="Hello a test"
-                               Margin="8,2,8,4"
-                               FontSize="Small" />
+                          
 
                             <Label Text="{Binding EventID}"></Label>
-                            <Label Text="{Binding EventRegId}"></Label>
+                            
                             <Label Text="{Binding TeamName}"></Label>
                             <Label Text="{Binding TrackColor}"></Label>
-                            <Label Text="{Binding TeamImageSourcePicture}"></Label>
-
-
+                            <Label Text="{Binding emailUsername}"></Label>
+                            <Image Source ="{Binding TeamImageSourcePicture}"></Image>
+                            <Image Source="{Binding teamImage}"></Image>
+                            <Image Source="{Binding ImageSourceContainer}"></Image>
 
                         </StackLayout>
                 </ViewCell>

@@ -1,6 +1,4 @@
-﻿using MongoDB.Driver;
-using NativeMedia;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -12,12 +10,31 @@ using TheOxbridgeApp.Models;
 using TheOxbridgeApp.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using System.Linq;
+using System.Drawing;
 
 namespace TheOxbridgeApp.ViewModels
 {
     public class TeamViewModel : BaseViewModel
     {
 
+        public Team selectedTeamObject = new Team();
+
+
+        private Team selectedTeam;
+
+        public Team SelectedTeam
+        {
+            get { return selectedTeam; }
+            set { selectedTeam = value; }
+        }
+
+
+
+
+        public Event SelectedEvent { get; set; }
+
+        public SingletonSharedData sharedData;
 
         public int ShipIDTemp { get; set; }
 
@@ -59,13 +76,13 @@ namespace TheOxbridgeApp.ViewModels
 
 
 
-        private ObservableCollection<Team> teamList;
-        public ObservableCollection<Team> TeamList
+        private ObservableCollection<Team> teamObservable;
+        public ObservableCollection<Team> TeamObservable
         {
-            get { return teamList; }
+            get { return teamObservable; }
             set
             {
-                teamList = value;
+                teamObservable = value;
             }
         }
 
@@ -73,13 +90,13 @@ namespace TheOxbridgeApp.ViewModels
         
 
 
-        private ObservableCollection<Teams> teamsList;
-        public ObservableCollection<Teams> TeamsList
+        private ObservableCollection<TeamPhotoData> teamPhotData;
+        public ObservableCollection<TeamPhotoData> TeamPhotoData
         {
-            get { return teamsList; }
+            get { return teamPhotData; }
             set
             {
-                teamsList = value;
+                teamPhotData = value;
             }
         }
 
@@ -140,6 +157,47 @@ namespace TheOxbridgeApp.ViewModels
 
 
 
+            Team addPictureTeam = new Team();
+
+            Team newTeam = new Team();
+
+            newTeam.ImageSourceContainer = PhotoPath;
+
+            Console.WriteLine(PhotoPath);
+
+            
+           newTeam.ImageByte = Encoding.ASCII.GetBytes(PhotoPath);
+
+            var result = newTeam.ImageByte;
+
+            //PhotoPath = Convert.ToBase64String(newTeam.ImageByte);
+
+            // newTeam.ImageByte = Convert.FromBase64String(PhotoPath);
+
+            // newTeam.TeamImageSourcePicture = ImageSource.FromStream(() => new MemoryStream(newTeam.ImageByte));
+
+            // var path = "/data/user/0/com.companyname.theoxbridgeapp/cache/20210603_200355.jpg";
+            //File.WriteAllBytes(path,newTeam.ImageByte);
+
+            addPictureTeam = new Team { teamImage = PhotoPath, TrackColor = "Green", TeamName = "Collio", emailUsername = "abc@abc.com" };
+            serverClient.PutData(addPictureTeam, Target.PutImages + 0);
+
+            //newTeam.ImageByte = Convert.FromBase64String(PhotoPath);
+            newTeam = new Team
+            {
+                TeamImageSourcePicture = PhotoPath,
+                
+                ImageByte = result,
+
+            };
+
+            TeamObservable.Add(newTeam);
+
+            
+
+            
+
+            
 
            
 
@@ -149,6 +207,7 @@ namespace TheOxbridgeApp.ViewModels
             //newTeam.TeamImageBytes = Encoding.ASCII.GetBytes(PhotoPath);
 
             DataController dataController = new DataController();
+            
 
 
             
@@ -184,45 +243,42 @@ namespace TheOxbridgeApp.ViewModels
             // service.Create(teams);
         }
 
+        /*
+        private ImageSource convertBasic64String(string basic64) 
+        {
 
+            var imageBytes = System.Convert.FromBase64String(basic64);
 
+            // Return a new ImageSource
+            return ImageSource.FromStream(() => { return new MemoryStream(imageBytes); });
         
+
+               
+        }
+        */
         public async void setupList() 
         {
             User user = new User();
+            Team newTeam = new Team();
+            List<Team> teamList = new List<Team>();
+            
+            teamList = serverClient.GetAllRegistration();
 
-            DataController dataController = new DataController();
-
-
-
-          
-
-            //TeamList = new ObservableCollection<Team>(serverClient.GetTeams());
-
-
-
-
-
-          //  foreach (var team in TeamList)
-          //  {
-
-          //  serverClient.PutData(team, Target.PutImages + $"/{team.EventRegId}");
-          //  }
+           
+           
+            /*
+            foreach (var item in teamList)
+            {
+                item.TeamImageSourcePicture = convertBasic64String(item.teamImage);
+            }
+          */
 
 
+              //selectedTeam = (from Team in teamList where Team.emailUsername == user.EmailUsername select Team).FirstOrDefault();
 
+            teamObservable = new ObservableCollection<Team>(teamList);
 
-
-
-            // trackingEvent = await serverClient.GetTrackingEvents();
-
-
-
-
-
-
-
-
+           
 
         }
 
@@ -232,20 +288,42 @@ namespace TheOxbridgeApp.ViewModels
 
      
        
+        public async void addImageString() 
+        {
 
+
+            string image = "TeamIcon.png";
+
+            selectedTeam.ImageSourceContainer = image;
+
+            serverClient.PutData(SelectedTeam, Target.PutImages + selectedTeam.EventRegId);
+
+            Console.WriteLine("This is the image console" +selectedTeam.EventRegId+ Target.PutImages);
+        }
        
 
 
         public TeamViewModel()
         {
+            sharedData = SingletonSharedData.GetInstance();
+
+            SelectedEvent = sharedData.SelectedEvent;
+
+            TeamObservable = new ObservableCollection<Team>();
+
             serverClient = new ServerClient();
 
             AddToDB = new Command(TakePhotoAsync);
-            TeamsList = new ObservableCollection<Teams>();
-            setupList();
-          
+
+            Console.WriteLine("This is the Constructor");
+
+           //addImageString();
+           setupList();
+
            
 
+
+            
 
 
 

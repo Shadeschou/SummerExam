@@ -126,11 +126,34 @@ namespace TheOxbridgeApp.Services
 
 
 
-
-
-        public List<Team> GetTeams()
+        public List<Team> GetAllRegistration()
         {
-            WebRequest request = WebRequest.Create(Target.GetImages);
+            WebRequest request = WebRequest.Create(Target.GetAllEventReg);
+            request.Method = "GET";
+
+            String responseFromServer = GetResponse(request);
+
+            List<Team> events = JsonConvert.DeserializeObject<List<Team>>(responseFromServer);
+            return events;
+
+        }
+
+        public async Task PostPhoto(int eventRegId)
+        {
+            WebRequest request = WebRequest.Create(Target.PutImages + eventRegId);
+            request.Method = "PUT";
+
+            String responseFromServer = GetResponse(request);
+
+         
+
+        }
+
+
+
+        public List<Team> GetTeams(int eventID)
+        {
+            WebRequest request = WebRequest.Create(Target.GetImages + eventID);
             request.Method = "GET";
 
             String responseFromServer = GetResponse(request);

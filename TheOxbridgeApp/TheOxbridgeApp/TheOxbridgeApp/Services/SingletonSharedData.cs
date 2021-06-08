@@ -20,10 +20,13 @@ namespace TheOxbridgeApp.Models
 
         public Event SelectedEvent { get; set; }
 
+        public Team SelectedTeam { get; set; }
+
         public bool isMapDisplayed { get; set; }
 
         public bool HasSelectedDifferentEvent { get; set; }
 
+      
 
         public TrackingPoupViewModel TrackingPoupViewModel;
         #endregion

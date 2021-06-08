@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KmDVFs2TaSrXcrAq4jx9bFTYG0Yo4F7pPOdagcb8TTO70rzdnEg51m2ofKyMX2Fv6RMmpaDt2cPkU8bRYvGRKw==",
+  "dgSpecHash": "YWMYMYG+39Z4Chk65K5GSdDt5EH+6EUuzmrq3oeJhomtc/0IlbwP9hcToyxTnqygeYYNZldSbsb1A2yDRvOflA==",
   "success": true,
-  "projectFilePath": "C:\\Semester 4\\Git project 2021\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp.csproj",
+  "projectFilePath": "C:\\Users\\jonas\\source\\repos\\Exam 2021\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jonas\\.nuget\\packages\\dnsclient\\1.0.7\\dnsclient.1.0.7.nupkg.sha512",
     "C:\\Users\\jonas\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",

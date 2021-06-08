@@ -6878,11 +6878,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Semester 4\\Git project 2021\\TheOxbridgeApp\\XUnitAndroid\\XUnitAndroid.csproj",
+      "projectUniqueName": "C:\\Users\\jonas\\source\\repos\\Exam 2021\\TheOxbridgeApp\\XUnitAndroid\\XUnitAndroid.csproj",
       "projectName": "XUnitAndroid",
-      "projectPath": "C:\\Semester 4\\Git project 2021\\TheOxbridgeApp\\XUnitAndroid\\XUnitAndroid.csproj",
+      "projectPath": "C:\\Users\\jonas\\source\\repos\\Exam 2021\\TheOxbridgeApp\\XUnitAndroid\\XUnitAndroid.csproj",
       "packagesPath": "C:\\Users\\jonas\\.nuget\\packages\\",
-      "outputPath": "C:\\Semester 4\\Git project 2021\\TheOxbridgeApp\\XUnitAndroid\\obj\\",
+      "outputPath": "C:\\Users\\jonas\\source\\repos\\Exam 2021\\TheOxbridgeApp\\XUnitAndroid\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -6903,8 +6903,8 @@
       "frameworks": {
         "monoandroid90": {
           "projectReferences": {
-            "C:\\Semester 4\\Git project 2021\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp.csproj": {
-              "projectPath": "C:\\Semester 4\\Git project 2021\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp.csproj"
+            "C:\\Users\\jonas\\source\\repos\\Exam 2021\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp.csproj": {
+              "projectPath": "C:\\Users\\jonas\\source\\repos\\Exam 2021\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp\\TheOxbridgeApp.csproj"
             }
           }
         }

@@ -80,10 +80,11 @@ namespace TheOxbridgeApp.ViewModels.Popups
 
   
 
-            NavigationService.NavigateToAsync(typeof( TeamViewModel));
+            NavigationService.NavigateToAsync(typeof(TeamViewModel));
+           
           
-
-
+            
+            
         }
 
         public ICommand NavigateToTeamView { get; set; }
@@ -100,6 +101,7 @@ namespace TheOxbridgeApp.ViewModels.Popups
             NavigateToMapCMD = new Command(NavigateToMap);
             this.SelectedEvent = selectedEvent;
 
+           sharedData.SelectedEvent = selectedEvent;
             SetupBinding();
             PopupNavigation.PopAllAsync();
         }

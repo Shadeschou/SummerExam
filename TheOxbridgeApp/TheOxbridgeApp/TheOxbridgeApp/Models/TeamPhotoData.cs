@@ -18,7 +18,7 @@ namespace TheOxbridgeApp.Models
         public byte[] TeamImageBytes { get; set; }
         public String TeamName { get; set; }
 
-
+       
         public ImageSource TeamPhoto { get; set; }
 
 
