@@ -31,7 +31,8 @@
             <input type="password" class="psw form-control" placeholder="Gamle adgangskode">
           </div>
           <div>
-            <input type="password" class="psw form-control ml-3" placeholder="Ny adgangskode">
+            <input type="password" class="psw form-control ml-3" placeholder="Ny adgangskode"
+                   [(ngModel)]="user.password" #password="ngModel" name="password">
           </div>
         </div>
         <div class="row ml-5">

@@ -14,6 +14,7 @@ import {ProfileComponent} from './components/profile/profile.component';
 import {AdminEventComponent} from './components/admin-event/admin-event.component';
 import {RutePlannerComponent} from './components/rute-planner/rute-planner.component';
 import {LiveEventComponent} from './components/live-event/live-event.component';
+import {ForgotPasswordComponent} from './components/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   {path: 'hjem', component: HomeComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'omos', component: AboutComponent},
   {path: 'tilmelding', component: RegistrationComponent},
   {path: 'logind', component: LoginComponent},
+  {path: 'glemtkode', component: ForgotPasswordComponent},
   {path: 'mineEvents', component: UserDashboardComponent, canActivate: [AuthGuard], data: {expectedRole: 'user'}},
   {
     path: 'administrerEvents',
