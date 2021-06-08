@@ -2,28 +2,31 @@ import {connect} from "mongoose";
 import cors from 'cors';
 import dotenv from 'dotenv';
 import {EventModel, IEvent} from "./models/event";
-import {Auth} from './controllers/authentication.controller'
-import {EventRegistrationModel, IEventRegistration} from './models/eventRegistration'
-import {IRacePoint, RacePointModel} from './models/racePoint'
+import {Auth} from './controllers/authentication.controller';
+import {EventRegistrationModel, IEventRegistration} from './models/eventRegistration';
+import {IRacePoint, RacePointModel} from './models/racePoint';
 import {AccessToken} from './controllers/accessToken.controller';
-import {IShip, ShipModel} from './models/ship'
+import {IShip, ShipModel} from './models/ship';
 import {IUser, UserModel} from "./models/user";
 import * as jwt from 'jsonwebtoken';
 import cookieParser from "cookie-parser";
-import {Validate} from "./controllers/validate.controller"
+import {Validate} from "./controllers/validate.controller";
 import {ILocationRegistration, LocationRegistrationModel} from "./models/locationRegistration";
 import bcrypt from "bcrypt-nodejs";
 import express from "express";
 import bodyParser from "body-parser";
-import nodemailer from "nodemailer"
+import nodemailer from "nodemailer";
 import date from "date-and-time";
+import * as crypto from "crypto";
+
+
 dotenv.config({path: 'configs/config.env'});
 const app = express();
 app.use(cookieParser(process.env.TOKEN_SECRET));
 app.use(cors());
 const router = express.Router();
 
-const timerForTheReminder = async(): Promise<any> => {
+const timerForTheReminder = async (): Promise<any> => {
     const now = new Date();
     const currentTime = date.format(now, "YYYY/MM/DD HH");
     console.log(currentTime);
@@ -40,7 +43,7 @@ const timerForTheReminder = async(): Promise<any> => {
             eventRegistrations.forEach(async (eventRegistration: IEventRegistration) => {
                 const ship: IShip = await ShipModel.findOne({shipId: eventRegistration.shipId});
                 // Transporter object using SMTP transport
-                if(eventRegistration.mailRecieved === false){
+                if (eventRegistration.mailRecieved === false) {
                     const transporter = nodemailer.createTransport({
                         host: "smtp.office365.com",
                         port: 587,
@@ -62,7 +65,8 @@ const timerForTheReminder = async(): Promise<any> => {
                     eventRegistration.mailRecieved = true;
                     eventRegistration.save();
                     console.log("After Send");
-                }});
+                }
+            });
         }
     });
     return Promise;
@@ -72,11 +76,13 @@ const oneMinuteinMSForThePresentation: number = 60000;
 setInterval(timerForTheReminder, oneMinuteinMSForThePresentation);
 const urlencode = bodyParser.urlencoded({extended: true});
 app.use(express.static('public'));
+// @ts-ignore
 app.use(bodyParser.json());
 
 connect(process.env.DB, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 })
 
 // ROUTING
@@ -97,7 +103,7 @@ app.get('/events', async (req, res) => {
     }
 });
 // POST EVENT
-app.post('/events', async (req, res) => {
+app.post('/events', async (req: express.Request, res: express.Response) => {
     try {
         const verify: boolean = await Auth.Authorize(req, res, "admin");
         if (!verify) {
@@ -466,7 +472,7 @@ app.post('/racepoints/createRoute/:eventId', async (req, res) => {
 
         const racePoints = req.body;
         if (Array.isArray(racePoints)) {
-            const lastRacePoint: IRacePoint = await RacePointModel.findOne({}, {},{sort:{racePointId:-1}});
+            const lastRacePoint: IRacePoint = await RacePointModel.findOne({}, {}, {sort: {racePointId: -1}});
             let racepointId: number;
             const lastRaceP: any = lastRacePoint.racePointId;
             if (lastRacePoint)
@@ -531,21 +537,22 @@ app.get('/users/:userName', async (req, res) => {
 app.put('/users/:userName', async (req, res) => {
     try {
         // Updating the user
-        console.log("hit the crypt");
+        console.log(req.body.password);
         const hashedPassword = await bcrypt.hashSync(req.body.password);
-        console.log("done the crypt");
-        const newUser = new UserModel(req.body);
-        const token: any = req.header('x-access-token');
-        const user: any = AccessToken.getUser(token);
-        newUser.password = hashedPassword;
-        newUser.role = user.role;
+        const userLoginIn: any = req.params.userName;
 
-        UserModel.findOneAndUpdate({emailUsername: newUser.emailUsername}, newUser);
+
+        const user: IUser = await UserModel.findOne({emailUsername: userLoginIn});
+        console.log(req.body.firstname);
+        // user.password = hashedPassword;
+        user.role = user.role;
+        // What Allie Did
+        UserModel.findOne({emailUsername: user.emailUsername});
         if (!user)
-            return res.status(404).send({message: "User not found with id " + req.params.emailUsername});
-
-        res.status(202).json(user);
-
+            return res.status(404).send({message: "User not found with id " + req.params});
+        else{
+            await UserModel.findOneAndUpdate({ emailUsername: req.params.userName }, { password: hashedPassword, firstname: req.body.firstname, lastname: req.body.lastname, emailUsername: req.body.emailUsername });
+        }
     } catch (e) {
         res.status(400).json('Update User failed.')
     }
@@ -652,6 +659,56 @@ app.post('/users/login', async (req, res) => {
         res.status(400).json('BAD REQUEST')
     }
 });
+app.post('/users/forgot/:emailUsername', async (req, res) => {
+    try {
+        const tempToken: Buffer = crypto.randomBytes(20);
+        const newPW = tempToken.toString('hex');
+        // Updating the user
+        const hashedPassword = await bcrypt.hashSync(newPW);
+        const userLoginIn: any = req.params.emailUsername;
+
+        const user: IUser = await UserModel.findOne({emailUsername: userLoginIn});
+        console.log(user.emailUsername)
+
+        // const token: any = req.header('x-access-token');
+        // const user: any = AccessToken.getUser(token);
+        // user.password = hashedPassword;
+        user.role = user.role;
+        // What Allie Did
+        console.log("Before find one : " + user.emailUsername);
+        UserModel.findOne({emailUsername: user.emailUsername});
+        if (!user)
+            return res.status(404).send({message: "User not found with id " + req.params});
+        else{
+            await UserModel.findOneAndUpdate({ emailUsername: req.params.emailUsername }, { password: hashedPassword });
+        }
+
+        const transporter = nodemailer.createTransport({
+            host: "smtp.office365.com",
+            port: 587,
+            secure: false,
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.PSW,
+            },
+        });
+        console.log("Before Send" + user.emailUsername );
+        // sending mail with defined transport object
+        const info = await transporter.sendMail({
+            from: '"Treggata" <aljo0025@easv365.dk>',
+            to: user.emailUsername,
+            subject: "PW Lost",
+            text: "Take this one " +newPW + " save a new one afterwards" +"/n To do so go to profile. /n Paste this password and give a new. " // text body
+            // html: "<p> some html </p>" // html in the body
+        });
+        console.info()
+        console.log("After Send");
+        res.status(202).json(user);
+    } catch (e) {
+        res.status(400).json('Sent random pw failed.')
+    }
+});
+
 
 
 app.post('/eventRegistrations/', async (req, res) => {
@@ -771,7 +828,7 @@ app.post('/eventRegistrations/signUp', async (req, res) => {
                     return res.status(500).send({message: "creation failed"});
                 }
                 console.log("Before Ship init - Transporter")
-                const foundShip: IShip = await ShipModel.findOne({ shipId: req.body.shipId });
+                const foundShip: IShip = await ShipModel.findOne({shipId: req.body.shipId});
                 // Transporter object using SMTP transport
                 const transporter = nodemailer.createTransport({
                     host: "smtp.office365.com",
@@ -856,7 +913,7 @@ app.post('/eventRegistrations/addParticipant', async (req, res) => {
 
             const newShip = new ShipModel({"name": req.body.shipName, "emailUsername": req.body.emailUsername});
 
-            const lastShip: IShip = await ShipModel.findOne({}, {},{sort:{shipId:-1}});
+            const lastShip: IShip = await ShipModel.findOne({}, {}, {sort: {shipId: -1}});
             const one: any = 1;
             if (lastShip)
                 newShip.shipId = lastShip.shipId + one;
@@ -927,9 +984,10 @@ app.get('/eventRegistrations/getParticipants/:eventId', async (req, res) => {
                     }
                     participants.push(participant);
 
-                        return res.status(200).json(participants);
-                    }
-                }})
+                    return res.status(200).json(participants);
+                }
+            }
+        })
 
     } catch (e) {
         res.status(400).json('BAD REQUEST')
@@ -1170,7 +1228,6 @@ app.delete('/locationRegistrations/deleteFromEventRegId/:eventId', async (req, r
 app.get('*', (req, res) => {
     return res.status(400).send('Page Not Found');
 });
-
 
 
 export {app}

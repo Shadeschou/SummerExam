@@ -51,6 +51,7 @@ const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const date_and_time_1 = __importDefault(require("date-and-time"));
+const crypto = __importStar(require("crypto"));
 dotenv_1.default.config({ path: 'configs/config.env' });
 const app = express_1.default();
 exports.app = app;
@@ -105,10 +106,12 @@ const oneMinuteinMSForThePresentation = 60000;
 setInterval(timerForTheReminder, oneMinuteinMSForThePresentation);
 const urlencode = body_parser_1.default.urlencoded({ extended: true });
 app.use(express_1.default.static('public'));
+// @ts-ignore
 app.use(body_parser_1.default.json());
 mongoose_1.connect(process.env.DB, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 });
 // ROUTING
 // TO PROCESS THE NEXT REQUEST !!
@@ -512,18 +515,20 @@ app.get('/users/:userName', (req, res) => __awaiter(void 0, void 0, void 0, func
 app.put('/users/:userName', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // Updating the user
-        console.log("hit the crypt");
+        console.log(req.body.password);
         const hashedPassword = yield bcrypt_nodejs_1.default.hashSync(req.body.password);
-        console.log("done the crypt");
-        const newUser = new user_1.UserModel(req.body);
-        const token = req.header('x-access-token');
-        const user = accessToken_controller_1.AccessToken.getUser(token);
-        newUser.password = hashedPassword;
-        newUser.role = user.role;
-        user_1.UserModel.findOneAndUpdate({ emailUsername: newUser.emailUsername }, newUser);
+        const userLoginIn = req.params.userName;
+        const user = yield user_1.UserModel.findOne({ emailUsername: userLoginIn });
+        console.log(req.body.firstname);
+        // user.password = hashedPassword;
+        user.role = user.role;
+        // What Allie Did
+        user_1.UserModel.findOne({ emailUsername: user.emailUsername });
         if (!user)
-            return res.status(404).send({ message: "User not found with id " + req.params.emailUsername });
-        res.status(202).json(user);
+            return res.status(404).send({ message: "User not found with id " + req.params });
+        else {
+            yield user_1.UserModel.findOneAndUpdate({ emailUsername: req.params.userName }, { password: hashedPassword, firstname: req.body.firstname, lastname: req.body.lastname, emailUsername: req.body.emailUsername });
+        }
     }
     catch (e) {
         res.status(400).json('Update User failed.');
@@ -613,6 +618,53 @@ app.post('/users/login', (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
     catch (e) {
         res.status(400).json('BAD REQUEST');
+    }
+}));
+app.post('/users/forgot/:emailUsername', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const tempToken = crypto.randomBytes(20);
+        const newPW = tempToken.toString('hex');
+        // Updating the user
+        const hashedPassword = yield bcrypt_nodejs_1.default.hashSync(newPW);
+        const userLoginIn = req.params.emailUsername;
+        const user = yield user_1.UserModel.findOne({ emailUsername: userLoginIn });
+        console.log(user.emailUsername);
+        // const token: any = req.header('x-access-token');
+        // const user: any = AccessToken.getUser(token);
+        // user.password = hashedPassword;
+        user.role = user.role;
+        // What Allie Did
+        console.log("Before find one : " + user.emailUsername);
+        user_1.UserModel.findOne({ emailUsername: user.emailUsername });
+        if (!user)
+            return res.status(404).send({ message: "User not found with id " + req.params });
+        else {
+            yield user_1.UserModel.findOneAndUpdate({ emailUsername: req.params.emailUsername }, { password: hashedPassword });
+        }
+        const transporter = nodemailer_1.default.createTransport({
+            host: "smtp.office365.com",
+            port: 587,
+            secure: false,
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.PSW,
+            },
+        });
+        console.log("Before Send" + user.emailUsername);
+        // sending mail with defined transport object
+        const info = yield transporter.sendMail({
+            from: '"Treggata" <aljo0025@easv365.dk>',
+            to: user.emailUsername,
+            subject: "PW Lost",
+            text: "Take this one " + newPW + " save a new one afterwards" + "/n To do so go to profile. /n Paste this password and give a new. " // text body
+            // html: "<p> some html </p>" // html in the body
+        });
+        console.info();
+        console.log("After Send");
+        res.status(202).json(user);
+    }
+    catch (e) {
+        res.status(400).json('Sent random pw failed.');
     }
 }));
 app.post('/eventRegistrations/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
