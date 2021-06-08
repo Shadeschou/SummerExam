@@ -7,7 +7,7 @@ interface IEventRegistration extends Document {
     trackColor: string,
     teamName: string,
     emailUsername: string,
-    mailRecieved: boolean
+    mailRecieved: boolean,
 }
 
 const EventRegistrationSchema = new Schema<IEventRegistration>({
