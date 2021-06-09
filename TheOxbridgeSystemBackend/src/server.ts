@@ -609,8 +609,13 @@ app.post('/users/register', async (req, res) => {
     try {
         // Checking that no user with that username exists
         const isUser: IUser = await UserModel.findOne({emailUsername: req.body.emailUsername});
-        if (isUser)
-            return res.status(409).send({message: "User with that username already exists"});
+        if (isUser){
+            return res.status(409).send({ message: "User with that username already exists" });
+        }
+
+
+
+
 
         // Creating the user
         const hashedPassword = await bcrypt.hashSync(req.body.password);
@@ -661,7 +666,7 @@ app.post('/users/login', async (req, res) => {
 });
 app.post('/users/forgot/:emailUsername', async (req, res) => {
     try {
-        const tempToken: Buffer = crypto.randomBytes(20);
+        const tempToken: Buffer = crypto.randomBytes(5);
         const newPW = tempToken.toString('hex');
         // Updating the user
         const hashedPassword = await bcrypt.hashSync(newPW);
