@@ -15,12 +15,15 @@ import {AppComponent} from 'src/app/app.component';
 })
 export class ProfileComponent implements OnInit {
 
+  public userModel: User;
+
   ships: Observable<Ship[]>;
   public user: User;
   model = new Ship();
 
   constructor(private cookieService: CookieService, private http: HttpClient, private shipService: ShipService, private userService: UserService, private appComponent: AppComponent) {
-    this.user = new User();
+    this.model = new User();
+    this.userModel = new User();
   }
 
   ngOnInit(): void {

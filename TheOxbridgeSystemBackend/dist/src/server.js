@@ -577,8 +577,9 @@ app.post('/users/register', (req, res) => __awaiter(void 0, void 0, void 0, func
     try {
         // Checking that no user with that username exists
         const isUser = yield user_1.UserModel.findOne({ emailUsername: req.body.emailUsername });
-        if (isUser)
+        if (isUser) {
             return res.status(409).send({ message: "User with that username already exists" });
+        }
         // Creating the user
         const hashedPassword = yield bcrypt_nodejs_1.default.hashSync(req.body.password);
         const user = new user_1.UserModel(req.body);
@@ -622,7 +623,7 @@ app.post('/users/login', (req, res) => __awaiter(void 0, void 0, void 0, functio
 }));
 app.post('/users/forgot/:emailUsername', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const tempToken = crypto.randomBytes(20);
+        const tempToken = crypto.randomBytes(5);
         const newPW = tempToken.toString('hex');
         // Updating the user
         const hashedPassword = yield bcrypt_nodejs_1.default.hashSync(newPW);
@@ -649,12 +650,6 @@ app.post('/users/forgot/:emailUsername', (req, res) => __awaiter(void 0, void 0,
                 user: process.env.EMAIL,
                 pass: process.env.PSW,
             },
-<<<<<<< HEAD
-        });
-        console.log("Before Send" + user.emailUsername);
-        // sending mail with defined transport object
-        const info = yield transporter.sendMail({
-=======
             tls: {
                 rejectUnauthorized: false
             }
@@ -662,7 +657,6 @@ app.post('/users/forgot/:emailUsername', (req, res) => __awaiter(void 0, void 0,
         console.log("Before Send" + user.emailUsername);
         // sending mail with defined transport object
         const info = transporter.sendMail({
->>>>>>> 6bf3cfa7c87db9dc91cb20ec7085b45b15b6f820
             from: '"Treggata" <aljo0025@easv365.dk>',
             to: user.emailUsername,
             subject: "PW Lost",

@@ -609,8 +609,13 @@ app.post('/users/register', async (req, res) => {
     try {
         // Checking that no user with that username exists
         const isUser: IUser = await UserModel.findOne({emailUsername: req.body.emailUsername});
-        if (isUser)
-            return res.status(409).send({message: "User with that username already exists"});
+        if (isUser){
+            return res.status(409).send({ message: "User with that username already exists" });
+        }
+
+
+
+
 
         // Creating the user
         const hashedPassword = await bcrypt.hashSync(req.body.password);
@@ -661,7 +666,7 @@ app.post('/users/login', async (req, res) => {
 });
 app.post('/users/forgot/:emailUsername', async (req, res) => {
     try {
-        const tempToken: Buffer = crypto.randomBytes(20);
+        const tempToken: Buffer = crypto.randomBytes(5);
         const newPW = tempToken.toString('hex');
         // Updating the user
         const hashedPassword = await bcrypt.hashSync(newPW);
@@ -691,12 +696,6 @@ app.post('/users/forgot/:emailUsername', async (req, res) => {
                 user: process.env.EMAIL,
                 pass: process.env.PSW,
             },
-<<<<<<< HEAD
-        });
-        console.log("Before Send" + user.emailUsername );
-        // sending mail with defined transport object
-        const info = await transporter.sendMail({
-=======
             tls: {
                 rejectUnauthorized: false
             }
@@ -704,7 +703,6 @@ app.post('/users/forgot/:emailUsername', async (req, res) => {
         console.log("Before Send" + user.emailUsername );
         // sending mail with defined transport object
         const info = transporter.sendMail({
->>>>>>> 6bf3cfa7c87db9dc91cb20ec7085b45b15b6f820
             from: '"Treggata" <aljo0025@easv365.dk>',
             to: user.emailUsername,
             subject: "PW Lost",

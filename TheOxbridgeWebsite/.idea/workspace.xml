@@ -2,21 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b43db319-305f-493f-bb9a-3d7b00eca09c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/components/forgot-password/forgot-password.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/components/forgot-password/forgot-password.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/components/forgot-password/forgot-password.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/components/forgot-password/forgot-password.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/services/forgot-password.service.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/services/forgot-password.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/dist/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/dist/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/dist/src/models/user.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/dist/src/models/user.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/dist/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/dist/src/server.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/dist/src/server.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/dist/src/server.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/src/models/eventRegistration.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/src/models/eventRegistration.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/src/models/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/src/models/user.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/src/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/src/server.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/login/login.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/forgot-password/forgot-password.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/forgot-password/forgot-password.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/profile/profile.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/profile/profile.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/profile/profile.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/profile/profile.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/forgot-password.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/forgot-password.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +21,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="2" />
   </component>
   <component name="ProjectId" id="1tcdHtFv0MQwouU8UV3u4i22Lrm" />
   <component name="ProjectLevelVcsManager">
@@ -45,6 +44,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="ts.external.directory.path" value="E:\ExamMainTest\SummerExam\TheOxbridgeWebsite\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -79,8 +79,21 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/app/components/profile/profile.component.html</url>
+          <line>49</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

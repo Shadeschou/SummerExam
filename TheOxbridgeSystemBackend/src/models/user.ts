@@ -5,7 +5,8 @@ export interface IUser extends Document {
     lastname: string,
     emailUsername: string,
     password: string,
-    role: string
+    role: string,
+    teamImage: BufferSource
 
 }
 
