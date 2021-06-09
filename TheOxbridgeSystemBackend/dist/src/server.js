@@ -649,10 +649,20 @@ app.post('/users/forgot/:emailUsername', (req, res) => __awaiter(void 0, void 0,
                 user: process.env.EMAIL,
                 pass: process.env.PSW,
             },
+<<<<<<< HEAD
         });
         console.log("Before Send" + user.emailUsername);
         // sending mail with defined transport object
         const info = yield transporter.sendMail({
+=======
+            tls: {
+                rejectUnauthorized: false
+            }
+        });
+        console.log("Before Send" + user.emailUsername);
+        // sending mail with defined transport object
+        const info = transporter.sendMail({
+>>>>>>> 6bf3cfa7c87db9dc91cb20ec7085b45b15b6f820
             from: '"Treggata" <aljo0025@easv365.dk>',
             to: user.emailUsername,
             subject: "PW Lost",
