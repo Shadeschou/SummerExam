@@ -59,27 +59,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.app = void 0;
-var mongoose_1 = require("mongoose");
-var cors_1 = __importDefault(require("cors"));
-var dotenv_1 = __importDefault(require("dotenv"));
-var event_1 = require("./models/event");
-var authentication_controller_1 = require("./controllers/authentication.controller");
-var eventRegistration_1 = require("./models/eventRegistration");
-var racePoint_1 = require("./models/racePoint");
-var accessToken_controller_1 = require("./controllers/accessToken.controller");
-var ship_1 = require("./models/ship");
-var user_1 = require("./models/user");
-var jwt = __importStar(require("jsonwebtoken"));
-var cookie_parser_1 = __importDefault(require("cookie-parser"));
-var validate_controller_1 = require("./controllers/validate.controller");
-var locationRegistration_1 = require("./models/locationRegistration");
-var bcrypt_nodejs_1 = __importDefault(require("bcrypt-nodejs"));
-var express_1 = __importDefault(require("express"));
-var body_parser_1 = __importDefault(require("body-parser"));
-var nodemailer_1 = __importDefault(require("nodemailer"));
-var crypto = __importStar(require("crypto"));
-var checkEvents_1 = require("./controllers/checkEvents");
-checkEvents_1.timerForTheReminder();
+
+const mongoose_1 = require("mongoose");
+const cors_1 = __importDefault(require("cors"));
+const dotenv_1 = __importDefault(require("dotenv"));
+const event_1 = require("./models/event");
+const authentication_controller_1 = require("./controllers/authentication.controller");
+const eventRegistration_1 = require("./models/eventRegistration");
+const racePoint_1 = require("./models/racePoint");
+const accessToken_controller_1 = require("./controllers/accessToken.controller");
+const ship_1 = require("./models/ship");
+const user_1 = require("./models/user");
+const jwt = __importStar(require("jsonwebtoken"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const validate_controller_1 = require("./controllers/validate.controller");
+const locationRegistration_1 = require("./models/locationRegistration");
+const bcrypt_nodejs_1 = __importDefault(require("bcrypt-nodejs"));
+const express_1 = __importDefault(require("express"));
+const body_parser_1 = __importDefault(require("body-parser"));
+const nodemailer_1 = __importDefault(require("nodemailer"));
+const date_and_time_1 = __importDefault(require("date-and-time"));
+const crypto = __importStar(require("crypto"));
+const broadcast_1 = require("./models/broadcast");
 dotenv_1.default.config({ path: 'configs/config.env' });
 var app = express_1.default();
 exports.app = app;
@@ -834,6 +835,7 @@ app.post('/users/registerAdmin', function (req, res) { return __awaiter(void 0, 
     });
 }); });
 // Register a new user
+
 app.post('/users/register', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var isUser, hashedPassword, user, token, e_24;
     return __generator(this, function (_a) {
@@ -1314,21 +1316,66 @@ app.put('/eventRegistrations/updateParticipant/:eventRegId', function (req, res)
                 if (!verify) {
                     return [2 /*return*/, res.status(400).send({ auth: false, message: 'Not Authorized' })];
                 }
-                _a.label = 2;
-            case 2:
-                _a.trys.push([2, 10, , 11]);
-                evRegId = req.params.eventRegId;
-                return [4 /*yield*/, eventRegistration_1.EventRegistrationModel.findOneAndUpdate({ eventRegId: evRegId }, req.body)];
-            case 3:
-                eventReg = _a.sent();
-                if (!eventReg) return [3 /*break*/, 8];
-                return [4 /*yield*/, ship_1.ShipModel.findOneAndUpdate({ shipId: eventReg.shipId }, req.body)];
-            case 4:
-                ship = _a.sent();
-                if (!ship) return [3 /*break*/, 6];
-                return [4 /*yield*/, user_1.UserModel.findOneAndUpdate({ emailUsername: ship.emailUsername }, req.body)];
-            case 5:
-                user = _a.sent();
+            }
+        }));
+    }
+    catch (e) {
+        res.status(400).json('BAD REQUEST');
+    }
+}));
+// NEW FEATURE: Post broadcast messages
+app.post('/broadcast', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        // Finds the event with the corresponding eventID
+        const evId = req.body.eventId;
+        const eventRegs = yield eventRegistration_1.EventRegistrationModel.find({ eventId: evId }, { _id: 0, __v: 0 });
+        // Checks if there are participants
+        if (!eventRegs || eventRegs.length === 0)
+            return res.status(404).send({ message: "No participants found" });
+        if (eventRegs.length !== 0) {
+            // Goes through each participant
+            eventRegs.forEach((eventRegistration) => __awaiter(void 0, void 0, void 0, function* () {
+                // Checks if the participant's ship exists
+                const ship = yield ship_1.ShipModel.findOne({ shipId: eventRegistration.shipId }, { _id: 0, __v: 0 });
+                if (!ship)
+                    return res.status(404).send({ message: "Ship not found" });
+                else if (ship) {
+                    // checks if the ship's user exists
+                    const user = yield user_1.UserModel.findOne({ emailUsername: ship.emailUsername }, { _id: 0, __v: 0 });
+                    if (!user)
+                        return res.status(404).send({ message: "User not found" });
+                    // posts the broadcast with the User of the ship connected to the eventregistration
+                    if (user) {
+                        const participant = new broadcast_1.Broadcast({
+                            "eventId": req.body.eventId,
+                            "message": req.body.message,
+                            "emailUsername": user.emailUsername
+                        });
+                        yield participant.save();
+                    }
+                }
+            }));
+        }
+        console.log('print broadcast');
+        res.status(201).send({ message: 'Broadcast successfully sent' });
+    }
+    catch (e) {
+        res.status(400).json('BAD REQUEST');
+    }
+}));
+app.put('/eventRegistrations/updateParticipant/:eventRegId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // Checking if authorized
+    const verify = yield authentication_controller_1.Auth.Authorize(req, res, "admin");
+    if (!verify) {
+        return res.status(400).send({ auth: false, message: 'Not Authorized' });
+    }
+    try {
+        const evRegId = req.params.eventRegId;
+        const eventReg = yield eventRegistration_1.EventRegistrationModel.findOneAndUpdate({ eventRegId: evRegId }, req.body);
+        if (eventReg) {
+            const ship = yield ship_1.ShipModel.findOneAndUpdate({ shipId: eventReg.shipId }, req.body);
+            if (ship) {
+                const user = yield user_1.UserModel.findOneAndUpdate({ emailUsername: ship.emailUsername }, req.body);
                 if (!user)
                     return [2 /*return*/, res.status(404).send({ message: "User not found with emailUsername " + ship.emailUsername })];
                 else
