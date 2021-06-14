@@ -19,8 +19,9 @@ import nodemailer from "nodemailer";
 import date from "date-and-time";
 import * as crypto from "crypto";
 import {timerForTheReminder} from "./controllers/checkEvents";
-
 timerForTheReminder();
+import { Broadcast } from "./models/broadcast";
+
 
 
 dotenv.config({path: 'configs/config.env'});
@@ -956,6 +957,54 @@ app.get('/eventRegistrations/getParticipants/:eventId', async (req, res) => {
     }
 });
 
+// NEW FEATURE: Post broadcast messages
+app.post('/broadcast', async (req, res) => {
+    try {
+        // Finds the event with the corresponding eventID
+        const evId: any = req.body.eventId;
+        const eventRegs: IEventRegistration[] = await EventRegistrationModel.find({ eventId: evId }, { _id: 0, __v: 0 });
+        // Checks if there are participants
+        if (!eventRegs || eventRegs.length === 0)
+            return res.status(404).send({ message: "No participants found" });
+
+        if (eventRegs.length !== 0) {
+            // Goes through each participant
+            eventRegs.forEach(async (eventRegistration: IEventRegistration) => {
+
+                // Checks if the participant's ship exists
+                const ship: IShip = await ShipModel.findOne({ shipId: eventRegistration.shipId }, { _id: 0, __v: 0 });
+                if (!ship)
+                    return res.status(404).send({ message: "Ship not found" });
+
+                else if (ship) {
+                    // checks if the ship's user exists
+                    const user: IUser = await UserModel.findOne({ emailUsername: ship.emailUsername }, { _id: 0, __v: 0 });
+                    if (!user)
+                        return res.status(404).send({ message: "User not found" });
+                    // posts the broadcast with the User of the ship connected to the eventregistration
+                    if (user) {
+                        const participant = new Broadcast({
+                            "eventId": req.body.eventId,
+                            "message": req.body.message,
+                            "emailUsername": user.emailUsername
+                        });
+                        await participant.save();
+
+
+                    }
+
+                }
+
+            });
+        }
+        console.log('print broadcast');
+        res.status(201).send({ message: 'Broadcast successfully sent' });
+
+    } catch (e) {
+        res.status(400).json('BAD REQUEST');
+    }
+});
+
 app.put('/eventRegistrations/updateParticipant/:eventRegId', async (req, res) => {
     // Checking if authorized
     const verify: boolean = await Auth.Authorize(req, res, "admin");
@@ -1185,6 +1234,8 @@ app.delete('/locationRegistrations/deleteFromEventRegId/:eventId', async (req, r
         res.status(400).json('BAD REQUEST')
     }
 });
+
+
 
 
 app.get('*', (req, res) => {
