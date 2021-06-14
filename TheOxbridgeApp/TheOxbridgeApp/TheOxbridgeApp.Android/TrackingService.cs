@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TheOxbridgeApp.Models;
-using TheOxbridgeApp.ViewModels.Popups;
+using TheOxbridgeApp.ViewModels.ViewModels;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using String = Java.Lang.String;

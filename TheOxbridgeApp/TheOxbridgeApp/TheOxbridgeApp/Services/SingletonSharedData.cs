@@ -1,5 +1,5 @@
 ﻿using System;
-using TheOxbridgeApp.ViewModels.Popups;
+using TheOxbridgeApp.ViewModels.ViewModels;
 
 namespace TheOxbridgeApp.Models
 {

@@ -68,3 +68,4 @@ C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeA
 C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\bin\Debug\netstandard2.0\ref\TheOxbridgeApp.dll
 C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\bin\Debug\netstandard2.0\TheOxbridgeApp.pdb
 C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\Popups\ResetPasswordView.xaml.g.cs

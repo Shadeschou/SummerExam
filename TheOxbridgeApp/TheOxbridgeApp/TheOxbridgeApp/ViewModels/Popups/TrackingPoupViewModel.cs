@@ -7,7 +7,7 @@ using TheOxbridgeApp.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace TheOxbridgeApp.ViewModels.Popups
+namespace TheOxbridgeApp.ViewModels.ViewModels
 {
     public class TrackingPoupViewModel : BaseViewModel
     {

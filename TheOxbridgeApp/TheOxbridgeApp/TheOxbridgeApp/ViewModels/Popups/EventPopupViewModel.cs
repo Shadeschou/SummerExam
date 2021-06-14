@@ -6,7 +6,7 @@ using TheOxbridgeApp.Models;
 using TheOxbridgeApp.Services;
 using Xamarin.Forms;
 
-namespace TheOxbridgeApp.ViewModels.Popups
+namespace TheOxbridgeApp.ViewModels.ViewModels
 {
     public class EventPopupViewModel : BaseViewModel
     {
@@ -73,7 +73,7 @@ namespace TheOxbridgeApp.ViewModels.Popups
         #region -- Commands -- 
         public ICommand NavigateToMapCMD { get; set; }
         #endregion
-
+        //This will navigate to the viewmodel where all the pictures will be showed for each member in the eventReg
         public async void ShowListOfParticipants() 
         {
            

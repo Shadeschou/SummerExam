@@ -1,6 +1,6 @@
 ﻿using Rg.Plugins.Popup.Pages;
 using TheOxbridgeApp.Models;
-using TheOxbridgeApp.ViewModels.Popups;
+using TheOxbridgeApp.ViewModels.ViewModels;
 using Xamarin.Forms.Xaml;
 
 namespace TheOxbridgeApp.Views.Popups

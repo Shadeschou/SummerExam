@@ -149,6 +149,59 @@ namespace TheOxbridgeApp.Services
 
         }
 
+        public async Task ForgotPassword(string email)
+        {
+           
+            WebRequest request = WebRequest.Create(Target.ForgotPassword + email);
+          
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            String responseFromServer = GetResponse(request);
+            Console.WriteLine(responseFromServer);
+          
+           
+
+
+
+        }
+
+        public List<Broadcast> GetMessagesFromEmailUsername(string emailUsername)
+        {
+            String jsonData = "{\"Username\": \"" + emailUsername + "\" }";
+
+            WebRequest request = WebRequest.Create(Target.MessageFromEmailUsername);
+            request.Method = "POST";
+            request.ContentType = "application/json";
+
+            List<Broadcast> Message = new List<Broadcast>();
+            try
+            {
+                using (Stream requestStream = request.GetRequestStream())
+                {
+                    using (StreamWriter streamWriter = new StreamWriter(requestStream))
+                    {
+                        streamWriter.Write(jsonData);
+                    }
+                }
+
+                try
+                {
+                    String responseFromServer = GetResponse(request);
+                    Message = JsonConvert.DeserializeObject<List<Broadcast>>(responseFromServer);
+                }
+                catch (WebException e)
+                {
+                    Console.WriteLine(e);
+                }
+                return Message;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Message = null;
+                return Message;
+            }
+        }
 
 
         public List<Team> GetTeams(int eventID)
@@ -250,6 +303,40 @@ namespace TheOxbridgeApp.Services
             request.Method = "PUT";
             request.ContentType = "application/json";
             request.Headers.Add("x-access-token", (await dataController.GetUser()).Token);
+
+            using (Stream requestStream = request.GetRequestStream())
+            {
+                using (StreamWriter streamWriter = new StreamWriter(requestStream))
+                {
+                    streamWriter.Write(jsonData);
+                }
+            }
+            try
+            {
+                statusCode = GetStatusCode(request);
+            }
+            catch (Exception)
+            {
+            }
+            if (statusCode.ToLower().Equals("created"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        public async Task<bool> PutEmailReset(ISerializable serializable, String target)
+        {
+            String statusCode = "";
+            String jsonData = JsonConvert.SerializeObject(serializable);
+            WebRequest request = WebRequest.Create(target);
+            request.Method = "POST";
+            request.ContentType = "application/json";
+      
 
             using (Stream requestStream = request.GetRequestStream())
             {

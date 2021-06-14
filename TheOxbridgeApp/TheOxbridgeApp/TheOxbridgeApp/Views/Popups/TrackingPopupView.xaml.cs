@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using TheOxbridgeApp.Models;
 using TheOxbridgeApp.ViewModels;
-using TheOxbridgeApp.ViewModels.Popups;
+using TheOxbridgeApp.ViewModels.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

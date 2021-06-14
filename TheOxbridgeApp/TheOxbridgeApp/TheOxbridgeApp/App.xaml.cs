@@ -1,4 +1,8 @@
 ﻿using Rg.Plugins.Popup.Services;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Threading;
+using System;
 using TheOxbridgeApp.Data;
 using TheOxbridgeApp.Models;
 using TheOxbridgeApp.Services;
@@ -6,6 +10,7 @@ using TheOxbridgeApp.ViewModels;
 using TheOxbridgeApp.Views;
 using TheOxbridgeApp.Views.Popups;
 using Xamarin.Forms;
+using System.Collections.Generic;
 
 namespace TheOxbridgeApp
 {
@@ -14,8 +19,9 @@ namespace TheOxbridgeApp
         #region -- Local variables -- 
         private INavigationService navigationService;
         private ISettingsService _settingsService;
+        public static CancellationTokenSource CancellationToken { get; set; }
         #endregion
-        
+
         /// <summary>
         /// Registers all ViewModels to the ServiceContainer and the MainPage is set
         /// </summary>
@@ -33,6 +39,7 @@ namespace TheOxbridgeApp
             ServiceContainer.Register(() => new TrackingEventViewModel());
             ServiceContainer.Register(() => new TeamViewModel());
             ServiceContainer.Register(() => new ListEventViewModel());
+            ServiceContainer.Register(() => new ResetPasswordView());
 
 
             var masterDetailViewModel = new MasterDetailViewModel();
@@ -41,6 +48,59 @@ namespace TheOxbridgeApp
             var master = new MasterDetail();
             MainPage = master;
             master.BindingContext = masterDetailViewModel;
+        }
+
+
+
+        private async Task timer()
+        {
+
+            App.CancellationToken = new CancellationTokenSource();
+            while (!App.CancellationToken.IsCancellationRequested)
+            {
+                try
+                {
+
+                    App.CancellationToken.Token.ThrowIfCancellationRequested();
+                    await Task.Delay(10000, App.CancellationToken.Token).ContinueWith(async (arg) =>
+                    {
+
+                        if (!App.CancellationToken.Token.IsCancellationRequested)
+                        {
+                            App.CancellationToken.Token.ThrowIfCancellationRequested();
+
+
+                            DataController dataController = new DataController();
+                            ServerClient serverClient = new ServerClient();
+                            User user = await dataController.GetUser();
+
+                            List<Broadcast> messages = serverClient.GetMessagesFromEmailUsername(user.EmailUsername);
+
+                            if (messages.Count > 0)
+                            {
+                                foreach (var item in messages)
+                                {
+
+                                    Device.BeginInvokeOnMainThread(async () => { await Current.MainPage.DisplayAlert("Message", item.Message, "ok"); });
+                                }
+                            }
+
+
+
+                        }
+
+
+                    });
+                }
+
+
+
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("EX 1: " + ex.Message);
+
+                }
+            }
         }
 
 
@@ -60,6 +120,8 @@ namespace TheOxbridgeApp
             await PopupNavigation.PushAsync(new LoadingPopupView()).ConfigureAwait(false);
             await ((MasterDetailViewModel)((MasterDetail)Current.MainPage).BindingContext).OnAppearing();
             await navigationService.NavigateToAsync(typeof(EventViewModel));
+
+            Task.Run(async () => timer());
         }
 
         protected override void OnSleep()

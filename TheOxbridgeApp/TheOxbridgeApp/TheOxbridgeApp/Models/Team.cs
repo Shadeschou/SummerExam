@@ -10,25 +10,27 @@ namespace TheOxbridgeApp.Models
 
         public int ShipID { get; set; }
 
-        [JsonProperty("eventId")]
+       // [JsonProperty("eventId")]
         public int EventID { get; set; }
-        [JsonProperty("eventRegId")]
+        //[JsonProperty("eventRegId")]
         public int EventRegId { get; set; }
-        [JsonProperty("teamName")]
+       // [JsonProperty("teamName")]
         public String TeamName { get; set; }
-        [JsonProperty("emailUsername")]
+       // [JsonProperty("emailUsername")]
         public string emailUsername { get; set; }
 
         public byte[] ImageByte { get; set; }
 
-        [JsonProperty("trackColor")]
+        //[JsonProperty("trackColor")]
         public String TrackColor { get; set; }
         public ImageSource TeamImageSourcePicture { get; set; }
         public String ImageSourceContainer{ get; set; }
 
         //[JsonProperty("teamImage")]
         [JsonProperty("teamImage")]
-        public String teamImage { get; set; }
+        public String teamImage { get; set; } 
+
+
 
 
     }

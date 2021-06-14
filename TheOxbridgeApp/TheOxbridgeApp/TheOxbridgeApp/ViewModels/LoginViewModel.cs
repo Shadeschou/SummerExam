@@ -1,4 +1,5 @@
-﻿using Rg.Plugins.Popup.Services;
+﻿using Newtonsoft.Json;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Windows.Input;
 using TheOxbridgeApp.Data;
@@ -10,18 +11,29 @@ using Xamarin.Forms;
 
 namespace TheOxbridgeApp.ViewModels
 {
-    class LoginViewModel : BaseViewModel
+    class LoginViewModel : BaseViewModel , ISerializable
     {
         #region -- Local variables --
         private ServerClient serverClient;
         private DataController dataController;
         private SingletonSharedData sharedData;
+
+
+
+        public string emailUsername { get; set; }
+
+
+
+
         #endregion
 
         #region -- Commands --
         public ICommand LoginCMD { get; set; }
         public ICommand EntryFocusedCommand { get; set; }
         public ICommand LoginClickedCMD { get; set; }
+
+        public ICommand ForgotPasswordCMD { get; set; }
+
         #endregion
 
         #region -- Binding values --
@@ -55,6 +67,8 @@ namespace TheOxbridgeApp.ViewModels
             dataController = new DataController();
 
             LoginCMD = new Command(Login);
+            ForgotPasswordCMD = new Command(NavigateToResetPassword);
+            
             EntryFocusedCommand = new Command(EntryFocused);
             LoginClickedCMD = new Command(Login);
         }
@@ -84,5 +98,31 @@ namespace TheOxbridgeApp.ViewModels
         {
             WrongLoginVisibility = false;
         }
+
+        /// <summary>
+        /// This is the method that will navigate to a popup for resetting the password for a users login
+        /// </summary>
+        private async void NavigateToResetPassword() 
+        {
+
+
+           
+            await PopupNavigation.PushAsync(new ResetPasswordView());
+
+
+
+        }
+
+        private async void ForgotPassword() 
+        {
+
+            
+           
+            serverClient.ForgotPassword(emailUsername);
+          
+        
+        }
+
+
     }
 }

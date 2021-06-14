@@ -28,6 +28,9 @@
     <EmbeddedResource Update="Views\Popups\LoadingPopupView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\Popups\ResetPasswordView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\Popups\TrackingPopupView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -48,6 +51,9 @@
   <ItemGroup>
     <Compile Update="Views\Popups\EventPopupView.xaml.cs">
       <DependentUpon>EventPopupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\ResetPasswordView.xaml.cs">
+      <DependentUpon>ResetPasswordView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

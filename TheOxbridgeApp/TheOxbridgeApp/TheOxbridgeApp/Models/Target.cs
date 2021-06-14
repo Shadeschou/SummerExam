@@ -4,7 +4,7 @@ namespace TheOxbridgeApp.Models
 {
     public static class Target
     {
-        private const String azure = "http://192.168.87.180:3000/";
+        private const String azure = "http://192.168.87.121:3000/";
 
         private const String StandardAdress = azure;
 
@@ -12,9 +12,11 @@ namespace TheOxbridgeApp.Models
         public const String Authenticate = StandardAdress + "users/login";
         public const String Events = StandardAdress + "events/";
         public const String GetAllEventReg = StandardAdress + "eventRegistrations/";
-
-
         public const String GetImages = StandardAdress + "eventRegistrations/getParticipants/";
+
+
+        public const String MessageFromEmailUsername = StandardAdress + "broadcastget/";
+        public const String ForgotPassword = StandardAdress + "users/forgot/";
 
         public const String PutImages = StandardAdress + "eventRegistrations/updateParticipant/";
 
