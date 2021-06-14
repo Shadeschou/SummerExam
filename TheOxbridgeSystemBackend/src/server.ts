@@ -16,11 +16,9 @@ import bcrypt from "bcrypt-nodejs";
 import express from "express";
 import bodyParser from "body-parser";
 import nodemailer from "nodemailer";
-import date from "date-and-time";
 import * as crypto from "crypto";
 import {timerForTheReminder} from "./controllers/checkEvents";
 import {Broadcast, IBroadcast} from "./models/broadcast";
-import {BroadcastService} from "../../TheOxbridgeWebsite/src/app/services/broadcast.service";
 
 timerForTheReminder();
 
@@ -71,7 +69,7 @@ app.post('/events', async (req: express.Request, res: express.Response) => {
         }
         const event = new EventModel(req.body);
         const one: any = 1;
-        const lastEvent: IEvent = await EventModel.findOne({}).sort('desc');
+        const lastEvent: IEvent = await EventModel.findOne({}, {},{ sort: { eventId: -1 } }).sort('desc');
 
         if (lastEvent) {
             event.eventId = lastEvent.eventId + one;
@@ -124,6 +122,7 @@ app.put('/events/:eventId', async (req, res) => {
 
 });
 
+
 app.delete('/events/:eventId', async (req, res) => {
     try {
         // Checking if authorized
@@ -164,7 +163,7 @@ app.put('/events/startEvent/:eventId', async (req, res) => {
         res.status(400).send('BAD REQUEST')
     }
 });
-
+// Stopping an event.
 app.get('/events/stopEvent/:eventId', async (req, res) => {
     try {
         // Checking if authorized
@@ -219,7 +218,7 @@ app.get('/events/myEvents/findFromUsername', async (req, res) => {
                 if (eventRegistrations) {
                     eventRegistrations.forEach(async (eventRegistration: IEventRegistration) => {
 
-                        ship = await ShipModel.findOne({shipId: eventRegistration.shipId}, {_id: 0, __v: 0});
+                        ship = await ShipModel.findOne({shipId: eventRegistration.shipId}, {_id: 0, __v: 0}, );
                         if (ship) {
                             const event: IEvent = await EventModel.findOne({eventId: eventRegistration.eventId}, {
                                 _id: 0,
@@ -571,11 +570,6 @@ app.post('/users/register', async (req, res) => {
         if (isUser){
             return res.status(409).send({ message: "User with that username already exists" });
         }
-
-
-
-
-
         // Creating the user
         const hashedPassword = await bcrypt.hashSync(req.body.password);
         const user = new UserModel(req.body);
@@ -633,12 +627,7 @@ app.post('/users/forgot/:emailUsername', async (req, res) => {
 
         const user: IUser = await UserModel.findOne({emailUsername: userLoginIn});
         console.log(user.emailUsername)
-
-        // const token: any = req.header('x-access-token');
-        // const user: any = AccessToken.getUser(token);
-        // user.password = hashedPassword;
         user.role = user.role;
-        // What Allie Did
         console.log("Before find one : " + user.emailUsername);
         UserModel.findOne({emailUsername: user.emailUsername});
         if (!user)
@@ -646,7 +635,6 @@ app.post('/users/forgot/:emailUsername', async (req, res) => {
         else{
             await UserModel.findOneAndUpdate({ emailUsername: req.params.emailUsername }, { password: hashedPassword });
         }
-
         const transporter = nodemailer.createTransport({
             host: "smtp.office365.com",
             port: 587,
@@ -655,36 +643,23 @@ app.post('/users/forgot/:emailUsername', async (req, res) => {
                 user: process.env.EMAIL,
                 pass: process.env.PSW,
             },
-<<<<<<< HEAD
-        });
-        console.log("Before Send" + user.emailUsername );
+            tls:{
+                "rejectUnauthorized": false
+            },
+    });
         // sending mail with defined transport object
         const info = await transporter.sendMail({
-=======
-            tls: {
-                rejectUnauthorized: false
-            }
-        });
-        console.log("Before Send" + user.emailUsername );
-        // sending mail with defined transport object
-        const info = transporter.sendMail({
->>>>>>> 6bf3cfa7c87db9dc91cb20ec7085b45b15b6f820
             from: '"Treggata" <aljo0025@easv365.dk>',
             to: user.emailUsername,
             subject: "PW Lost",
-            text: "Take this one " +newPW + " save a new one afterwards" +"/n To do so go to profile. /n Paste this password and give a new. " // text body
-            // html: "<p> some html </p>" // html in the body
-        });
-        console.info()
-        console.log("After Send");
-        res.status(202).json({message: "new pw sent"});
+            text: "Take this one " +newPW + " save a new one afterwards" +"/n To do so go to profile. /n Paste this password and give a new. "
+    });
+
+        res.status(202).json(user);
     } catch (e) {
         res.status(400).json('Sent random pw failed.')
     }
 });
-
-
-
 app.post('/eventRegistrations/', async (req, res) => {
     try {
         // Checking if authorized
@@ -699,20 +674,10 @@ app.post('/eventRegistrations/', async (req, res) => {
             return res.status(500).send({message: "SUCKS FOR YOU"});
         }
         res.status(201).json(regDone);
-
-
     } catch (e) {
         res.status(400).json('BAD REQUEST')
     }
-
 });
-
-/* --------------------------------------------------------------------
-*
-*
-*
-*/
-
 // Retrieve all eventRegistrations
 app.get('/eventRegistrations/', async (req, res) => {
     const verify: boolean = await Auth.Authorize(req, res, "admin");
@@ -727,7 +692,6 @@ app.get('/eventRegistrations/', async (req, res) => {
         res.status(400).json('BAD REQUEST')
     }
 });
-
 // Retrieve all eventRegistrations where the given user is a participant
 let pending: number = 0;
 app.get('/eventRegistrations/findEventRegFromUsername/:eventId', async (req, res) => {
@@ -736,8 +700,6 @@ app.get('/eventRegistrations/findEventRegFromUsername/:eventId', async (req, res
     if (!verify) {
         return res.status(400).send({auth: false, message: 'Not Authorized'});
     }
-
-
     try {
         const token: any = req.header('x-access-token');
         const user: any = AccessToken.getUser(token);
@@ -760,28 +722,16 @@ app.get('/eventRegistrations/findEventRegFromUsername/:eventId', async (req, res
         });
         if (eventRegistrations)
             return res.status(200).send(eventRegistrations);
-
-
     } catch (e) {
         res.status(400).json('BAD REQUEST')
     }
 });
 
 app.post('/eventRegistrations/signUp', async (req, res) => {
-    // Checking if authorized
-    // const verify: boolean = await Auth.Authorize(req, res, "admin");
-    // if (!verify) {
-    //     return res.status(400).send({auth: false, message: 'Not Authorized'});
-    // }
     try {
-        // const token: any = req.header('x-access-token');
-        // const user: any = AccessToken.getUser(token);
-
-        // Checks that the eventCode is correct
-        const event: IEvent = await EventModel.findOne({eventCode: req.body.eventCode}, {_id: 0, __v: 0});
+               const event: IEvent = await EventModel.findOne({eventCode: req.body.eventCode}, {_id: 0, __v: 0});
         if (!event)
             return res.status(404).send({message: "Wrong eventCode"});
-
         if (event) {
             // Checks that the ship isn't already assigned to the event
             const eventRegistration: IEventRegistration = await EventRegistrationModel.findOne({
@@ -791,7 +741,6 @@ app.post('/eventRegistrations/signUp', async (req, res) => {
 
             if (eventRegistration)
                 return res.status(409).send({message: "ship already registered to this event"})
-
             if (!eventRegistration) {
 
                 // Creating the eventRegistration
@@ -956,7 +905,6 @@ app.get('/eventRegistrations/getParticipants/:eventId', async (req, res) => {
                 }
             }
         })
-
     } catch (e) {
         res.status(400).json('BAD REQUEST')
     }
@@ -1012,7 +960,7 @@ app.post('/broadcast', async (req, res) => {
 
 app.post('/getterForBroadcast', async (req, res) => {
     try {
-        //getting the broadcasts from the db. Using the email to connect to the user.
+        // getting the broadcasts from the db. Using the email to connect to the user.
         const username: any = req.body.Username;
         const broadcast: IBroadcast[] = await Broadcast.find({emailUsername: username}, {_id: 0,__v:0});
         await Broadcast.deleteMany({emailUsername: username});
@@ -1055,7 +1003,6 @@ app.put('/eventRegistrations/updateParticipant/:eventRegId', async (req, res) =>
         res.status(400).json('BAD REQUEST')
     }
 });
-
 app.post('/locationRegistrations/', async (req, res) => {
     // Checking if authorized
 
@@ -1078,12 +1025,8 @@ app.post('/locationRegistrations/', async (req, res) => {
             locationRegistration.regId = lastRegistration.regId + one;
         else
             locationRegistration.regId = 1;
-
         await locationRegistration.save();
-
         return res.status(201).json(locationRegistration);
-
-
     } catch (e) {
         res.status(400).json('BAD REQUEST')
     }

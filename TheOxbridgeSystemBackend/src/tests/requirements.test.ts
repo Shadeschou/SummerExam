@@ -58,10 +58,4 @@ describe("Broadcast feature", () => {
     });
 });
 
-    it("should run with ID given", async () => {
-        const result = await request(api).delete("/eventregistrations/1");
-        expect(result.body).toEqual({message: 'Registration Deleted'});
-        expect(result.status).toEqual(202);
-    });
-});
 
