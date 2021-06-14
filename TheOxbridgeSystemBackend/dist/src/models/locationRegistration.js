@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LocationRegistrationModel = void 0;
-const mongoose_1 = require("mongoose");
-const ILocationRegistration = new mongoose_1.Schema({
+var mongoose_1 = require("mongoose");
+var ILocationRegistration = new mongoose_1.Schema({
     regId: { type: Number },
     eventRegId: { type: Number },
     locationTime: { type: Date },

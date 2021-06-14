@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventRegistrationModel = void 0;
-const mongoose_1 = require("mongoose");
-const EventRegistrationSchema = new mongoose_1.Schema({
+var mongoose_1 = require("mongoose");
+var EventRegistrationSchema = new mongoose_1.Schema({
     eventRegId: { type: Number },
     shipId: { type: Number },
     eventId: { type: Number },
@@ -14,6 +14,6 @@ const EventRegistrationSchema = new mongoose_1.Schema({
         default: false
     }
 });
-const EventRegistrationModel = mongoose_1.model('EventRegistration', EventRegistrationSchema);
+var EventRegistrationModel = mongoose_1.model('EventRegistration', EventRegistrationSchema);
 exports.EventRegistrationModel = EventRegistrationModel;
 //# sourceMappingURL=eventRegistration.js.map

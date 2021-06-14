@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RacePointModel = void 0;
-const mongoose_1 = require("mongoose");
-const RacePointSchema = new mongoose_1.Schema({
+var mongoose_1 = require("mongoose");
+var RacePointSchema = new mongoose_1.Schema({
     racePointId: { type: Number },
     type: { type: String },
     firstsecondeventId: { type: Number },

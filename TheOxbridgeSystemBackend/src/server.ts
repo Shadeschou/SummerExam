@@ -18,7 +18,10 @@ import bodyParser from "body-parser";
 import nodemailer from "nodemailer";
 import date from "date-and-time";
 import * as crypto from "crypto";
+import {timerForTheReminder} from "./controllers/checkEvents";
+timerForTheReminder();
 import { Broadcast } from "./models/broadcast";
+
 
 
 dotenv.config({path: 'configs/config.env'});
@@ -27,58 +30,11 @@ app.use(cookieParser(process.env.TOKEN_SECRET));
 app.use(cors());
 const router = express.Router();
 
-const timerForTheReminder = async (): Promise<any> => {
-    const now = new Date();
-    const currentTime = date.format(now, "YYYY/MM/DD HH");
-    console.log(currentTime);
-    const events: IEvent[] = await EventModel.find({});
 
-    await events.forEach(async (event: IEvent) => {
-        const reminderDate = date.addDays(event.eventStart, -3);
-        const minusHours = date.addHours(reminderDate, -2);
-        const eventDate = date.format(minusHours, "YYYY/MM/DD HH");
-
-        console.log(eventDate);
-        if (eventDate === currentTime) {
-            const eventRegistrations: IEventRegistration[] = await EventRegistrationModel.find({eventId: event.eventId});
-            eventRegistrations.forEach(async (eventRegistration: IEventRegistration) => {
-                const ship: IShip = await ShipModel.findOne({shipId: eventRegistration.shipId});
-                // Transporter object using SMTP transport
-                if (eventRegistration.mailRecieved === false) {
-                    const transporter = nodemailer.createTransport({
-                        host: "smtp.office365.com",
-                        port: 587,
-                        secure: false,
-                        auth: {
-                            user: process.env.EMAIL,
-                            pass: process.env.PSW,
-                        },
-                    });
-                    console.log("Before Send");
-                    // sending mail with defined transport object
-                    const info = await transporter.sendMail({
-                        from: '"Treggata" <aljo0025@easv365.dk>',
-                        to: ship.emailUsername,
-                        subject: "Event Reminder: Your event is due in 3 days.",
-                        text: "You shall be on the following event in 3 days: " + event.name + "." + "Make sure to be there on time :)", // text body
-                        // html: "<p> some html </p>" // html in the body
-                    });
-                    eventRegistration.mailRecieved = true;
-                    eventRegistration.save();
-                    console.log("After Send");
-                }
-            });
-        }
-    });
-    return Promise;
-}
-const twentyfourHoursInMS: number = 86400000;
-const oneMinuteinMSForThePresentation: number = 60000;
-setInterval(timerForTheReminder, oneMinuteinMSForThePresentation);
 const urlencode = bodyParser.urlencoded({extended: true});
 app.use(express.static('public'));
-// @ts-ignore
 app.use(bodyParser.json());
+
 
 connect(process.env.DB, {
     useNewUrlParser: true,
@@ -103,6 +59,11 @@ app.get('/events', async (req, res) => {
         res.status(400).send('BAD REQUEST')
     }
 });
+
+/*
+starting the scheduler - To check if the events are due in 3 days
+ */
+
 // POST EVENT
 app.post('/events', async (req: express.Request, res: express.Response) => {
     try {
@@ -306,7 +267,7 @@ app.post('/ships', async (req, res) => {
 
         // Finding next shipId
         const one: any = 1;
-        const lastShip: IShip = await ShipModel.findOne({}, {_id: 0, __v: 0});
+        const lastShip: IShip = await ShipModel.findOne({}, {_id: 0, __v: 0}, { sort: { shipId: -1 } });
         if (lastShip)
             ship.shipId = lastShip.shipId + one;
         else
@@ -526,7 +487,6 @@ app.get('/users/:userName', async (req, res) => {
         const user: IUser = await UserModel.findOne({emailUsername: req.params.emailUsername}, {_id: 0, __v: 0});
         if (!user)
             return res.status(404).send({message: "User not found with userName " + req.params.emailUsername});
-
         res.status(200).send(user);
 
     } catch (e) {
@@ -809,8 +769,8 @@ app.post('/eventRegistrations/signUp', async (req, res) => {
     //     return res.status(400).send({auth: false, message: 'Not Authorized'});
     // }
     try {
-        const token: any = req.header('x-access-token');
-        const user: any = AccessToken.getUser(token);
+        // const token: any = req.header('x-access-token');
+        // const user: any = AccessToken.getUser(token);
 
         // Checks that the eventCode is correct
         const event: IEvent = await EventModel.findOne({eventCode: req.body.eventCode}, {_id: 0, __v: 0});
@@ -836,7 +796,6 @@ app.post('/eventRegistrations/signUp', async (req, res) => {
                 if (regDone === null) {
                     return res.status(500).send({message: "creation failed"});
                 }
-                console.log("Before Ship init - Transporter")
                 const foundShip: IShip = await ShipModel.findOne({shipId: req.body.shipId});
                 // Transporter object using SMTP transport
                 const transporter = nodemailer.createTransport({
@@ -848,20 +807,15 @@ app.post('/eventRegistrations/signUp', async (req, res) => {
                         pass: process.env.PSW,
                     },
                 });
-                console.log("Before Send");
-
-
                 // sending mail with defined transport object
                 const info = await transporter.sendMail({
                     from: '"Treggata" <aljo0025@easv365.dk>', // sender address
-                    to: user.id, //
+                    to: foundShip.emailUsername, //
                     subject: "Event Participation Confirmation", // subject line
-                    text: "your team - " + req.body.teamName + ", is now listed in the event " + event.name + ", with the boat " + foundShip.name + ".", // text body
-                    // html: "<p> some html </p>" // html in the body
+                    text: "your team - " + req.body.teamName + ", is now listed in the event " + event.name + ", with the boat " + foundShip.name + ".",
                 });
-                console.log("After Send")
 
-                return res.status(201).json(regDone);
+                return res.status(201).json({message: "success"});
 
             }
         }
@@ -882,7 +836,7 @@ app.delete('/eventRegistrations/:eventRegId', async (req, res) => {
         const eventRegistration: IEventRegistration = await EventRegistrationModel.findOneAndDelete({eventRegId: evRegId});
         if (!eventRegistration)
             return res.status(404).send({message: "EventRegistration not found with eventRegId " + req.params.eventRegId});
-        res.status(202).json(eventRegistration);
+        res.status(202).json({message: 'Registration Deleted'});
 
 
     } catch (e) {

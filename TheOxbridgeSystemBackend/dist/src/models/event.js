@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventModel = void 0;
-const mongoose_1 = require("mongoose");
-const IEventSchema = new mongoose_1.Schema({
+var mongoose_1 = require("mongoose");
+var IEventSchema = new mongoose_1.Schema({
     eventId: { type: Number },
     name: { type: String },
     eventStart: { type: Date },
@@ -12,6 +12,6 @@ const IEventSchema = new mongoose_1.Schema({
     actualEventStart: { type: Date },
     isLive: { type: Boolean }
 });
-const EventModel = mongoose_1.model('Event', IEventSchema);
+var EventModel = mongoose_1.model('Event', IEventSchema);
 exports.EventModel = EventModel;
 //# sourceMappingURL=event.js.map

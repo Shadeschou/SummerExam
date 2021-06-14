@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ShipModel = void 0;
-const mongoose_1 = require("mongoose");
-const ShipModelSchema = new mongoose_1.Schema({
+var mongoose_1 = require("mongoose");
+var ShipModelSchema = new mongoose_1.Schema({
     shipId: { type: Number, required: false },
     emailUsername: { type: String, required: false },
     name: { type: String, required: false },
