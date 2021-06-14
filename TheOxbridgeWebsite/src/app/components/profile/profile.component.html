@@ -16,7 +16,7 @@
 
       <!-- Form for user information -->
       <form #updateUserForm="ngForm" (ngSubmit)="OnSubmit()" class="form">
-        <div class="row register-form">
+        <div class="row register-form ml-3">
           <div class="col-md-6">
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Fornavn" required
@@ -29,12 +29,14 @@
                   Fornavn må kun indeholde bogstaver
                 </div>
               </div>
-            </div>
           </div>
         </div>
+        <div class="col-md-6">
         <div class="form-group">
-          <input type="text" class="form-control ml-3" placeholder="Efternavn" required
+
+          <input type="text" class="form-control" placeholder="Efternavn" required
                  [(ngModel)]="user.lastname" #lastname="ngModel" name="lastname"/>
+
           <div *ngIf="lastname.invalid && lastname.touched">
             <div *ngIf="lastname.errors.required">
               Efternavn er nødvendig
@@ -44,6 +46,8 @@
             </div>
           </div>
         </div>
+      </div>
+      </div>
 
         <div class="row ml-5 mb-2">
           <div class="col-xsm">
