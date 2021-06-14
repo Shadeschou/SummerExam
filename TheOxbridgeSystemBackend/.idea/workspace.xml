@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="90054efb-37ca-4de3-a059-7213e2402164" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1ti0iIOqj2b8r72POKlvlDt2Sk6" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="full.screen.before.presentation.mode" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/node_modules/jest" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="ts.external.directory.path" value="E:\ExamMainTest\SummerExam\TheOxbridgeSystemBackend\node_modules\typescript\lib" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager" selected="Jest.It Deletes an eventRegistration.should run with ID given">
+    <configuration name="Finally able to test the post...." type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/src/tests/requirements.test.ts" />
+      <test-names>
+        <test-name value="Finally able to test the post...." />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Finally able to test the post.....Should insert another eventRegistration" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/tests/requirements.test.ts" />
+      <test-names>
+        <test-name value="Finally able to test the post...." />
+        <test-name value="Should insert another eventRegistration" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Finally able to test the post.....ship already registered" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/tests/requirements.test.ts" />
+      <test-names>
+        <test-name value="Finally able to test the post...." />
+        <test-name value="ship already registered" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="It Deletes an eventRegistration" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/src/tests/requirements.test.ts" />
+      <test-names>
+        <test-name value="It Deletes an eventRegistration" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="It Deletes an eventRegistration.should run with ID given" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/tests/requirements.test.ts" />
+      <test-names>
+        <test-name value="It Deletes an eventRegistration" />
+        <test-name value="should run with ID given" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Jest.It Deletes an eventRegistration.should run with ID given" />
+        <item itemvalue="Jest.Finally able to test the post.....Should insert another eventRegistration" />
+        <item itemvalue="Jest.Finally able to test the post.....ship already registered" />
+        <item itemvalue="Jest.Finally able to test the post...." />
+        <item itemvalue="Jest.It Deletes an eventRegistration" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="90054efb-37ca-4de3-a059-7213e2402164" name="Default Changelist" comment="" />
+      <created>1623236727526</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1623236727526</updated>
+      <workItem from="1623236728706" duration="602000" />
+      <workItem from="1623309583752" duration="1463000" />
+      <workItem from="1623319189787" duration="5626000" />
+      <workItem from="1623395047640" duration="623000" />
+      <workItem from="1623395688335" duration="3435000" />
+      <workItem from="1623399154719" duration="8696000" />
+      <workItem from="1623410272053" duration="340000" />
+      <workItem from="1623410628505" duration="632000" />
+      <workItem from="1623411315089" duration="6834000" />
+      <workItem from="1623654758520" duration="4457000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/TheOxbridgeSystemBackend$Mailing_the_enrolling_participant_.info" NAME="Mailing the enrolling participant  Coverage Results" MODIFIED="1623398766285" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>

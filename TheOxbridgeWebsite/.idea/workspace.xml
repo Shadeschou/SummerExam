@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b43db319-305f-493f-bb9a-3d7b00eca09c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/dist/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/dist/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/dist/src/models/user.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/dist/src/models/user.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/dist/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/dist/src/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/dist/src/server.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/dist/src/server.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/src/models/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/src/models/user.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/src/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../TheOxbridgeSystemBackend/src/server.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/forgot-password/forgot-password.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/forgot-password/forgot-password.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/profile/profile.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/profile/profile.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/profile/profile.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/profile/profile.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/services/forgot-password.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/forgot-password.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +28,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TheOxbridgeSystemBackend" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -63,6 +53,9 @@
       <updated>1623072226870</updated>
       <workItem from="1623072230054" duration="902000" />
       <workItem from="1623137725690" duration="4623000" />
+      <workItem from="1623236306010" duration="417000" />
+      <workItem from="1623239917969" duration="1284000" />
+      <workItem from="1623308662410" duration="903000" />
     </task>
     <servers />
   </component>
@@ -90,7 +83,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/app/components/profile/profile.component.html</url>
           <line>49</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
