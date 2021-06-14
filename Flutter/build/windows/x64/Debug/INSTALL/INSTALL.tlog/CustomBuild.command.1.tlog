@@ -1,0 +1,10 @@
+^C:\USERS\CAPPE\DESKTOP\OXBRIDGE\BUILD\WINDOWS\CMAKEFILES\ABEEB1EEF42D1188DC8403CD839CC8DA\INSTALL_FORCE.RULE
+setlocal
+cd .
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

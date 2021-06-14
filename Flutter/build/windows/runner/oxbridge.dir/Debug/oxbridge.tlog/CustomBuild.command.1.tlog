@@ -1,0 +1,10 @@
+^C:\USERS\CAPPE\DESKTOP\OXBRIDGE\WINDOWS\RUNNER\CMAKELISTS.TXT
+setlocal
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/cappe/Desktop/oxbridge/windows -BC:/Users/cappe/Desktop/oxbridge/build/windows --check-stamp-file C:/Users/cappe/Desktop/oxbridge/build/windows/runner/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

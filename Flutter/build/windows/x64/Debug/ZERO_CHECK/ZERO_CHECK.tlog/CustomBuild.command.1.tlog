@@ -1,0 +1,10 @@
+^C:\USERS\CAPPE\DESKTOP\OXBRIDGE\BUILD\WINDOWS\CMAKEFILES\ABEEB1EEF42D1188DC8403CD839CC8DA\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/cappe/Desktop/oxbridge/windows -BC:/Users/cappe/Desktop/oxbridge/build/windows --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/cappe/Desktop/oxbridge/build/windows/oxbridge.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

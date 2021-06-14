@@ -1,0 +1,2 @@
+C:\Users\cappe\Desktop\oxbridge\build\windows\flutter\Debug\flutter_wrapper_plugin.pdb
+C:\Users\cappe\Desktop\oxbridge\build\windows\flutter\flutter_wrapper_plugin.dir\Debug\flutter_wrapper_plugin.pdb

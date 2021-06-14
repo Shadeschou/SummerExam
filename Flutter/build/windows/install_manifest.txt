@@ -1,0 +1,13 @@
+C:/Users/cappe/Desktop/oxbridge/build/windows/runner/Debug/data/icudtl.dat
+C:/Users/cappe/Desktop/oxbridge/build/windows/runner/Debug/flutter_windows.dll
+C:/Users/cappe/Desktop/oxbridge/build/windows/runner/Debug/data/flutter_assets/AssetManifest.json
+C:/Users/cappe/Desktop/oxbridge/build/windows/runner/Debug/data/flutter_assets/FontManifest.json
+C:/Users/cappe/Desktop/oxbridge/build/windows/runner/Debug/data/flutter_assets/fonts/MaterialIcons-Regular.otf
+C:/Users/cappe/Desktop/oxbridge/build/windows/runner/Debug/data/flutter_assets/fonts/Oxygen-Bold.ttf
+C:/Users/cappe/Desktop/oxbridge/build/windows/runner/Debug/data/flutter_assets/fonts/Oxygen-Light.ttf
+C:/Users/cappe/Desktop/oxbridge/build/windows/runner/Debug/data/flutter_assets/fonts/Oxygen-Regular.ttf
+C:/Users/cappe/Desktop/oxbridge/build/windows/runner/Debug/data/flutter_assets/images/logoTrans.png
+C:/Users/cappe/Desktop/oxbridge/build/windows/runner/Debug/data/flutter_assets/images/oxbridge.jpg
+C:/Users/cappe/Desktop/oxbridge/build/windows/runner/Debug/data/flutter_assets/kernel_blob.bin
+C:/Users/cappe/Desktop/oxbridge/build/windows/runner/Debug/data/flutter_assets/NOTICES
+C:/Users/cappe/Desktop/oxbridge/build/windows/runner/Debug/data/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
