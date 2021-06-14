@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {CookieService} from 'ngx-cookie-service';
 import {MyEvents} from '../models/my-events';
+import {IBroadcast} from '../../../../TheOxbridgeSystemBackend/src/models/broadcast';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class BroadcastService {
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   public AddEvent(broadcast: Broadcast): Observable<Broadcast> {
+
     const user = JSON.parse(this.cookieService.get('user'));
     const httpOptions = {
       headers: new HttpHeaders({
@@ -23,6 +25,7 @@ export class BroadcastService {
       })
     };
 
+    // tslint:disable-next-line:no-shadowed-variable
     return this.http.post<Broadcast>(this.broadcastsUrl, broadcast, httpOptions).pipe(map(broadcast => broadcast));
   }
 
