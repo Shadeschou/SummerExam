@@ -19,11 +19,11 @@ import nodemailer from "nodemailer";
 import date from "date-and-time";
 import * as crypto from "crypto";
 import {timerForTheReminder} from "./controllers/checkEvents";
-timerForTheReminder();
 import {Broadcast, IBroadcast} from "./models/broadcast";
 import {BroadcastService} from "../../TheOxbridgeWebsite/src/app/services/broadcast.service";
+import { Broadcast } from "./models/broadcast";
 
-
+timerForTheReminder();
 
 dotenv.config({path: 'configs/config.env'});
 const app = express();
@@ -31,11 +31,9 @@ app.use(cookieParser(process.env.TOKEN_SECRET));
 app.use(cors());
 const router = express.Router();
 
-
 const urlencode = bodyParser.urlencoded({extended: true});
 app.use(express.static('public'));
 app.use(bodyParser.json());
-
 
 connect(process.env.DB, {
     useNewUrlParser: true,

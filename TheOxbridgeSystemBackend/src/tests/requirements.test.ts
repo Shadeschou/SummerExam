@@ -1,6 +1,5 @@
 import {app} from "../server";
 import request from "supertest";
-
 import {timerForTheReminder} from "../controllers/checkEvents";
 import {IBroadcast} from "../models/broadcast";
 
@@ -38,7 +37,8 @@ describe("Finally able to test the post....",  () => {
 })
 
 describe("Forgot Password", () => {
-    it("Should run with the Mail given ", async () => {
+
+  it("Should run with the Mail given ", async () => {
         const result = await request(api).post('/users/forgot/aljo0025@easv365.dk');
         expect(result.body).toEqual({message: 'new pw sent'});
         expect(result.status).toEqual(202);
@@ -57,3 +57,11 @@ describe("Broadcast feature", () => {
         expect(result.status).toEqual(200);
     });
 });
+
+    it("should run with ID given", async () => {
+        const result = await request(api).delete("/eventregistrations/1");
+        expect(result.body).toEqual({message: 'Registration Deleted'});
+        expect(result.status).toEqual(202);
+    });
+});
+
