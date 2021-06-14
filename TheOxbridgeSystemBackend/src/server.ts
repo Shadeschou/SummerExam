@@ -19,10 +19,11 @@ import nodemailer from "nodemailer";
 import date from "date-and-time";
 import * as crypto from "crypto";
 import {timerForTheReminder} from "./controllers/checkEvents";
-timerForTheReminder();
+import {Broadcast, IBroadcast} from "./models/broadcast";
+import {BroadcastService} from "../../TheOxbridgeWebsite/src/app/services/broadcast.service";
 import { Broadcast } from "./models/broadcast";
 
-
+timerForTheReminder();
 
 dotenv.config({path: 'configs/config.env'});
 const app = express();
@@ -30,11 +31,9 @@ app.use(cookieParser(process.env.TOKEN_SECRET));
 app.use(cors());
 const router = express.Router();
 
-
 const urlencode = bodyParser.urlencoded({extended: true});
 app.use(express.static('public'));
 app.use(bodyParser.json());
-
 
 connect(process.env.DB, {
     useNewUrlParser: true,
@@ -672,7 +671,7 @@ app.post('/users/forgot/:emailUsername', async (req, res) => {
         });
         console.info()
         console.log("After Send");
-        res.status(202).json(user);
+        res.status(202).json({message: "new pw sent"});
     } catch (e) {
         res.status(400).json('Sent random pw failed.')
     }
@@ -1004,6 +1003,22 @@ app.post('/broadcast', async (req, res) => {
         res.status(400).json('BAD REQUEST');
     }
 });
+
+app.post('/getterForBroadcast', async (req, res) => {
+    try {
+        //getting the broadcasts from the db. Using the email to connect to the user.
+        const username: any = req.body.Username;
+        const broadcast: IBroadcast[] = await Broadcast.find({emailUsername: username}, {_id: 0,__v:0});
+        await Broadcast.deleteMany({emailUsername: username});
+        res.status(200).json({message: 'Found the Broadcast - Deleting by email.'});
+
+    }
+catch(e){
+        res.status(400).json("BAD REQUEST")
+}
+    });
+
+
 
 app.put('/eventRegistrations/updateParticipant/:eventRegId', async (req, res) => {
     // Checking if authorized
