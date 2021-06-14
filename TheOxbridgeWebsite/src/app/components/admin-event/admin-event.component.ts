@@ -8,6 +8,9 @@ import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/
 import {formatDate} from '@angular/common';
 import {Participant} from 'src/app/models/participant';
 import {EventRegistrationService} from 'src/app/services/event-registration.service';
+import { BroadcastService } from 'src/app/services/broadcast.service';
+import { Broadcast } from 'src/app/models/broadcast.model';
+
 
 
 @Component({
@@ -24,14 +27,14 @@ export class AdminEventComponent implements OnInit {
   filter: FormControl;
   filter$: Observable<string>;
   filteredParticipants: Observable<Participant[]>;
-
+  messageToSend: Broadcast;
   eventForm: FormGroup;
   model: Participant;
 
   buttonText: string;
   hasRoute: Observable<boolean>;
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private eventService: EventService, private eventRegService: EventRegistrationService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private eventService: EventService, private eventRegService: EventRegistrationService, private router: Router, private broadcastService:BroadcastService,) {
   }
 
   ngOnInit(): void {
@@ -43,12 +46,13 @@ export class AdminEventComponent implements OnInit {
       eventEnd: ['', Validators.required],
       city: ['', Validators.required],
       startTime: ['', Validators.required],
-      endTime: ['', Validators.required]
+      endTime: ['', Validators.required],
+      broadcast: [''],
     });
 
     this.setEvent();
     this.setParticipants();
-
+    
     this.event.subscribe(event => {
       this.eventId = event.eventId;
       this.model = new Participant('', '', '', '', '', event.eventId, '');
@@ -186,12 +190,27 @@ export class AdminEventComponent implements OnInit {
     });
   }
 
+  sendBroadcast(){
+    const newMessage = new Broadcast();
+    newMessage.message = this.eventForm.controls.broadcast.value;
+    newMessage.eventId = this.eventId;
+    console.log('hallo');
+    console.log(this.eventId);
+    this.broadcastService.AddEvent(newMessage).subscribe(broadcast =>{
+     this.setEvent();
+    
+    }, error =>{
+      console.log(error.status)
+    });
+    
+    
+  }
+
   /**
    * Event handler for starting an event
    */
   startEvent() {
     this.eventService.startEvent(this.eventId).subscribe(event => {
-      this.setEvent();
     }, error => {
       console.log(error);
     });

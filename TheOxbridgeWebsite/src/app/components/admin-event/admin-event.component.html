@@ -37,6 +37,14 @@
                       type="submit">Gem
               </button>
             </div>
+
+           
+              <div class="row pl-3 pt-2">
+                <input type="text" formControlName="broadcast" >
+                <button (click)="sendBroadcast()" class="btn btn-info">Broadcast message</button>
+                
+              </div>
+      
           </div>
 
           <!-- Event buttons -->
@@ -53,6 +61,8 @@
       </form>
     </div>
 
+
+    
     <!-- List of participants -->
     <div class="container pb-4">
       <h4 class="pt-4">Deltagere</h4>

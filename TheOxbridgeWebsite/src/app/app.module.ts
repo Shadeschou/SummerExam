@@ -39,7 +39,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     AdminEventComponent,
     RutePlannerComponent,
     LiveEventComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +48,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     FormsModule,
     ReactiveFormsModule,
     ValidateEqualModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [AuthGuard, CookieService],
   bootstrap: [AppComponent]

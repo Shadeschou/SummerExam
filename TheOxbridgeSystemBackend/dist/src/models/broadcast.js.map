@@ -1,0 +1,1 @@
+{"version":3,"file":"broadcast.js","sourceRoot":"","sources":["../../../src/models/broadcast.ts"],"names":[],"mappings":";;;AAAA,uCAA0D;AAQ1D,MAAM,eAAe,GAAW,IAAI,iBAAM,CAAC;IACvC,OAAO,EAAE,EAAE,IAAI,EAAE,MAAM,EAAC;IACxB,OAAO,EAAE,EAAE,IAAI,EAAE,MAAM,EAAC;IACxB,aAAa,EAAE,EAAE,IAAI,EAAE,MAAM,EAAC;CACjC,CAAC,CAAC;AAEH,MAAM,SAAS,GAAsB,gBAAK,CAAC,WAAW,EAAE,eAAe,CAAC,CAAC;AAEhE,8BAAS"}
