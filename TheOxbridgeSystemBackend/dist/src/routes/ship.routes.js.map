@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "ship.routes.js",
+  "sourceRoot": "",
+  "sources": [
+    "../../../src/routes/ship.routes.ts"
+  ],
+  "names": [],
+  "mappings": "AAAA,aAAa;AACb,8BAA8B;AAC9B,kEAAkE;AAClE,EAAE;AACF,2BAA2B;AAC3B,wCAAwC;AACxC,EAAE;AACF,4BAA4B;AAC5B,wCAAwC;AACxC,EAAE;AACF,gCAAgC;AAChC,gDAAgD;AAChD,EAAE;AACF,6DAA6D;AAC7D,qEAAqE;AACrE,EAAE;AACF,iCAAiC;AACjC,iEAAiE;AACjE,EAAE;AACF,uBAAuB;AACvB,+CAA+C;AAC/C,EAAE;AACF,uBAAuB;AACvB,kDAAkD;AAClD,IAAI"
+}

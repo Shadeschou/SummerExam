@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "user.routes.js",
+  "sourceRoot": "",
+  "sources": [
+    "../../../src/routes/user.routes.ts"
+  ],
+  "names": [],
+  "mappings": "AAAA,aAAa;AACb,8BAA8B;AAC9B,kEAAkE;AAClE,EAAE;AACF,4BAA4B;AAC5B,wCAAwC;AACxC,EAAE;AACF,6DAA6D;AAC7D,kDAAkD;AAClD,EAAE;AACF,oDAAoD;AACpD,iDAAiD;AACjD,EAAE;AACF,oDAAoD;AACpD,oDAAoD;AACpD,EAAE;AACF,8BAA8B;AAC9B,6DAA6D;AAC7D,EAAE;AACF,6BAA6B;AAC7B,mDAAmD;AACnD,EAAE;AACF,eAAe;AACf,6CAA6C;AAC7C,IAAI"
+}
