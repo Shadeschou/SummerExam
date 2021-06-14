@@ -8,48 +8,100 @@
   </div>
 </div>
 
-<div id="main" class="row">
+<div class="row" id="main">
   <div class="col-lg-2"></div>
   <div class="pt-5 col-lg-6">
     <div id="profileInfo">
       <h4 class="ml-5 mb-4">Dine profiloplysninger</h4>
 
       <!-- Form for user information -->
-      <form class="form" #updateUserForm="ngForm" (ngSubmit)="OnSubmit()">
-        <div class="row ml-5 mb-2">
-          <div class="col-xsm">
-            <input type="text" class="form-control" placeholder="Fornavn" required
-                   [(ngModel)]="user.firstname" #firstname="ngModel" name="firstname">
-          </div>
-          <div>
-            <input type="text" class="form-control ml-3" placeholder="Efternavn" required
-                   [(ngModel)]="user.lastname" #lastname="ngModel" name="lastname">
+      <form #updateUserForm="ngForm" (ngSubmit)="OnSubmit()" class="form">
+        <div class="row register-form ml-3">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Fornavn" required
+                     [(ngModel)]="user.firstname" #firstname="ngModel" name="firstname" style="margin-inline: 7.5%"/>
+              <div *ngIf="firstname.invalid && firstname.touched">
+                <div *ngIf="firstname.errors.required">
+                  Fornavn er nødvendig
+                </div>
+                <div *ngIf="firstname.errors.pattern">
+                  Fornavn må kun indeholde bogstaver
+                </div>
+              </div>
           </div>
         </div>
+        <div class="col-md-6">
+        <div class="form-group">
+
+          <input type="text" class="form-control" placeholder="Efternavn" required
+                 [(ngModel)]="user.lastname" #lastname="ngModel" name="lastname"/>
+
+          <div *ngIf="lastname.invalid && lastname.touched">
+            <div *ngIf="lastname.errors.required">
+              Efternavn er nødvendig
+            </div>
+            <div *ngIf="lastname.errors.pattern">
+              Efternavn må kun indeholde bogstaver
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
         <div class="row ml-5 mb-2">
           <div class="col-xsm">
-            <input type="password" class="psw form-control" placeholder="Gamle adgangskode">
-          </div>
+            <input #pass="ngModel" [(ngModel)]="userModel.password" class="form-control" minlength="8"
+                   name="pass" pattern="^(?=.*[a-zA-ZÆØÅæøå])(?=.*\d)[a-zA-ZÆØÅæøå\d]*$" placeholder="Gamle Kode"
+                   required type="password" value=""/>
+
+            <div *ngIf="pass.invalid && pass.touched">
+              <div *ngIf="pass.errors.required">
+                Adgangskode er nødvendig
+              </div>
+              <div *ngIf="pass.errors.pattern">
+                Adgangskoden skal indeholde både tal og bogstaver
+              </div>
+              <div *ngIf="pass.errors.minlength">
+                Adgangskoden skal være mindst 8 karakterer lang
+              </div>
+            </div>
+            </div>
           <div>
-            <input type="password" class="psw form-control ml-3" placeholder="Ny adgangskode"
-                   [(ngModel)]="user.password" #password="ngModel" name="password">
+            <input #password="ngModel" [(ngModel)]="user.password" minlength="8" class="form-control"
+                   name="password" pattern="^(?=.*[a-zA-ZÆØÅæøå])(?=.*\d)[a-zA-ZÆØÅæøå\d]*$" placeholder="Ny Kode"
+                   required type="password" value="" style="margin-inline: 2%"/>
+
+            <div *ngIf="password.invalid && password.touched">
+              <div *ngIf="password.errors.required">
+                Adgangskode er nødvendig
+              </div>
+              <div *ngIf="password.errors.pattern">
+                Adgangskoden skal indeholde både tal og bogstaver
+              </div>
+              <div *ngIf="password.errors.minlength">
+                Adgangskoden skal være mindst 8 karakterer lang
+              </div>
+            </div>
           </div>
+
         </div>
         <div class="row ml-5">
           <div>
-            <input type="text" class="form-control" placeholder="Email" required
-                   [(ngModel)]="user.emailUsername" #emailUsername="ngModel" name="emailUsername">
+            <input #emailUsername="ngModel" [(ngModel)]="user.emailUsername" class="form-control" name="emailUsername"
+                   placeholder="Email" required type="text">
           </div>
           <div>
-            <button class="btn btn-outline-info ml-3" type="submit"
-                    [disabled]="!updateUserForm.form.valid">Gem ændringer</button>
+            <button [disabled]="!updateUserForm.form.valid" class="btn btn-outline-info ml-3"
+                    type="submit">Gem ændringer
+            </button>
           </div>
         </div>
       </form>
     </div>
 
     <!-- List of ships -->
-    <div class="container pt-4 ml-4" *ngFor="let ship of ships | async">
+    <div *ngFor="let ship of ships | async" class="container pt-4 ml-4">
       <div class="row p-1 pb-3">
         <div class="pt-2">
           <img id="ship" src="../../../assets/images/boatIcon.png">
@@ -58,7 +110,7 @@
           <h5 class="font-weight-normal">{{ship.name}}</h5>
         </div>
         <div class="col pt-3 pl-3">
-          <button class="btn" (click)="deleteShip(ship)">
+          <button (click)="deleteShip(ship)" class="btn">
             <i class="fa fa-times-circle"></i>
           </button>
         </div>
@@ -67,20 +119,21 @@
   </div>
 
   <!-- Right side menu -->
-  <div id="rightMenu" class="col">
+  <div class="col" id="rightMenu">
 
     <!-- Form for submitting new ship -->
-    <form id="addShip" class="p-3 pt-4 justify-content-center" #AddShipForm="ngForm" (ngSubmit)="OnShipSubmit()">
+    <form #AddShipForm="ngForm" (ngSubmit)="OnShipSubmit()" class="p-3 pt-4 justify-content-center" id="addShip">
       <div class="row justify-content-center pb-3">
         <h3 class="font-weight-normal">Tilføj båd her</h3>
       </div>
       <div class="row justify-content-center pb-2">
         <div class="col">
-          <input class="form-control mr-sm-2 form-control-sm" placeholder="Båd navn" required
-                 [(ngModel)]="model.name" #shipName="ngModel" name="shipName">
+          <input #shipName="ngModel" [(ngModel)]="model.name" class="form-control mr-sm-2 form-control-sm"
+                 name="shipName" placeholder="Båd navn" required>
         </div>
-        <button class="btn btn-info my-sm-0 btn-sm mr-3" type="submit"
-                [disabled]="!AddShipForm.form.valid">Tilføj båd</button>
+        <button [disabled]="!AddShipForm.form.valid" class="btn btn-info my-sm-0 btn-sm mr-3"
+                type="submit">Tilføj båd
+        </button>
       </div>
     </form>
   </div>
