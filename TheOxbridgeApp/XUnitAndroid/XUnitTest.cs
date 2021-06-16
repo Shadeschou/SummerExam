@@ -43,7 +43,7 @@ namespace XUnitAndroid
         /// Tests if a Location can be posted to the backend
         /// </summary>
         /// 
-        /*
+        
         [Fact]
         public void TestRegisterLocation()
         {
@@ -61,7 +61,7 @@ namespace XUnitAndroid
 
             Assert.True(isSucces);
         }
-        */
+        
 
 
         [Fact]

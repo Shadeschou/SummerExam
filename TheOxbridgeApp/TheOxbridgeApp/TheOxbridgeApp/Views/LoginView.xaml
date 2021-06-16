@@ -16,8 +16,7 @@
                 <Setter Property="VerticalOptions" Value="Center"/>
             </Style>
             <Style TargetType="Button" BasedOn="{StaticResource BaseStyle}">
-                <Setter Property="WidthRequest" Value="200"/>
-                <Setter Property="HeightRequest" Value="45"/>
+               
                 <Setter Property="FontSize" Value="20"/>
                 <Setter Property="TextColor" Value="WhiteSmoke"/>
                 <Setter Property="BackgroundColor" Value="#034593"/>
