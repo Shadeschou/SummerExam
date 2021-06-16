@@ -1,7 +1,4 @@
-﻿using System;
-using Xamarin.Forms.Maps;
-
-namespace TheOxbridgeApp
+﻿namespace TheOxbridgeApp
 {
     public class CustomPin : Pin
     {

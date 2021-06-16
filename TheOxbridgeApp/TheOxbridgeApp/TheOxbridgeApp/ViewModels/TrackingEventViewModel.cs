@@ -1,10 +1,4 @@
-﻿using Newtonsoft.Json;
-using Rg.Plugins.Popup.Services;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using TheOxbridgeApp.Data;
+﻿using TheOxbridgeApp.Data;
 using TheOxbridgeApp.Models;
 using TheOxbridgeApp.Services;
 using TheOxbridgeApp.Views.Popups;
@@ -188,14 +182,14 @@ namespace TheOxbridgeApp.ViewModels
                 if (selectedEvent.IsLive || selectedEvent.Status.ToLower().Equals("tracker") || ((selectedEvent.EventStart.Date == DateTime.Now.Date) && (selectedEvent.EventStart - DateTime.Now).Minutes < trackingTimeLimit))
                 {
                     TrackingEvent currentlyTrackingEvent = dataController.GetTrackingEvent().Result;
-                if ((currentlyTrackingEvent != null && selectedEvent.EventId == currentlyTrackingEvent.EventId) || !Preferences.Get("isTracking", false))
-                {
+                    if ((currentlyTrackingEvent != null && selectedEvent.EventId == currentlyTrackingEvent.EventId) || !Preferences.Get("isTracking", false))
+                    {
                         await PopupNavigation.PushAsync(new TrackingPopupView(this, selectedEvent));
-                }
-                else
-                {
-                    Application.Current.MainPage.DisplayAlert("Tracking", "Du kan kun track et event af gangen", "Ok");
-                }
+                    }
+                    else
+                    {
+                        Application.Current.MainPage.DisplayAlert("Tracking", "Du kan kun track et event af gangen", "Ok");
+                    }
                 }
                 else
                 {

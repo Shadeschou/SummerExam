@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using TheOxbridgeApp.Models;
+﻿using TheOxbridgeApp.Models;
 using TheOxbridgeApp.ViewModels;
 using Xamarin.Forms;
-using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
 namespace TheOxbridgeApp.Views

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace TheOxbridgeApp.CustomBehaviors
 {

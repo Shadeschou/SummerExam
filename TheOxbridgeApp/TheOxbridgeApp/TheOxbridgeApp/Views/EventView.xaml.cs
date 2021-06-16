@@ -1,5 +1,4 @@
-﻿using System;
-using TheOxbridgeApp.ViewModels;
+﻿using TheOxbridgeApp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

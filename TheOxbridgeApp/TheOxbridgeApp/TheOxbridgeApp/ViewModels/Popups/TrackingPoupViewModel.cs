@@ -1,8 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using TheOxbridgeApp.Models;
+﻿using TheOxbridgeApp.Models;
 using TheOxbridgeApp.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;

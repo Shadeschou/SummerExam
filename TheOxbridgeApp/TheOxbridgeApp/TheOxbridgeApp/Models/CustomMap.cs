@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Xamarin.Forms.Maps;
-
-namespace TheOxbridgeApp
+﻿namespace TheOxbridgeApp
 {
     public class CustomMap : Map
     {

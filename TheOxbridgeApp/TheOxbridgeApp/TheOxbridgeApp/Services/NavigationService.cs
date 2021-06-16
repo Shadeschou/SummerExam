@@ -1,8 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Reflection;
-using System.Threading.Tasks;
-using TheOxbridgeApp.ViewModels;
+﻿using TheOxbridgeApp.ViewModels;
 using TheOxbridgeApp.Views;
 using Xamarin.Forms;
 

@@ -1,15 +1,8 @@
-﻿using Rg.Plugins.Popup.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using TheOxbridgeApp.Models;
+﻿using TheOxbridgeApp.Models;
 using TheOxbridgeApp.Services;
 using TheOxbridgeApp.Views;
 using TheOxbridgeApp.Views.Popups;
 using Xamarin.Forms;
-using Xamarin.Forms.Maps;
 
 namespace TheOxbridgeApp.ViewModels
 {
@@ -319,7 +312,7 @@ namespace TheOxbridgeApp.ViewModels
                     if (sortedLocations.Count > 1)
                     {
                         sortedLocations.Sort((a, b) => (a.LocationsRegistrations.Last().RaceScore < b.LocationsRegistrations.Last().RaceScore ? 1 : -1));
-                            Console.WriteLine("Count = " + sortedLocations.Count);
+                        Console.WriteLine("Count = " + sortedLocations.Count);
 
                         for (int i = 0; i < sortedLocations.Count; i++)
                         {

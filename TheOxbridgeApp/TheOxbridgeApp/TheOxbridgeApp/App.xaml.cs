@@ -1,7 +1,4 @@
-﻿using Rg.Plugins.Popup.Services;
-using TheOxbridgeApp.Data;
-using TheOxbridgeApp.Models;
-using TheOxbridgeApp.Services;
+﻿using TheOxbridgeApp.Services;
 using TheOxbridgeApp.ViewModels;
 using TheOxbridgeApp.Views;
 using TheOxbridgeApp.Views.Popups;
@@ -15,7 +12,7 @@ namespace TheOxbridgeApp
         private INavigationService navigationService;
         private ISettingsService _settingsService;
         #endregion
-        
+
         /// <summary>
         /// Registers all ViewModels to the ServiceContainer and the MainPage is set
         /// </summary>

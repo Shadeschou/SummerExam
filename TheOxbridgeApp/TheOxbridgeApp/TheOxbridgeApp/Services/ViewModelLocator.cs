@@ -1,7 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Reflection;
-using TheOxbridgeApp.Services;
+﻿using TheOxbridgeApp.Services;
 using Xamarin.Forms;
 
 namespace TheOxbridgeApp.ViewModels

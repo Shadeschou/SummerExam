@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Threading.Tasks;
-using TheOxbridgeApp.Models;
+﻿using TheOxbridgeApp.Models;
 using Xamarin.Essentials;
 
 namespace TheOxbridgeApp.Data

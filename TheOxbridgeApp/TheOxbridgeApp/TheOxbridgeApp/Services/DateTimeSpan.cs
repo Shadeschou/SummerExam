@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TheOxbridgeApp.Services
+﻿namespace TheOxbridgeApp.Services
 {
     public struct DateTimeSpan
     {

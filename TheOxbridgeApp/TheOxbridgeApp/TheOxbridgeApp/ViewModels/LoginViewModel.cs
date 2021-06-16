@@ -1,7 +1,4 @@
-﻿using Rg.Plugins.Popup.Services;
-using System;
-using System.Windows.Input;
-using TheOxbridgeApp.Data;
+﻿using TheOxbridgeApp.Data;
 using TheOxbridgeApp.Models;
 using TheOxbridgeApp.Services;
 using TheOxbridgeApp.Views;

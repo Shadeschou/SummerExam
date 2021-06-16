@@ -1,8 +1,4 @@
-﻿using Rg.Plugins.Popup.Services;
-using System;
-using System.Collections.Generic;
-using System.Windows.Input;
-using TheOxbridgeApp.Models;
+﻿using TheOxbridgeApp.Models;
 using TheOxbridgeApp.Services;
 using Xamarin.Forms;
 
@@ -120,7 +116,8 @@ namespace TheOxbridgeApp.ViewModels.Popups
                     sharedData.HasSelectedDifferentEvent = true;
 
                 }
-            } else
+            }
+            else
             {
                 sharedData.HasSelectedDifferentEvent = true;
             }

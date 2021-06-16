@@ -1,9 +1,4 @@
-﻿using Rg.Plugins.Popup.Services;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using TheOxbridgeApp.Models;
+﻿using TheOxbridgeApp.Models;
 using TheOxbridgeApp.Services;
 using TheOxbridgeApp.Views.Popups;
 

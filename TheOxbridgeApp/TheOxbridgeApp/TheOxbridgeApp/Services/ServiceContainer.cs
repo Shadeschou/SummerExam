@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace TheOxbridgeApp.Services
+﻿namespace TheOxbridgeApp.Services
 {
     public static class ServiceContainer
     {

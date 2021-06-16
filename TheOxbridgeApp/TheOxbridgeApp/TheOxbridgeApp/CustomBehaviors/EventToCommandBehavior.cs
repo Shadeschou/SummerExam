@@ -1,7 +1,4 @@
-﻿using System;
-using System.Reflection;
-using System.Windows.Input;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace TheOxbridgeApp.CustomBehaviors
 {

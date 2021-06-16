@@ -1,6 +1,4 @@
-﻿using Rg.Plugins.Popup.Pages;
-using System.Threading.Tasks;
-using TheOxbridgeApp.Models;
+﻿using TheOxbridgeApp.Models;
 using TheOxbridgeApp.ViewModels;
 using TheOxbridgeApp.ViewModels.Popups;
 using Xamarin.Forms;

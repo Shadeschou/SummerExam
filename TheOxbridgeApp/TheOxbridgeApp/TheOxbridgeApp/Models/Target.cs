@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TheOxbridgeApp.Models
+﻿namespace TheOxbridgeApp.Models
 {
     public static class Target
     {

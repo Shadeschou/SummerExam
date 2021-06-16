@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-
-namespace TheOxbridgeApp.Models
+﻿namespace TheOxbridgeApp.Models
 {
     public class Location : ISerializable
     {

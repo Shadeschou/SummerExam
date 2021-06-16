@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using TheOxbridgeApp.Services;
+﻿using TheOxbridgeApp.Services;
 using Xamarin.Forms;
 
 namespace TheOxbridgeApp.ViewModels
