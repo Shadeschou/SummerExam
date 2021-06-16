@@ -111,7 +111,10 @@ namespace TheOxbridgeApp.Services
 
         }
 
-
+        /// <summary>
+        /// Gets all the participants registered to an event using an email username
+        /// </summary>
+        /// <returns></returns>
         public List<Event> GetEventsRegistration()
         {
             WebRequest request = WebRequest.Create(Target.EventsFromUsername);
@@ -125,7 +128,10 @@ namespace TheOxbridgeApp.Services
         }
 
 
-
+        /// <summary>
+        /// Returns all the events with particpant registrations
+        /// </summary>
+        /// <returns></returns>
         public List<Team> GetAllRegistration()
         {
             WebRequest request = WebRequest.Create(Target.GetAllEventReg);
@@ -137,7 +143,11 @@ namespace TheOxbridgeApp.Services
             return events;
 
         }
-
+        /// <summary>
+        /// This will put an image using a eventregID
+        /// </summary>
+        /// <param name="eventRegId"></param>
+        /// <returns></returns>
         public async Task PostPhoto(int eventRegId)
         {
             WebRequest request = WebRequest.Create(Target.PutImages + eventRegId);
@@ -148,7 +158,11 @@ namespace TheOxbridgeApp.Services
          
 
         }
-
+        /// <summary>
+        /// This will make a post to backend that creates a new password for the user
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public async Task ForgotPassword(string email)
         {
            
@@ -164,7 +178,11 @@ namespace TheOxbridgeApp.Services
 
 
         }
-
+        /// <summary>
+        /// This will make a message for the user with a specifik username
+        /// </summary>
+        /// <param name="emailUsername"></param>
+        /// <returns></returns>
         public List<Broadcast> GetMessagesFromEmailUsername(string emailUsername)
         {
             String jsonData = "{\"Username\": \"" + emailUsername + "\" }";
@@ -203,7 +221,11 @@ namespace TheOxbridgeApp.Services
             }
         }
 
-
+        /// <summary>
+        /// This returns an list from eventReg using an id from the specific eventId
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <returns></returns>
         public List<Team> GetTeams(int eventID)
         {
             WebRequest request = WebRequest.Create(Target.GetImages + eventID);
@@ -294,7 +316,12 @@ namespace TheOxbridgeApp.Services
             return ships;
         }
 
-
+        /// <summary>
+        /// This will Put the data using a serializable model class and a target url
+        /// </summary>
+        /// <param name="serializable"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
         public async Task<bool> PutData(ISerializable serializable, String target)
         {
             String statusCode = "";
@@ -328,7 +355,12 @@ namespace TheOxbridgeApp.Services
             }
         }
 
-
+        /// <summary>
+        /// A serializable post method for a email password reset
+        /// </summary>
+        /// <param name="serializable"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
         public async Task<bool> PutEmailReset(ISerializable serializable, String target)
         {
             String statusCode = "";

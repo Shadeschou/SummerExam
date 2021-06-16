@@ -3,6 +3,6 @@
   <PropertyGroup>
     <SelectedDevice>Samsung SM-A600FN</SelectedDevice>
     <AndroidDesignerPreferredDevice>Nexus 4</AndroidDesignerPreferredDevice>
-    <DefaultDevice>friday_week_2</DefaultDevice>
+    <DefaultDevice>unit_tester_3</DefaultDevice>
   </PropertyGroup>
 </Project>

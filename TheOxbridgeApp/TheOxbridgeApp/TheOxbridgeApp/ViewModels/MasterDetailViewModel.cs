@@ -115,6 +115,13 @@ namespace TheOxbridgeApp.ViewModels
                         ImagePath = "trackingBoatIcon.png",
                         TargetViewModel = typeof(TrackingEventViewModel)
                     });
+                MenuItems.Add(new MasterMenuItems()
+                {
+                    Text = "Team Pictures",
+                    ImagePath = "TeamIcon.png",
+                    TargetViewModel = typeof(TeamViewModel)
+                });
+             
 
                 }
                     IsLogOutVisible = true;
@@ -139,13 +146,6 @@ namespace TheOxbridgeApp.ViewModels
                 IsLogOutVisible = false;
                 */
 
-                MenuItems.Add(new MasterMenuItems()
-                {
-                    Text = "Team Pictures",
-                    ImagePath = "TeamIcon.png",
-                    TargetViewModel = typeof(TeamViewModel)
-                });
-                IsLogOutVisible = false;
 
 
 

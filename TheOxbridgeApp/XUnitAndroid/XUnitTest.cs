@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using TheOxbridgeApp.Data;
 using TheOxbridgeApp.Models;
 using TheOxbridgeApp.Services;
@@ -12,8 +15,12 @@ namespace XUnitAndroid
 
         #region -- Local variables --
         private ServerClient serverClient;
-
+        private const string target = "http://10.1.2.2:3000/";
+        string response;
         private DataController dataController;
+
+      
+       
 
         private const int testEventRegId = 2;
 
@@ -22,7 +29,7 @@ namespace XUnitAndroid
         private const double testLatitude = 54.928011;
 
         private const String username = "hans.hansen@gmail.com";
-
+        private const String resetPassword = "Jonas.pilbak@hotmail.com";
         private const String password = "hans1234";
         #endregion
 
@@ -35,6 +42,8 @@ namespace XUnitAndroid
         /// <summary>
         /// Tests if a Location can be posted to the backend
         /// </summary>
+        /// 
+        /*
         [Fact]
         public void TestRegisterLocation()
         {
@@ -51,6 +60,128 @@ namespace XUnitAndroid
             bool isSucces = serverClient.PostData(location, Target.Locations).Result;
 
             Assert.True(isSucces);
+        }
+        */
+
+
+        [Fact]
+        public void TestGetAllRegistration()
+        {
+
+            List<Team> eventReg = serverClient.GetAllRegistration();
+            Assert.NotNull(eventReg);
+        }
+
+        [Fact]
+        public void TestUnreachableRoute() 
+        {
+            Assert.Throws<WebException>(() =>
+            {
+                WebRequest request = WebRequest.Create(target);
+                request.Timeout = 10;
+                request.Method = "GET";
+                request.ContentType = "application/json";
+                response = GetResponse(request);
+            }
+                );
+
+        }
+
+        [Fact]
+        public void TestLocationRoutes() 
+        {
+
+           
+
+            WebRequest request = WebRequest.Create(Target.ForgotPassword + resetPassword);
+
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            
+            
+
+            String statusCode = GetStatusCode(request);
+
+          
+
+            Assert.Equal("Accepted", statusCode);
+
+        }
+        
+        [Fact]
+        public void TestBroadCast() 
+        {
+
+
+            String jsonData = "{\"Username\": \"" + "Jonas.pilbak@hotmail.com" + "\" }";
+
+            WebRequest request = WebRequest.Create(Target.MessageFromEmailUsername);
+            request.Method = "POST";
+            request.ContentType = "application/json";
+
+            List<Broadcast> Message = new List<Broadcast>();
+            try
+            {
+                using (Stream requestStream = request.GetRequestStream())
+                {
+                    using (StreamWriter streamWriter = new StreamWriter(requestStream))
+                    {
+                        streamWriter.Write(jsonData);
+                    }
+                }
+
+                try
+                {
+
+                    String statusCode = GetStatusCode(request);
+
+                    String responseFromServer = GetResponse(request);
+                    Message = JsonConvert.DeserializeObject<List<Broadcast>>(responseFromServer);
+
+                    Assert.NotNull(Message);
+
+                    Assert.Equal("Accepted", statusCode);
+
+                }
+                catch (WebException e)
+                {
+                    Console.WriteLine(e);
+                }
+               
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Message = null;
+              
+            }
+
+
+        }
+
+        private String GetStatusCode(WebRequest request)
+        {
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            {
+                return response.StatusCode.ToString();
+            }
+        }
+
+        private String GetResponse(WebRequest request)
+        {
+            String responseFromServer = "";
+
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            {
+                using (Stream responseStream = response.GetResponseStream())
+                {
+                    using (StreamReader reader = new StreamReader(responseStream))
+
+                        responseFromServer = reader.ReadToEnd();
+                }
+
+                return responseFromServer;
+            }
         }
 
         /// <summary>

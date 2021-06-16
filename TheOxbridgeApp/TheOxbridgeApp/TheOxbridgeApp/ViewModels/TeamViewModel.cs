@@ -20,7 +20,7 @@ namespace TheOxbridgeApp.ViewModels
     public class TeamViewModel : BaseViewModel
     {
 
-        public Team selectedTeamObject = new Team();
+      
 
 
         private Team selectedTeam;
@@ -40,27 +40,6 @@ namespace TheOxbridgeApp.ViewModels
 
         public SingletonSharedData sharedData;
 
-        public int ShipIDTemp { get; set; }
-
-        public int EventIDTemp { get; set; }
-
-        public String TeamNameTemp { get; set; }
-
-        public String TrackColorTemp { get; set; }
-
-        public Image imageTest;
-
-        public String CurrentShip { get; set; }
-
-        public string ViewModelEmailUserName { get; set; }
-
-
-        // public Event ships = new Event();
-
-        //public ObservableCollection<Event> Events;
-
-        public List<TrackingEvent> listOfTrackingEvents;
-
 
         public int CurrentRegId { get; set; }
 
@@ -75,10 +54,10 @@ namespace TheOxbridgeApp.ViewModels
         public Event ChosenEvent { get; set; }
 
 
+        public String CurrentUserLoggedIn { get; set; } = "No user logged in";
 
-        public List<Event> ListOfEvents;
 
-        public List<Ship> ListOfShips;
+      
 
 
 
@@ -97,16 +76,10 @@ namespace TheOxbridgeApp.ViewModels
         
 
 
-        private ObservableCollection<TeamPhotoData> teamPhotData;
-        public ObservableCollection<TeamPhotoData> TeamPhotoData
-        {
-            get { return teamPhotData; }
-            set
-            {
-                teamPhotData = value;
-            }
-        }
-
+        
+        /// <summary>
+        /// This will start the camera and make the user able to take a picture and save as team image
+        /// </summary>
         public async void TakeCameraPhoto()
         {
 
@@ -139,7 +112,7 @@ namespace TheOxbridgeApp.ViewModels
            chosenEvent = currentEvent;
         }
         /// <summary>
-        /// This is where the photo will be picked and then forwarded into the moethod called LoadPhoto in order to meake a new FIle with the path inside the cache 
+        /// This is where the photo will be picked and then forwarded into the method called LoadPhoto in order to make a new File with the path inside the cache 
         /// </summary>
         public async void TakePhotoAsync()
         {
@@ -168,6 +141,7 @@ namespace TheOxbridgeApp.ViewModels
         }
         /// <summary>
         /// This is where the photo is loaded from the Cache from the mobile and save the file and have the photoPath containing the filePath for the picture
+        /// And it also contains the put method that will send the selected image to the backend
         /// </summary>
         /// <param name="photo"></param>
         /// <returns></returns>
@@ -188,10 +162,10 @@ namespace TheOxbridgeApp.ViewModels
            
 
 
-            Console.WriteLine(newStream.ToString());
+         
            
 
-            //Teams newTeam = new Teams();
+         
            
             PhotoPath = newFile;
 
@@ -199,26 +173,42 @@ namespace TheOxbridgeApp.ViewModels
 
             Team addPictureTeam = new Team();
 
-            Team newTeam = new Team();
+
+
+        
+
+
+            User user = new User();
+
 
             
+           List<Team> teamList = new List<Team>();
+
+            user = await datacontroller.GetUser();
+
+                CurrentUserLoggedIn = user.EmailUsername;
+            teamList = serverClient.GetAllRegistration();
+           
+
+           
+
+            foreach (var item in from item in teamList where item.emailUsername == user.EmailUsername && CurrentRegId == item.EventRegId select new {item.EventRegId, item.emailUsername })
+            {
+               
+            }
 
 
-            
+            addPictureTeam = new Team { teamImage = PhotoPath, emailUsername = user.EmailUsername };
+            serverClient.PutData(addPictureTeam, Target.PutImages + CurrentRegId);
 
-            newTeam.TeamImageSourcePicture = PhotoPath;
-            Console.WriteLine("This is the photoPath " +newTeam.ImageSourceContainer);
+            teamList = serverClient.GetAllRegistration();
 
-          
+           
 
-            
-          // newTeam.ImageByte = Encoding.ASCII.GetBytes(PhotoPath);
+            TeamObservable = new ObservableCollection<Team>(teamList);
 
-            var result = newTeam.ImageByte;
 
-          
 
-            
 
             // Stream stream = new MemoryStream(test);
 
@@ -233,32 +223,6 @@ namespace TheOxbridgeApp.ViewModels
 
             //var path = "/data/user/0/com.companyname.theoxbridgeapp/cache/20210603_200355.jpg";
             //File.WriteAllBytes(path,newTeam.ImageByte);
-
-            User user = new User();
-
-
-            
-           List<Team> teamList = new List<Team>();
-
-            user = await datacontroller.GetUser();
-
-            Team team = new Team();
-            teamList = serverClient.GetAllRegistration();
-            teamObservable = new ObservableCollection<Team>(teamList);
-
-            foreach (var item in from item in teamList where item.emailUsername == user.EmailUsername && CurrentRegId == item.EventRegId select new {item.EventRegId, item.emailUsername })
-            {
-                foreach (var items in teamList)
-                {
-                    team.teamImage = items.teamImage;
-                }
-            }
-
-
-            addPictureTeam = new Team { teamImage = PhotoPath, emailUsername = user.EmailUsername };
-            serverClient.PutData(addPictureTeam, Target.PutImages + CurrentRegId);
-
-            teamList = serverClient.GetAllRegistration();
 
             //newTeam.ImageByte = Convert.FromBase64String(PhotoPath);
 
@@ -276,8 +240,6 @@ namespace TheOxbridgeApp.ViewModels
             // Encoding.UTF8.GetString(item.teamImage);
 
             //   }
-
-            TeamObservable = new ObservableCollection<Team>(teamList);
 
 
 
@@ -304,12 +266,10 @@ namespace TheOxbridgeApp.ViewModels
             /*
             var teams = new Teams
             {
-
                 TeamID = 1,
                 Name = "Test",
                 TeamFilePicker = PhotoPath,
                 TeamImageBytes = result,
-
                 
             };
             */
@@ -317,57 +277,68 @@ namespace TheOxbridgeApp.ViewModels
             //Events.Add(ships);
             // TeamsList.Add(teams);
 
-            // service.Create(teams);
+
+
         }
+
+
 
         /*
-        private ImageSource convertBasic64String(string basic64) 
-        {
+      private ImageSource convertBasic64String(string basic64) 
+      {
+          var imageBytes = System.Convert.FromBase64String(basic64);
+          // Return a new ImageSource
+          return ImageSource.FromStream(() => { return new MemoryStream(imageBytes); });
 
-            var imageBytes = System.Convert.FromBase64String(basic64);
 
-            // Return a new ImageSource
-            return ImageSource.FromStream(() => { return new MemoryStream(imageBytes); });
-        
+      }
+      */
 
-               
-        }
-        */
 
-      
+        /// <summary>
+        /// This will fetch the list of event reg participants and load it when the constructor is initialized
+        /// </summary>
         public async void setupList() 
         {
+
             User user = new User();
-            Team newTeam = new Team();
             List<Team> teamList = new List<Team>();
-            
+
+
+            user = await datacontroller.GetUser();
+
+            CurrentUserLoggedIn = user.EmailUsername;
+
             teamList = serverClient.GetAllRegistration();
 
 
 
 
-            
-
-
-
 
             /*
-            foreach (var item in teamList)
-            {
-                item.TeamImageSourcePicture = convertBasic64String(item.teamImage);
-            }
-          */
+        foreach (var item in teamList)
+        {
+            item.TeamImageSourcePicture = convertBasic64String(item.teamImage);
+        }
+      */
 
 
-              //selectedTeam = (from Team in teamList where Team.emailUsername == user.EmailUsername select Team).FirstOrDefault();
+            //selectedTeam = (from Team in teamList where Team.emailUsername == user.EmailUsername select Team).FirstOrDefault();
 
-            teamObservable = new ObservableCollection<Team>(teamList);
+
+
+
+
+
+
+
+            TeamObservable = new ObservableCollection<Team>(teamList);
 
 
            
 
         }
-
+        /*
        public async void tryEncodeSetup() 
         {
 
@@ -390,13 +361,15 @@ namespace TheOxbridgeApp.ViewModels
         
         }
 
+        */
         public ICommand TakeCameraPhotoCMD { get; set; }
 
         public ICommand AddToDB { get; set; }
 
      public ICommand fetchListCMD { get; set; }
-       
-        public async void addImageString() 
+
+        /*
+        public async void addImageString()
         {
 
 
@@ -406,27 +379,28 @@ namespace TheOxbridgeApp.ViewModels
 
             serverClient.PutData(SelectedTeam, Target.PutImages + selectedTeam.EventRegId);
 
-            Console.WriteLine("This is the image console" +selectedTeam.EventRegId+ Target.PutImages);
+            Console.WriteLine("This is the image console" + selectedTeam.EventRegId + Target.PutImages);
         }
-       
 
-
+        */
         public TeamViewModel()
         {
             TakeCameraPhotoCMD = new Command(TakeCameraPhoto);
             datacontroller = new DataController();
             fetchListCMD = new Command(setupList);
             sharedData = SingletonSharedData.GetInstance();
+            serverClient = new ServerClient();
+
+          
 
             SelectedEvent = sharedData.SelectedEvent;
 
             TeamObservable = new ObservableCollection<Team>();
 
-            serverClient = new ServerClient();
 
             AddToDB = new Command(TakePhotoAsync);
 
-            Console.WriteLine("This is the Constructor");
+          
            setupList();
 
            //addImageString();

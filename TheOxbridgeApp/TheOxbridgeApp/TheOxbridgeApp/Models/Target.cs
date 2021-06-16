@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Net;
 
 namespace TheOxbridgeApp.Models
 {
     public static class Target
     {
-        private const String azure = "http://192.168.87.121:3000/";
+        //private const String azure = "http://10.0.2.2:3000/";
+
+
+        private const String azure = "http://192.168.87.139:3000/";
 
         private const String StandardAdress = azure;
 
@@ -15,7 +19,7 @@ namespace TheOxbridgeApp.Models
         public const String GetImages = StandardAdress + "eventRegistrations/getParticipants/";
 
 
-        public const String MessageFromEmailUsername = StandardAdress + "broadcastget/";
+        public const String MessageFromEmailUsername = StandardAdress + "getterForBroadcast/";
         public const String ForgotPassword = StandardAdress + "users/forgot/";
 
         public const String PutImages = StandardAdress + "eventRegistrations/updateParticipant/";
@@ -28,5 +32,9 @@ namespace TheOxbridgeApp.Models
         public const String ReplayLocations = StandardAdress + "locationRegistrations/getReplay/";
         public const String Ships = StandardAdress + "ships/";
         public const String ShipFromEventId = StandardAdress + "ships/fromEventId/";
+
+       
     }
+   
+
 }
