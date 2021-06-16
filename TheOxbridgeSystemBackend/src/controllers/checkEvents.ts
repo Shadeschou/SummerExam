@@ -4,6 +4,12 @@ import {EventRegistrationModel, IEventRegistration} from "../models/eventRegistr
 import {IShip, ShipModel} from "../models/ship";
 import nodemailer from "nodemailer";
 
+/**
+ * Helper method to not blow the server class harder.
+ * Called once in the start and running in the background to check once every day,
+ * if a notification should be sent to the participant.
+ * @param boolean - true if 3 days before event.
+ */
 export const timerForTheReminder = async (): Promise<any> => {
     try {
         const now = new Date();
@@ -48,4 +54,4 @@ export const timerForTheReminder = async (): Promise<any> => {
 }
 const twentyfourHoursInMS: number = 86400000;
 const oneMinuteinMSForThePresentation: number = 30000;
-setInterval(timerForTheReminder, oneMinuteinMSForThePresentation);
+setInterval(timerForTheReminder, twentyfourHoursInMS);

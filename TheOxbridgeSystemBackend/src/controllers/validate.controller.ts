@@ -6,7 +6,15 @@ import {ILocationRegistration, LocationRegistrationModel} from '../models/locati
 import {IRacePoint, RacePointModel} from '../models/racePoint'
 
 
+/**
+ * Validating the different parts of the program
+ */
 export class Validate {
+
+    /**
+     * Autom increments the eventRegistration and works both as validator and saver to the DB
+     * @param
+     */
     static async createRegistration(newRegistration: IEventRegistration, res: express.Response): Promise<IEventRegistration> {
 
         const lastEventRegistration: IEventRegistration = await EventRegistrationModel.findOne({}, {},{sort:{regId: -1}});
@@ -20,6 +28,11 @@ export class Validate {
         return newRegistration;
     }
 
+
+    /**
+     * Helper method to create the different checkpoint
+     * @param result The distance between two points.
+     */
     static FindDistance(registration: any, racePoint: any): any {
         const checkPoint1 = {
             longtitude: Number,
@@ -46,6 +59,12 @@ export class Validate {
         return result
     }
 
+    /**
+     * Helper method for the FindDistance() function
+     * Calculates the distance based on meters.
+     * @param d is the distance.
+     */
+
     static CalculateDistance(checkPoint1: { longtitude: any; latitude: any; }, checkPoint2: { longtitude: any; latitude: any; }): number {
         const R = 6371e3; // metres
         const φ1 = checkPoint1.latitude * Math.PI / 180; // φ, λ in radians
@@ -64,9 +83,11 @@ export class Validate {
         return d;
     }
 
+    /**
+     * Checking if eventReg exists
+     * @param
+     */
     static async validateLocationForeignKeys(registration: ILocationRegistration, res: express.Response): Promise<boolean> {
-
-        // Checking if eventReg exists
         const eventReg: IEventRegistration = await EventRegistrationModel.findOne({eventRegId: registration.eventRegId});
         if (!eventReg) {
             return false;
@@ -75,13 +96,16 @@ export class Validate {
 
     }
 
+
+    /**
+     *Checks which racepoint the ship has reached last
+     * @param updatedRegistration the registration with racePoints - Score & Finsih Time.
+     */
     static async CheckRacePoint(registration: ILocationRegistration, res: express.Response): Promise<any> {
         const eventRegistration: IEventRegistration = await EventRegistrationModel.findOne({eventRegId: registration.eventRegId}, {
             _id: 0,
             __v: 0
         });
-
-        // Checks which racepoint the ship has reached last
         let nextRacePointNumber = 2;
         const one: any = 1;
         const locationRegistration: ILocationRegistration = await LocationRegistrationModel.findOne({eventRegId: registration.eventRegId}, {
