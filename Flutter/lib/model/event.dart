@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:flutter/foundation.dart';
 
-
+//Model for events and mapping for converting From Json
 class Event {
   final num eventId;
   final String name;

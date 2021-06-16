@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:json_annotation/json_annotation.dart';
-
-@JsonSerializable(fieldRename: FieldRename.snake)
+//model for user that handles To Json
 class User {
   String firstName;
   String lastName;

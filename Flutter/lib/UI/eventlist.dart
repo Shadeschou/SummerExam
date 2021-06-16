@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:oxbridge/model/event.dart';
 import 'package:oxbridge/Service/http_service.dart';
-
+//Stateless widget that makes a list with events using futures.
 class EventList extends StatelessWidget{
   
   final HttpService httpService = HttpService();

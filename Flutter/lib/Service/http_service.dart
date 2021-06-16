@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:oxbridge/model/event.dart';
 
-
+//HTTP services that handles events.
 class HttpService {
   final String eventsURL = "http://10.0.2.2:3000/events";
 

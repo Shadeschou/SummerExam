@@ -28,7 +28,7 @@ class Home extends StatelessWidget {
     ));
   }
 }
-
+//Stateless widget that handles logo image
 class BackGroundImageTestWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class BackGroundImageTestWidget extends StatelessWidget {
     return image;
   }
 }
-
+//Button for signing up
 class SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -67,12 +67,12 @@ class SignUpButton extends StatelessWidget {
   }
 }
   
-
+//Stateful widget that handles signup
 class SignUpText extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _SignUpTextState();
 }
-
+//stare that handles sign up text
 class _SignUpTextState extends State<SignUpText> {
   var user = User();
   var _globalKey = GlobalKey<FormState>();
@@ -172,7 +172,7 @@ class _SignUpTextState extends State<SignUpText> {
     );
   }
 }
-
+//Stateless widget that page switch.
 class NextPageButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
