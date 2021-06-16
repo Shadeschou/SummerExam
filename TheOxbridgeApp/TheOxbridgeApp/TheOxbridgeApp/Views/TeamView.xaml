@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:baseViewModel="clr-namespace:TheOxbridgeApp.ViewModels;assembly=TheOxbridgeApp"
+             xmlns:customBehaviors="clr-namespace:TheOxbridgeApp.CustomBehaviors;assembly=TheOxbridgeApp"
+             baseViewModel:ViewModelLocator.AutoWireViewModel="true"
+             mc:Ignorable="d"
+             x:Class="TheOxbridgeApp.Views.TeamView"
+             >
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="View">
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+            <Style TargetType="Button" BasedOn="{StaticResource BaseStyle}">
+               
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="TextColor" Value="WhiteSmoke"/>
+                <Setter Property="BackgroundColor" Value="#034593"/>
+                <Setter Property="BorderRadius" Value="8"/>
+            </Style>
+            <Style TargetType="Entry" BasedOn="{StaticResource BaseStyle}">
+                <Setter Property="WidthRequest" Value="250"/>
+                <Setter Property="FontSize" Value="25"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="User"/>
+        <ToolbarItem Text="{Binding CurrentUserLoggedIn}"
+                 
+                 Order="Primary"
+                 Priority="0" />
+    </ContentPage.ToolbarItems>
+    <StackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+               
+                <ColumnDefinition Width="*"></ColumnDefinition>
+
+            </Grid.ColumnDefinitions>
+
+            <Button HorizontalOptions="Fill"  Grid.Column="0" Text="Pick a Photo"  HeightRequest="75" Command="{Binding AddToDB}"></Button>
+         
+            <Button HorizontalOptions="Fill"  HeightRequest="75" Grid.Column="1" Text="Take a Photo" Command="{Binding TakeCameraPhotoCMD}"></Button>
+
+        </Grid>
+
+
+        
+
+        <ListView SeparatorColor="Transparent"  ItemsSource="{Binding TeamObservable}"  HasUnevenRows="True">
+            <ListView.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                      
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Team name" HorizontalOptions="Fill"  Grid.Column="0" FontAttributes="Bold" Margin="1"/>
+                    <Label Text="Username" HorizontalOptions="Fill"  Grid.Column="1" FontAttributes="Bold" Margin="1"/>
+                    <Label Text="Team Image" HorizontalOptions="Fill"  Grid.Column="2" FontAttributes="Bold" Margin="1"/>
+                    
+                </Grid>
+            </ListView.Header>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                        
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="150"></RowDefinition>
+                            </Grid.RowDefinitions>
+                           
+                            <Label Text="{Binding TeamName}" Grid.Column="0"></Label>
+                            <Label Text="{Binding emailUsername}" Grid.Column="1"></Label>
+                            <Image Source="{Binding teamImage}" Grid.Column="2"></Image>
+                           
+                        </Grid>
+                              
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+    </StackLayout>
+</ContentPage>

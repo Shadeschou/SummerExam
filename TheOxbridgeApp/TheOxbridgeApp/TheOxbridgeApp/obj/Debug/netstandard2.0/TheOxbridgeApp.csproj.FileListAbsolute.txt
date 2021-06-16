@@ -1,0 +1,71 @@
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\bin\Debug\netstandard2.0\TheOxbridgeApp.deps.json
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\bin\Debug\netstandard2.0\TheOxbridgeApp.dll
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\bin\Debug\netstandard2.0\ref\TheOxbridgeApp.dll
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\bin\Debug\netstandard2.0\TheOxbridgeApp.pdb
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\CustomNavigationPage.xaml.g.cs
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\EventView.xaml.g.cs
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\LoginView.xaml.g.cs
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\MapView.xaml.g.cs
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\MasterDetail.xaml.g.cs
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\Popups\EventPopupView.xaml.g.cs
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\Popups\LoadingPopupView.xaml.g.cs
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\Popups\TrackingPopupView.xaml.g.cs
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\TrackingEventView.xaml.g.cs
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\TheOxbridgeApp.AssemblyInfoInputs.cache
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\TheOxbridgeApp.AssemblyInfo.cs
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\TheOxbridgeApp.csproj.CoreCompileInputs.cache
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\TheOxbridgeApp.dll
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\ref\TheOxbridgeApp.dll
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\TheOxbridgeApp.pdb
+C:\Users\Rasmu\source\repos\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\TheOxbridgeApp.csprojAssemblyReference.cache
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\bin\Debug\netstandard2.0\TheOxbridgeApp.deps.json
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\bin\Debug\netstandard2.0\TheOxbridgeApp.dll
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\bin\Debug\netstandard2.0\ref\TheOxbridgeApp.dll
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\bin\Debug\netstandard2.0\TheOxbridgeApp.pdb
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\CustomNavigationPage.xaml.g.cs
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\EventView.xaml.g.cs
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\LoginView.xaml.g.cs
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\MapView.xaml.g.cs
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\MasterDetail.xaml.g.cs
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\Popups\EventPopupView.xaml.g.cs
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\Popups\LoadingPopupView.xaml.g.cs
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\Popups\TrackingPopupView.xaml.g.cs
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\TrackingEventView.xaml.g.cs
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\TheOxbridgeApp.AssemblyInfoInputs.cache
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\TheOxbridgeApp.AssemblyInfo.cs
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\TheOxbridgeApp.csproj.CoreCompileInputs.cache
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\TheOxbridgeApp.dll
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\ref\TheOxbridgeApp.dll
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\TheOxbridgeApp.pdb
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\TeamView.xaml.g.cs
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\TheOxbridgeApp.csprojAssemblyReference.cache
+C:\Semester 4\Git project 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\EventListView.xaml.g.cs
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\TheOxbridgeApp.csprojAssemblyReference.cache
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\CustomNavigationPage.xaml.g.cs
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\EventListView.xaml.g.cs
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\EventView.xaml.g.cs
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\LoginView.xaml.g.cs
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\MapView.xaml.g.cs
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\MasterDetail.xaml.g.cs
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\Popups\EventPopupView.xaml.g.cs
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\Popups\LoadingPopupView.xaml.g.cs
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\Popups\TrackingPopupView.xaml.g.cs
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\TeamView.xaml.g.cs
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\TrackingEventView.xaml.g.cs
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\TheOxbridgeApp.AssemblyInfoInputs.cache
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\TheOxbridgeApp.AssemblyInfo.cs
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\TheOxbridgeApp.csproj.CoreCompileInputs.cache
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\TheOxbridgeApp.dll
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\ref\TheOxbridgeApp.dll
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\TheOxbridgeApp.pdb
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\bin\Debug\netstandard2.0\TheOxbridgeApp.deps.json
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\bin\Debug\netstandard2.0\TheOxbridgeApp.dll
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\bin\Debug\netstandard2.0\ref\TheOxbridgeApp.dll
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\bin\Debug\netstandard2.0\TheOxbridgeApp.pdb
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Users\jonas\source\repos\Exam 2021\TheOxbridgeApp\TheOxbridgeApp\TheOxbridgeApp\obj\Debug\netstandard2.0\Views\Popups\ResetPasswordView.xaml.g.cs
