@@ -26,6 +26,7 @@ export class ProfileComponent implements OnInit {
     this.userModel = new User();
   }
 
+
   ngOnInit(): void {
     this.setShips();
     this.user = JSON.parse(this.cookieService.get('user'));

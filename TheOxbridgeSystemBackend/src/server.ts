@@ -41,12 +41,14 @@ connect(process.env.DB, {
 // ROUTING
 // TO PROCESS THE NEXT REQUEST !!
 router.use((req, res, next) => {
-    console.log("recieved a request now, ready for the next");
     next();
 });
 
 app.use('/', router);
-// FINDALL
+/**
+ *Find all events
+ * @param json 201 - events
+ */
 app.get('/events', async (req, res) => {
     try {
         const events: IEvent[] = await EventModel.find({}, {_id: 0, __v: 0});
@@ -56,11 +58,11 @@ app.get('/events', async (req, res) => {
     }
 });
 
-/*
-starting the scheduler - To check if the events are due in 3 days
- */
 
-// POST EVENT
+/**
+ * Post the event with auto increment.
+ * @param 201 - with the event in json
+ */
 app.post('/events', async (req: express.Request, res: express.Response) => {
     try {
         const verify: boolean = await Auth.Authorize(req, res, "admin");
@@ -87,7 +89,10 @@ app.post('/events', async (req: express.Request, res: express.Response) => {
         res.status(400).send('BAD REQUEST')
     }
 });
-// FIND SINGLE EVENT
+/**
+ * find a single event
+ * @param
+ */
 app.get('/events/:eventId', async (req, res) => {
     try {
         const evId: any = req.params.eventId;
@@ -495,13 +500,13 @@ app.get('/users/:userName', async (req, res) => {
 app.put('/users/:userName', async (req, res) => {
     try {
         // Updating the user
-        console.log(req.body.password);
+
         const hashedPassword = await bcrypt.hashSync(req.body.password);
         const userLoginIn: any = req.params.userName;
 
 
         const user: IUser = await UserModel.findOne({emailUsername: userLoginIn});
-        console.log(req.body.firstname);
+
         // user.password = hashedPassword;
         user.role = user.role;
         // What Allie Did
@@ -626,9 +631,6 @@ app.post('/users/forgot/:emailUsername', async (req, res) => {
         const userLoginIn: any = req.params.emailUsername;
 
         const user: IUser = await UserModel.findOne({emailUsername: userLoginIn});
-        console.log(user.emailUsername)
-        user.role = user.role;
-        console.log("Before find one : " + user.emailUsername);
         UserModel.findOne({emailUsername: user.emailUsername});
         if (!user)
             return res.status(404).send({message: "User not found with id " + req.params});
@@ -651,8 +653,12 @@ app.post('/users/forgot/:emailUsername', async (req, res) => {
         const info = await transporter.sendMail({
             from: '"Treggata" <aljo0025@easv365.dk>',
             to: user.emailUsername,
-            subject: "PW Lost",
-            text: "Take this one " +newPW + " save a new one afterwards" +"/n To do so go to profile. /n Paste this password and give a new. "
+            subject: "We got a little Something",
+            text: "I know I know As we are all just humans \n" +
+                "- The event takes place once a year. And you pour soul forgot to save the password.\n" +
+                "Worse case. We though intended a better user experience. Take this password \n " +newPW + "\n " +
+                "1st u wanna Login in with that password. \n 2nd you wanna go to profile (upper right corner) \n finally change the password to a new! :) \n" +
+                "Welcome on Board! - Pun intended."
     });
 
         res.status(202).json(user);
@@ -671,7 +677,7 @@ app.post('/eventRegistrations/', async (req, res) => {
         const eventRegistration = new EventRegistrationModel(req.body);
         const regDone: IEventRegistration = await Validate.createRegistration(eventRegistration, res);
         if (regDone === null) {
-            return res.status(500).send({message: "SUCKS FOR YOU"});
+            return res.status(500).send({message: "eventRegistration failed."});
         }
         res.status(201).json(regDone);
     } catch (e) {
@@ -766,10 +772,12 @@ app.post('/eventRegistrations/signUp', async (req, res) => {
                     from: '"Treggata" <aljo0025@easv365.dk>', // sender address
                     to: foundShip.emailUsername, //
                     subject: "Event Participation Confirmation", // subject line
-                    text: "your team - " + req.body.teamName + ", is now listed in the event " + event.name + ", with the boat " + foundShip.name + ".",
+                    text: "Your team - " + req.body.teamName + ", is now listed in the event " + event.name + ", with the boat " + foundShip.name +".\n"
+                    +"We are happy to have you onBoard - Pun intended, enjoy the ride and the best of Luck \n"
+                    +" (ง︡'-'︠)ง May the Force be with you (ง︡'-'︠)ง",
                 });
 
-                return res.status(201).json({message: "success"});
+                return res.status(201).json(regDone);
 
             }
         }
@@ -791,8 +799,6 @@ app.delete('/eventRegistrations/:eventRegId', async (req, res) => {
         if (!eventRegistration)
             return res.status(404).send({message: "EventRegistration not found with eventRegId " + req.params.eventRegId});
         res.status(202).json({message: 'Registration Deleted'});
-
-
     } catch (e) {
         res.status(400).json('BAD REQUEST')
     }
@@ -808,7 +814,6 @@ app.post('/eventRegistrations/addParticipant', async (req, res) => {
         // Creates a user if no user corresponding to the given emailUsername found
         const user: IUser = await UserModel.findOne({emailUsername: req.body.emailUsername}, {_id: 0, __v: 0});
         if (!user) {
-
             const hashedPassword = await bcrypt.hashSync("1234");
             const newUser = new UserModel({
                 "emailUsername": req.body.emailUsername,
@@ -928,7 +933,6 @@ app.post('/broadcast', async (req, res) => {
                 const ship: IShip = await ShipModel.findOne({ shipId: eventRegistration.shipId }, { _id: 0, __v: 0 });
                 if (!ship)
                     return res.status(404).send({ message: "Ship not found" });
-
                 else if (ship) {
                     // checks if the ship's user exists
                     const user: IUser = await UserModel.findOne({ emailUsername: ship.emailUsername }, { _id: 0, __v: 0 });
@@ -942,15 +946,13 @@ app.post('/broadcast', async (req, res) => {
                             "emailUsername": user.emailUsername
                         });
                         await participant.save();
-
-
                     }
 
                 }
 
             });
         }
-        console.log('print broadcast');
+
         res.status(201).send({ message: 'Broadcast successfully sent' });
 
     } catch (e) {
@@ -965,10 +967,9 @@ app.post('/getterForBroadcast', async (req, res) => {
         const broadcast: IBroadcast[] = await Broadcast.find({emailUsername: username}, {_id: 0,__v:0});
         await Broadcast.deleteMany({emailUsername: username});
         res.status(200).json({message: 'Found the Broadcast - Deleting by email.'});
-
     }
 catch(e){
-        res.status(400).json("BAD REQUEST")
+        res.status(400).json({message: "BAD REQUEST"});
 }
     });
 

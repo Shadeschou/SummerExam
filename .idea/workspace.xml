@@ -1,14 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fbea51be-eac5-4c15-8a07-902b32fd1e4b" name="Default Changelist" comment="Saving the Website once again" />
+    <list default="true" id="fbea51be-eac5-4c15-8a07-902b32fd1e4b" name="Default Changelist" comment="Saving the Website once again">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Flutter/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Flutter/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/launch.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/launch.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/controllers/accessToken.controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/controllers/accessToken.controller.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/controllers/authentication.controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/controllers/authentication.controller.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/controllers/checkEvents.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/controllers/checkEvents.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/controllers/validate.controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/controllers/validate.controller.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/models/broadcast.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/models/broadcast.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/models/event.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/models/event.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/models/eventRegistration.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/models/eventRegistration.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/models/locationRegistration.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/models/locationRegistration.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/models/racePoint.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/models/racePoint.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/models/ship.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/models/ship.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/models/user.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/models/user.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/server.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/server.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/tests/requirements.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/dist/src/tests/requirements.test.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/src/controllers/accessToken.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TheOxbridgeSystemBackend/src/controllers/accessToken.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/src/controllers/authentication.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TheOxbridgeSystemBackend/src/controllers/authentication.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/src/controllers/checkEvents.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TheOxbridgeSystemBackend/src/controllers/checkEvents.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/src/controllers/validate.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TheOxbridgeSystemBackend/src/controllers/validate.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/src/models/broadcast.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TheOxbridgeSystemBackend/src/models/broadcast.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/src/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TheOxbridgeSystemBackend/src/server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeSystemBackend/src/tests/requirements.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TheOxbridgeSystemBackend/src/tests/requirements.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeWebsite/src/app/components/profile/profile.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/TheOxbridgeWebsite/src/app/components/profile/profile.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeWebsite/src/app/components/profile/profile.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TheOxbridgeWebsite/src/app/components/profile/profile.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheOxbridgeWebsite/src/app/services/forgot-password.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TheOxbridgeWebsite/src/app/services/forgot-password.service.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="2" />
   </component>
   <component name="ProjectId" id="1tf3eXChAO8ATh67b3FJXsKvWKX" />
   <component name="ProjectViewState">
@@ -24,9 +76,90 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/TheOxbridgeSystemBackend/node_modules/jest" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="ts.external.directory.path" value="E:\ExamMainTest\SummerExam\TheOxbridgeSystemBackend\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager" selected="Jest.Broadcast feature.Should get the made Broadcast">
+    <configuration name="Broadcast feature" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/TheOxbridgeSystemBackend/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/TheOxbridgeSystemBackend" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/TheOxbridgeSystemBackend/src/tests/requirements.test.ts" />
+      <test-names>
+        <test-name value="Broadcast feature" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Broadcast feature.Should get the made Broadcast" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/TheOxbridgeSystemBackend/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/TheOxbridgeSystemBackend" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/TheOxbridgeSystemBackend/src/tests/requirements.test.ts" />
+      <test-names>
+        <test-name value="Broadcast feature" />
+        <test-name value="Should get the made Broadcast" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Finally able to test the post...." type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/TheOxbridgeSystemBackend/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/TheOxbridgeSystemBackend" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/TheOxbridgeSystemBackend/src/tests/requirements.test.ts" />
+      <test-names>
+        <test-name value="Finally able to test the post...." />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Finally able to test the post.....ship already registered" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/TheOxbridgeSystemBackend/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/TheOxbridgeSystemBackend" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/TheOxbridgeSystemBackend/src/tests/requirements.test.ts" />
+      <test-names>
+        <test-name value="Finally able to test the post...." />
+        <test-name value="ship already registered" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Forgot Password.Should run with the Mail given " type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/TheOxbridgeSystemBackend/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/TheOxbridgeSystemBackend" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/TheOxbridgeSystemBackend/src/tests/requirements.test.ts" />
+      <test-names>
+        <test-name value="Forgot Password" />
+        <test-name value="Should run with the Mail given " />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Jest.Broadcast feature.Should get the made Broadcast" />
+        <item itemvalue="Jest.Finally able to test the post...." />
+        <item itemvalue="Jest.Finally able to test the post.....ship already registered" />
+        <item itemvalue="Jest.Broadcast feature" />
+        <item itemvalue="Jest.Forgot Password.Should run with the Mail given " />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -41,6 +174,8 @@
       <workItem from="1623661971921" duration="11000" />
       <workItem from="1623661984980" duration="1489000" />
       <workItem from="1623664660530" duration="399000" />
+      <workItem from="1623682864173" duration="20980000" />
+      <workItem from="1623823484755" duration="8899000" />
     </task>
     <task id="LOCAL-00001" summary="please work">
       <created>1623151667548</created>

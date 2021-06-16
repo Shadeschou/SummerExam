@@ -18,24 +18,25 @@
       <form #updateUserForm="ngForm" (ngSubmit)="OnSubmit()" class="form">
         <div class="row register-form ml-3">
           <div class="col-md-6">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Fornavn" required
-                     [(ngModel)]="user.firstname" #firstname="ngModel" name="firstname" style="margin-inline: 7.5%"/>
-              <div *ngIf="firstname.invalid && firstname.touched">
-                <div *ngIf="firstname.errors.required">
+            <div class="form-group  ml-3">
+              <input #first="ngModel" [(ngModel)]="userModel.firstname" class="form-control" name="firstname"
+                     pattern="^[a-zA-ZÆØÅæøå ]*" placeholder="Fornavn" required type="text"/>
+              <div *ngIf="first.invalid && first.touched">
+                <div *ngIf="first.errors.required">
                   Fornavn er nødvendig
                 </div>
-                <div *ngIf="firstname.errors.pattern">
+                <div *ngIf="first.errors.pattern">
                   Fornavn må kun indeholde bogstaver
                 </div>
               </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-        <div class="form-group">
+            </div>
+            </div>
 
-          <input type="text" class="form-control" placeholder="Efternavn" required
-                 [(ngModel)]="user.lastname" #lastname="ngModel" name="lastname"/>
+        <div class="col-md-6">
+        <div class="form-group mr-3">
+
+          <input #lastname="ngModel" [(ngModel)]="user.lastname" class="form-control" name="lastname"
+                 placeholder="Efternavn" required type="text"/>
 
           <div *ngIf="lastname.invalid && lastname.touched">
             <div *ngIf="lastname.errors.required">
@@ -68,9 +69,9 @@
             </div>
             </div>
           <div>
-            <input #password="ngModel" [(ngModel)]="user.password" minlength="8" class="form-control"
+            <input #password="ngModel" [(ngModel)]="user.password" class="form-control" minlength="8"
                    name="password" pattern="^(?=.*[a-zA-ZÆØÅæøå])(?=.*\d)[a-zA-ZÆØÅæøå\d]*$" placeholder="Ny Kode"
-                   required type="password" value="" style="margin-inline: 2%"/>
+                   required style="margin-inline: 2%" type="password" value=""/>
 
             <div *ngIf="password.invalid && password.touched">
               <div *ngIf="password.errors.required">
@@ -88,8 +89,21 @@
         </div>
         <div class="row ml-5">
           <div>
-            <input #emailUsername="ngModel" [(ngModel)]="user.emailUsername" class="form-control" name="emailUsername"
-                   placeholder="Email" required type="text">
+            <div class="form-group">
+              <input #email="ngModel" [(ngModel)]="userModel.emailUsername" class="form-control"
+                     name="email" pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                     placeholder="Email"
+                     required
+                     type="email"/>
+              <div *ngIf="email.invalid && email.touched">
+                <div *ngIf="email.errors.required">
+                  Email er nødvendig
+                </div>
+                <div *ngIf="email.errors.pattern">
+                  Ugyldig email
+                </div>
+              </div>
+            </div>
           </div>
           <div>
             <button [disabled]="!updateUserForm.form.valid" class="btn btn-outline-info ml-3"

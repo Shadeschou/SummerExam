@@ -6,12 +6,9 @@ import nodemailer from "nodemailer";
 
 export const timerForTheReminder = async (): Promise<any> => {
     try {
-        console.log("start checking the timer")
         const now = new Date();
         const currentTime = date.format(now, "YYYY/MM/DD HH");
-
         const events: IEvent[] = await EventModel.find({});
-        console.log("start checking the events")
         await events.forEach(async (event: IEvent) => {
             const reminderDate = date.addDays(event.eventStart, -3);
             const minusHours = date.addHours(reminderDate, -2);
@@ -31,8 +28,7 @@ export const timerForTheReminder = async (): Promise<any> => {
                                 pass: process.env.PSW,
                             },
                         });
-                        console.log("Before Send");
-                        // sending mail with defined transport object
+                     // sending mail with defined transport object
                         const info = await transporter.sendMail({
                             from: '"Treggata" <aljo0025@easv365.dk>',
                             to: ship.emailUsername,
@@ -41,7 +37,6 @@ export const timerForTheReminder = async (): Promise<any> => {
                         });
                         eventRegistration.mailRecieved = true;
                         eventRegistration.save();
-                        console.log("After Send");
                     }
                 });
             }

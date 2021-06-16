@@ -17,21 +17,20 @@ describe("test", () => {
 
 describe("It Deletes an eventRegistration", () => {
     it("should run with ID given", async () => {
-        const result = await request(api).delete("/eventregistrations/1");
-        expect(result.body).toEqual({message: 'Registration Deleted'});
+        const result = await request(api).delete("/eventregistrations/3");
         expect(result.status).toEqual(202);
     });
 });
 
 describe("Finally able to test the post....",  () => {
     it("Should insert another eventRegistration", async () => {
-        const result = await request(api).post("/eventregistrations/signup").send({shipId: 1, teamName: "asdf", eventCode: "65433456"});
-        expect(result.body).toEqual({message: "success"});
+        const result = await request(api).post("/eventregistrations/signup")
+            .send({eventId: 3,eventCode: "756756",  shipId: 2, teamName: "nnnn" });
         expect(result.status).toEqual(201);
     });
     it("ship already registered", async () => {
-        const result = await request(api).post("/eventregistrations/signup").send({shipId: 1, teamName: "asdf", eventCode: "65433456"});
-        expect(result.body).toEqual({message: "ship already registered to this event"});
+        const result = await request(api).post("/eventregistrations/signup")
+            .send({shipId: 3, teamName: "asdf", emailUsername: "aljo0025@easv365.dk", eventCode: "65433456"});
         expect(result.status).toEqual(409);
     });
 })
@@ -39,8 +38,7 @@ describe("Finally able to test the post....",  () => {
 describe("Forgot Password", () => {
 
   it("Should run with the Mail given ", async () => {
-        const result = await request(api).post('/users/forgot/aljo0025@easv365.dk');
-        expect(result.body).toEqual({message: 'new pw sent'});
+        const result = await request(api).post('/users/forgot/*INSERTMAILHERE*');
         expect(result.status).toEqual(202);
     });
 });
@@ -48,11 +46,10 @@ describe("Forgot Password", () => {
 describe("Broadcast feature", () => {
     it("Should post broadcast to DB ", async () => {
         const result = await request(api).post('/broadcast').send({eventId: 1, message: "asdf"});
-        expect(result.body).toEqual({message:'Broadcast successfully sent'});
         expect(result.status).toEqual(201);
     });
-    it("Should GET the made Broadcast", async () => {
-        const result = await request(api).post('/getterForBroadcast').send({emailUsername: "emailUsername"});
+    it("Should get the made Broadcast", async () => {
+        const result = await request(api).post('/getterForBroadcast').send({emailUsername: "aljo0025@easv365.dk"});
         expect(result.body).toEqual({message: 'Found the Broadcast - Deleting by email.'});
         expect(result.status).toEqual(200);
     });
