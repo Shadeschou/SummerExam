@@ -108,7 +108,10 @@ app.get('/events/:eventId', async (req, res) => {
     }
 });
 
-// UPDATE EVENT
+/**
+ * Update the event
+ * @param 202 - newEvent as Json
+ */
 app.put('/events/:eventId', async (req, res) => {
     try {
         const verify: boolean = await Auth.Authorize(req, res, "admin");
@@ -127,7 +130,10 @@ app.put('/events/:eventId', async (req, res) => {
 
 });
 
-
+/**
+ * Deletes the event
+ * No return
+ */
 app.delete('/events/:eventId', async (req, res) => {
     try {
         // Checking if authorized
@@ -149,8 +155,10 @@ app.delete('/events/:eventId', async (req, res) => {
         res.status(400).send('BAD REQUEST')
     }
 });
-
-// Updating event property "isLive" to true
+/**
+ *Updating event property "isLive" to true
+ * @param
+ */
 app.put('/events/startEvent/:eventId', async (req, res) => {
     try {
         // Checking if authorized
@@ -168,7 +176,10 @@ app.put('/events/startEvent/:eventId', async (req, res) => {
         res.status(400).send('BAD REQUEST')
     }
 });
-// Stopping an event.
+/**
+ *Stopping an event.
+ * @param
+ */
 app.get('/events/stopEvent/:eventId', async (req, res) => {
     try {
         // Checking if authorized
@@ -183,7 +194,10 @@ app.get('/events/stopEvent/:eventId', async (req, res) => {
         res.status(400).send('BAD REQUEST')
     }
 });
-
+/**
+ * Checking for the events route.
+ * @param
+ */
 app.get('/events/hasRoute/:eventId', async (req, res) => {
     try {
         const evId: any = req.params.eventId;
@@ -198,7 +212,10 @@ app.get('/events/hasRoute/:eventId', async (req, res) => {
     }
 });
 
-
+/**
+ * Finding the route from the given username.
+ * @param events as json status 200
+ */
 app.get('/events/myEvents/findFromUsername', async (req, res) => {
     try {
         // Checking if authorized
@@ -257,7 +274,10 @@ app.get('/events/myEvents/findFromUsername', async (req, res) => {
     }
 });
 
-// Create a new ship
+/**
+ * Create a new ship
+ * @param
+ */
 app.post('/ships', async (req, res) => {
     try {
         // Checking if authorized
@@ -287,7 +307,10 @@ app.post('/ships', async (req, res) => {
 
 });
 
-// Retrieve all ships
+/**
+ * Retrieve all the ships
+ * @param
+ */
 app.get('/ships', async (req, res) => {
     try {
 
@@ -300,7 +323,10 @@ app.get('/ships', async (req, res) => {
     }
 });
 
-// Retrieve a single ship
+/**
+ * Retrieve a single ship
+ * @param
+ */
 app.get('/ships/:shipId', async (req, res) => {
     try {
         const sId: any = req.params.shipId;
@@ -316,7 +342,10 @@ app.get('/ships/:shipId', async (req, res) => {
     }
 });
 
-// Retrieve all ships participating in the given event
+/**
+ *Retrieve all ships participating in the given event
+ * @param
+ */
 app.get('/ships/fromEventId/:eventId', async (req, res) => {
     try {
         const evId: any = req.params.eventId;
@@ -343,8 +372,10 @@ app.get('/ships/fromEventId/:eventId', async (req, res) => {
         res.status(400).json('BAD REQUEST')
     }
 });
-
-// Retrieve all user ships
+/**
+ * Retrieve all user ships
+ * @param
+ */
 app.get('/ships/myShips/fromUsername', async (req, res) => {
     try {
         const token: any = req.header('x-access-token');
@@ -355,8 +386,10 @@ app.get('/ships/myShips/fromUsername', async (req, res) => {
         res.status(400).json('BAD REQUEST')
     }
 });
-
-// Update a ship
+/**
+ * Update a Ship
+ * @param
+ */
 app.put('/ships/:shipId', async (req, res) => {
     try {
         // Checking if authorized
@@ -377,7 +410,10 @@ app.put('/ships/:shipId', async (req, res) => {
     }
 });
 
-// Delete a ship
+/**
+ * Delete a Ship
+ * @param
+ */
 app.delete('/ships/:shipId', async (req, res) => {
     try {
         // Checking if authorized
@@ -395,7 +431,10 @@ app.delete('/ships/:shipId', async (req, res) => {
     }
 });
 
-// Retrieve start and finish racepoints from an specific event
+/**
+ * Retrieve start and finish racepoints from an specific event
+ * @param
+ */
 app.get('/racePoints/findStartAndFinish/:eventId', async (req, res) => {
     try {
         const evId: any = req.params.eventId;
@@ -409,8 +448,10 @@ app.get('/racePoints/findStartAndFinish/:eventId', async (req, res) => {
         res.status(400).json('BAD REQUEST')
     }
 });
-
-// Retrieve all racepoints from an specific event
+/**
+ *Retrieve all racepoints from an specific event
+ * @param
+ */
 app.get('/racepoints/fromEventId/:eventId', async (req, res) => {
     const evId: any = req.params.eventId;
     const racePoints: IRacePoint[] = await RacePointModel.find({eventId: evId}, {
@@ -419,8 +460,10 @@ app.get('/racepoints/fromEventId/:eventId', async (req, res) => {
     }, {sort: {racePointNumber: 1}});
     return res.status(200).send(racePoints);
 });
-
-// Creates a new route of racepoints for an event
+/**
+ * Creates a new route of racepoints for an event
+ * @param
+ */
 app.post('/racepoints/createRoute/:eventId', async (req, res) => {
     try {
         // Create new racepoints
@@ -462,8 +505,10 @@ app.post('/racepoints/createRoute/:eventId', async (req, res) => {
         res.status(400).json('BAD REQUEST')
     }
 });
-
-// Retrieve all Users
+/**
+ *Retrieve all Users
+ * @param
+ */
 app.get('/users', async (req, res) => {
     try {
 
@@ -482,7 +527,10 @@ app.get('/users', async (req, res) => {
     }
 });
 
-// Retrieve a single User with the given emailUsername
+/**
+ *Retrieve a single User with the given emailUsername
+ * @param
+ */
 app.get('/users/:userName', async (req, res) => {
     try {
         // Finding the user with the given userId
@@ -495,8 +543,10 @@ app.get('/users/:userName', async (req, res) => {
         res.status(400).json('BAD REQUEST')
     }
 });
-
-// Update a User with the given emailUsername
+/**
+ *Update a User with the given emailUsername
+ * @param
+ */
 app.put('/users/:userName', async (req, res) => {
     try {
         // Updating the user
@@ -520,8 +570,10 @@ app.put('/users/:userName', async (req, res) => {
         res.status(400).json('Update User failed.')
     }
 });
-
-// Delete a User with the given emailUsername
+/**
+ *Delete a User with the given emailUsername
+ * @param
+ */
 app.delete('/users/:userName', async (req, res) => {
     try {
         // Deleting the user with the given userId
@@ -535,8 +587,10 @@ app.delete('/users/:userName', async (req, res) => {
         res.status(400).json('BAD REQUEST')
     }
 });
-
-// Register a new admin
+/**
+ * Register a new admin
+ * @param
+ */
 app.post('/users/registerAdmin', async (req, res) => {
     try {
         // Checking if authorized
@@ -565,8 +619,10 @@ app.post('/users/registerAdmin', async (req, res) => {
         res.status(400).json('BAD REQUEST')
     }
 });
-
-// Register a new user
+/**
+ * Register a new user
+ * @param status(201).send({auth: true, token}
+ */
 app.post('/users/register', async (req, res) => {
 
     try {
@@ -592,8 +648,10 @@ app.post('/users/register', async (req, res) => {
         res.status(400).json('Failed to Register user')
     }
 });
-
-// Login
+/**
+ * Login
+ * @param  res.status(202).json(user);
+ */
 app.post('/users/login', async (req, res) => {
     try {
         // Find the user and validate the password
@@ -622,6 +680,11 @@ app.post('/users/login', async (req, res) => {
         res.status(400).json('BAD REQUEST')
     }
 });
+
+/**
+ * Helper for the fogotten password. User found through the given email.
+ * @param     res.status(202).json(user); && the email sent
+ */
 app.post('/users/forgot/:emailUsername', async (req, res) => {
     try {
         const tempToken: Buffer = crypto.randomBytes(5);
@@ -666,6 +729,11 @@ app.post('/users/forgot/:emailUsername', async (req, res) => {
         res.status(400).json('Sent random pw failed.')
     }
 });
+
+/**
+ * Creating the eventReg in the backend.
+ * @param
+ */
 app.post('/eventRegistrations/', async (req, res) => {
     try {
         // Checking if authorized
@@ -684,7 +752,12 @@ app.post('/eventRegistrations/', async (req, res) => {
         res.status(400).json('BAD REQUEST')
     }
 });
-// Retrieve all eventRegistrations
+
+/**
+ * Retrieving all the eventReg from the backend.
+ * @param
+ */
+
 app.get('/eventRegistrations/', async (req, res) => {
     const verify: boolean = await Auth.Authorize(req, res, "admin");
     if (!verify) {
@@ -698,7 +771,11 @@ app.get('/eventRegistrations/', async (req, res) => {
         res.status(400).json('BAD REQUEST')
     }
 });
-// Retrieve all eventRegistrations where the given user is a participant
+
+/**
+ *Retrieve all eventRegistrations where the given user is a participant
+ * @param
+ */
 let pending: number = 0;
 app.get('/eventRegistrations/findEventRegFromUsername/:eventId', async (req, res) => {
     // Checking if authorized
@@ -732,7 +809,10 @@ app.get('/eventRegistrations/findEventRegFromUsername/:eventId', async (req, res
         res.status(400).json('BAD REQUEST')
     }
 });
-
+/**
+ * Signup to an event - And get confirmed via email
+ * @param  res.status(201).json(regDone); Where RegDone is IEventRegistration
+ */
 app.post('/eventRegistrations/signUp', async (req, res) => {
     try {
                const event: IEvent = await EventModel.findOne({eventCode: req.body.eventCode}, {_id: 0, __v: 0});
@@ -785,7 +865,10 @@ app.post('/eventRegistrations/signUp', async (req, res) => {
         res.status(400).json('BAD REQUEST')
     }
 });
-
+/**
+ * Deleting the evenReg by the given eventRegId
+ * @param res.status(202).json({message: 'Registration Deleted'});
+ */
 app.delete('/eventRegistrations/:eventRegId', async (req, res) => {
     // Checking if authorized
     const verify: boolean = await Auth.Authorize(req, res, "all");
@@ -803,7 +886,10 @@ app.delete('/eventRegistrations/:eventRegId', async (req, res) => {
         res.status(400).json('BAD REQUEST')
     }
 });
-
+/**
+ * Posting another participant to the db - Validating if the mail exists or not.
+ * @param
+ */
 app.post('/eventRegistrations/addParticipant', async (req, res) => {
     // Checking if authorized
     const verify: boolean = await Auth.Authorize(req, res, "admin");
@@ -811,7 +897,6 @@ app.post('/eventRegistrations/addParticipant', async (req, res) => {
         return res.status(400).send({auth: false, message: 'Not Authorized'});
     }
     try {
-        // Creates a user if no user corresponding to the given emailUsername found
         const user: IUser = await UserModel.findOne({emailUsername: req.body.emailUsername}, {_id: 0, __v: 0});
         if (!user) {
             const hashedPassword = await bcrypt.hashSync("1234");
@@ -825,8 +910,9 @@ app.post('/eventRegistrations/addParticipant', async (req, res) => {
 
             await newUser.save();
         }
-
-        // Creating a ship if a ship with the given name and owned by the given user, doesn't exist
+        /**
+         *Creating a ship if a ship with the given name and owned by the given user, doesn't exist
+         */
         const ship: IShip = await ShipModel.findOne({
             emailUsername: req.body.emailUsername,
             name: req.body.shipName
@@ -869,7 +955,10 @@ app.post('/eventRegistrations/addParticipant', async (req, res) => {
         res.status(400).json('BAD REQUEST')
     }
 });
-
+/**
+ *Get the participants connected to an eventregistration.
+ * @param
+ */
 app.get('/eventRegistrations/getParticipants/:eventId', async (req, res) => {
 
 
@@ -914,8 +1003,12 @@ app.get('/eventRegistrations/getParticipants/:eventId', async (req, res) => {
         res.status(400).json('BAD REQUEST')
     }
 });
+/**
+ * NEW FEATURE: Post broadcast messages
+ * posts the broadcast with the User of the ship connected to the eventregistration
+ * @param    res.status(201).send()
+ */
 
-// NEW FEATURE: Post broadcast messages
 app.post('/broadcast', async (req, res) => {
     try {
         // Finds the event with the corresponding eventID
@@ -938,7 +1031,6 @@ app.post('/broadcast', async (req, res) => {
                     const user: IUser = await UserModel.findOne({ emailUsername: ship.emailUsername }, { _id: 0, __v: 0 });
                     if (!user)
                         return res.status(404).send({ message: "User not found" });
-                    // posts the broadcast with the User of the ship connected to the eventregistration
                     if (user) {
                         const participant = new Broadcast({
                             "eventId": req.body.eventId,
@@ -959,7 +1051,10 @@ app.post('/broadcast', async (req, res) => {
         res.status(400).json('BAD REQUEST');
     }
 });
-
+/**
+ * The the broadcast out of the DB after notifiing the participants the entry is deleted.
+ * @param
+ */
 app.post('/getterForBroadcast', async (req, res) => {
     try {
         // getting the broadcasts from the db. Using the email to connect to the user.
@@ -974,7 +1069,10 @@ catch(e){
     });
 
 
-
+/**
+ * Updating the participant. - If authorized.
+ * @param
+ */
 app.put('/eventRegistrations/updateParticipant/:eventRegId', async (req, res) => {
     // Checking if authorized
     const verify: boolean = await Auth.Authorize(req, res, "admin");
@@ -1004,6 +1102,11 @@ app.put('/eventRegistrations/updateParticipant/:eventRegId', async (req, res) =>
         res.status(400).json('BAD REQUEST')
     }
 });
+
+/**
+ * Creating a new locationRegistration
+ * @param
+ */
 app.post('/locationRegistrations/', async (req, res) => {
     // Checking if authorized
 
@@ -1032,7 +1135,10 @@ app.post('/locationRegistrations/', async (req, res) => {
         res.status(400).json('BAD REQUEST')
     }
 });
-
+/**
+ * Getter for the events which are live at the moment
+ * @param :eventId
+ */
 app.get('/locationRegistrations/getLive/:eventId', async (req, res) => {
 
     try {
@@ -1082,7 +1188,10 @@ app.get('/locationRegistrations/getLive/:eventId', async (req, res) => {
         res.status(400).json('BAD REQUEST')
     }
 });
-
+/**
+ * Getting the reply from a race after putting all the shiplocations into place.
+ * @param
+ */
 app.get('/locationRegistrations/getReplay/:eventId', async (req, res) => {
 
     try {
@@ -1127,7 +1236,10 @@ app.get('/locationRegistrations/getReplay/:eventId', async (req, res) => {
     }
 });
 
-
+/**
+ * Get the scoreboard by eventId.
+ * @param res.status(200).send(scores);
+ */
 app.get('/locationRegistrations/getScoreboard/:eventId', async (req, res) => {
     try {
 
@@ -1182,6 +1294,10 @@ app.get('/locationRegistrations/getScoreboard/:eventId', async (req, res) => {
     }
 });
 
+/**
+ * Delete the given event.
+ * @param :eventId
+ */
 app.delete('/locationRegistrations/deleteFromEventRegId/:eventId', async (req, res) => {
     // Checking if authorized
     const verify: boolean = await Auth.Authorize(req, res, "user");
@@ -1203,8 +1319,12 @@ app.delete('/locationRegistrations/deleteFromEventRegId/:eventId', async (req, r
 
 
 
+/**
+ * if no target is given page not found is returned
+ * @param  return res.status(404).send('Page Not Found');
+ */
 app.get('*', (req, res) => {
-    return res.status(400).send('Page Not Found');
+    return res.status(404).send('Page Not Found');
 });
 
 
