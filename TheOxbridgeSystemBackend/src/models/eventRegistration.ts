@@ -8,6 +8,8 @@ interface IEventRegistration extends Document {
     teamName: string,
     emailUsername: string,
     mailRecieved: boolean,
+    teamImage: string
+
 }
 
 const EventRegistrationSchema = new Schema<IEventRegistration>({
@@ -21,7 +23,8 @@ const EventRegistrationSchema = new Schema<IEventRegistration>({
     mailRecieved: {
         type: Boolean,
         default: false
-    }
+    },
+    teamImage: {type: String}
 });
 
 
